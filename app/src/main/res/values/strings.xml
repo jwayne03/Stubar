@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Stubar</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="tvLogin">Login</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnSignInGoogle">Sign in with Google</string>
 </resources>
