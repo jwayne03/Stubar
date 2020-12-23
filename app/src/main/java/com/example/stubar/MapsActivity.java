@@ -33,7 +33,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         searchButton = findViewById(R.id.searchImageButton);
-
     }
 
     @Override
@@ -49,7 +48,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public boolean onQueryTextSubmit(String query) {
                 String location = searchView.getQuery().toString();
                 List<Address> addressList = null;
-
 
                 if (location != null || !location.equals("")) {
                     Geocoder geocoder = new Geocoder(MapsActivity.this);
