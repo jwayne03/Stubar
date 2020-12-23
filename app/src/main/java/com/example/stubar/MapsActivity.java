@@ -1,10 +1,12 @@
 package com.example.stubar;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.view.Menu;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -18,18 +20,27 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private SearchView searchView;
     private SupportMapFragment supportMapFragment;
+
+    ImageButton searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        searchView = findViewById(R.id.svlocation);
+        searchButton = findViewById(R.id.searchImageButton);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.searchImageButton).getActionView();
+//        searchView = findViewById(R.id.svlocation);
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
@@ -66,6 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         supportMapFragment.getMapAsync(this);
+        return true;
     }
 
     /**
