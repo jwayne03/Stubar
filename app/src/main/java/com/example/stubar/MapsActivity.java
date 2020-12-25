@@ -1,8 +1,9 @@
 package com.example.stubar;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.location.Address;
+
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private ActionBar toolbar;
     private GoogleMap mMap;
     private SupportMapFragment supportMapFragment;
 
@@ -35,11 +37,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         searchButton = findViewById(R.id.searchImageButton);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         SearchView searchView = (SearchView) menu.findItem(R.id.searchImageButton).getActionView();
-//        searchView = findViewById(R.id.svlocation);
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
@@ -90,10 +92,5 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-//         Add a marker in Sydney and move the camera
-//        LatLng barcelona = new LatLng(41.390205, 2.154007);
-//        mMap.addMarker(new MarkerOptions().position(barcelona).title("Barcelona"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(barcelona));
     }
 }
