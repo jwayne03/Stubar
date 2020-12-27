@@ -13,19 +13,18 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/stubarlogo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/stubarlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Stubar">
-        <activity android:name=".SettingsActivity"></activity>
         <activity
-            android:name=".BottomNavigationActivity"
-            android:label="@string/title_activity_bottom_navigation" />
-        <activity
-            android:name=".SlideBarMenu"
+            android:name=".SlideBarMenuActivity"
             android:label="@string/title_activity_slide_bar_menu"
-            android:theme="@style/Theme.Stubar.NoActionBar" />
+            android:theme="@style/Theme.Stubar.NoActionBar"></activity>
+        <activity android:name=".UploadFile" />
+        <activity android:name=".Promotions" />
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".LoginActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

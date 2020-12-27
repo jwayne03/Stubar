@@ -23,4 +23,12 @@
 
     <string name="tvDarkMode">Dark mode</string>
     <string name="tvOffSound">Turn off the sound</string>
+
+    <!--- Bottom Navigation Bar -->
+    <string name="tvPromotions">Promotions</string>
+    <string name="tvUploadFile">Upload File</string>
+    <string name="tvHome">Home</string>
+
+    <string name="tvStubar">STUBAR</string>
+    <string name="tvStuDocs">STUDOCS</string>
 </resources>

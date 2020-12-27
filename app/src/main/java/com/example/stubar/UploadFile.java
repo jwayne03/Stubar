@@ -3,26 +3,23 @@ package com.example.stubar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class UploadFile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_upload_file);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setSelectedItemId(R.id.book);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
@@ -31,18 +28,17 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         overridePendingTransition(0, 0);
                         return false;
-                    case R.id.book:
-                        startActivity(new Intent(getApplicationContext(), UploadFile.class));
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                         overridePendingTransition(0, 0);
                         return false;
+                    case R.id.book:
                     case R.id.maps:
                         startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                         finish();
                         overridePendingTransition(0, 0);
                         return false;
-                    case R.id.home:
-
                 }
                 return false;
             }

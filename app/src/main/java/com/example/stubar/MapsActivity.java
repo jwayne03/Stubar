@@ -1,12 +1,17 @@
 package com.example.stubar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.location.Address;
 
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -17,6 +22,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -35,8 +42,38 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         searchButton = findViewById(R.id.searchImageButton);
-    }
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        bottomNavigationView.setSelectedItemId(R.id.maps);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.promotions:
+                        startActivity(new Intent(getApplicationContext(), Promotions.class));
+                        finish();
+                        overridePendingTransition(0, 0);
+                        return false;
+                    case R.id.book:
+                        startActivity(new Intent(getApplicationContext(), UploadFile.class));
+                        finish();
+                        overridePendingTransition(0, 0);
+                        return false;
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                        overridePendingTransition(0, 0);
+                        return false;
+                    case R.id.maps:
+                }
+                return false;
+            }
+        });
+
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
