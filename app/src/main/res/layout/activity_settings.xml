@@ -11,34 +11,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
         android:text="@string/tvDarkMode"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="64dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvOffSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="64dp"
         android:text="@string/tvOffSound"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="128dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDarkMode" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swDarkMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.737"
+        app:layout_constraintHorizontal_bias="0.742"
         app:layout_constraintStart_toEndOf="@+id/tvDarkMode"
-        tools:layout_editor_absoluteY="64dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swOffSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.675"
+        app:layout_constraintHorizontal_bias="0.677"
         app:layout_constraintStart_toEndOf="@+id/tvOffSound"
-        tools:layout_editor_absoluteY="128dp" />
+        app:layout_constraintTop_toBottomOf="@+id/swDarkMode" />
 </androidx.constraintlayout.widget.ConstraintLayout>

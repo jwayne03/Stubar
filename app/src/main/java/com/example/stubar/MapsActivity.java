@@ -45,7 +45,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         searchButton = findViewById(R.id.searchImageButton);
 
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(R.id.maps);
 
