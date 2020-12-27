@@ -3,6 +3,7 @@ package com.example.stubar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 
@@ -18,15 +19,8 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         saveState = new SaveState(this);
-        if (saveState.getState() == true) {
-            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
 
         swDarkMode = findViewById(R.id.swDarkMode);
-
-        if (saveState.getState() == true) swDarkMode.setChecked(true);
 
         swDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -40,5 +34,28 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = (SharedPreferences) getSharedPreferences(getPackageName(), MODE_PRIVATE);
+
+        boolean darkmode = sharedPreferences.getBoolean("value", false );
+        swDarkMode.setChecked(darkmode);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        boolean darkmode = swDarkMode.isChecked();
+        editor.putBoolean("value", darkmode);
+
+        editor.apply();
     }
 }

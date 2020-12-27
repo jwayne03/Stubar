@@ -18,10 +18,6 @@
         android:roundIcon="@drawable/stubarlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Stubar">
-        <activity
-            android:name=".SlideBarMenuActivity"
-            android:label="@string/title_activity_slide_bar_menu"
-            android:theme="@style/Theme.Stubar.NoActionBar"></activity>
         <activity android:name=".UploadFile" />
         <activity android:name=".Promotions" />
         <activity android:name=".SettingsActivity" />
