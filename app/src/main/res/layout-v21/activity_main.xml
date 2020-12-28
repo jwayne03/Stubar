@@ -7,13 +7,13 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/navigation"
         android:background="@color/purple_200"
         app:itemBackground="@color/white"
-        app:menu="@menu/menu_bottom" />
+        app:menu="@menu/menu_bottom"
+        android:layout_alignParentBottom="true"/>
 
     <TextView
         android:id="@+id/tvStuDocs"
@@ -46,6 +46,5 @@
         android:text="@string/tvStubar"
         android:textAlignment="center"
         android:textSize="40dp" />
-
 
 </RelativeLayout>

@@ -31,4 +31,10 @@
 
     <string name="tvStubar">STUBAR</string>
     <string name="tvStuDocs">STUDOCS</string>
+
+    <!-- AUTHENTIFICATION-->
+    <string name="default_web_client_id" translatable="false">995030063929-c6qaeeh64dmeh0gfqr913i3kcr4ennso.apps.googleusercontent.com</string>
+    <string name="title_activity_navigation_drawer">STUBAR</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
