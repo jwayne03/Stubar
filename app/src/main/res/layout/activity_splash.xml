@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3ae9ef"
+    android:background="#000000"
     tools:context=".SplashActivity">
 
     <ProgressBar
@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="496dp"
-        android:layout_height="429dp"
+        android:layout_width="207dp"
+        android:layout_height="203dp"
         app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

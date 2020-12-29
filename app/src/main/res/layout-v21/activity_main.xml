@@ -4,16 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#121212"
     tools:context=".MainActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/navigation"
+        android:layout_alignParentBottom="true"
         android:background="@color/purple_200"
-        app:itemBackground="@color/white"
+        app:itemBackground="@color/colorbottomnavigation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom"
-        android:layout_alignParentBottom="true"/>
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvStuDocs"
@@ -29,6 +34,7 @@
         android:layout_marginBottom="329dp"
         android:text="@string/tvStuDocs"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="40dp" />
 
     <TextView
@@ -44,7 +50,9 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="693dp"
         android:text="@string/tvStubar"
+        android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="40dp" />
+
 
 </RelativeLayout>
