@@ -10,4 +10,8 @@
     <color name="colorbottomnavigation">#222222</color>
     <color name="lightgrey">#494949</color>
     <color name="lightcoloricon">#e1e1e1</color>
+    <color name="background_color">#009688</color>
+    <color name="white_greyish">#EEEEEE</color>
+    <color name="button_selectorcolor">#9E9E9E</color>
+
 </resources>
