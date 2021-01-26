@@ -1,26 +1,18 @@
 package com.example.stubar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,12 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (googleSignInAccount != null) {
-            String name = googleSignInAccount.getDisplayName();
-            String email = googleSignInAccount.getEmail();
-            String person_id = googleSignInAccount.getId();
-            Uri photo = googleSignInAccount.getPhotoUrl();
-
-            Log.d("onCreate: ", name + " " + email);
+            getGoogleCredentials(googleSignInAccount);
         } else {
             Log.d("onCreate: ", "nada");
         }
@@ -70,5 +57,14 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void getGoogleCredentials(GoogleSignInAccount googleSignInAccount) {
+        String name = googleSignInAccount.getDisplayName();
+        String email = googleSignInAccount.getEmail();
+        String person_id = googleSignInAccount.getId();
+        Uri photo = googleSignInAccount.getPhotoUrl();
+        String id = googleSignInAccount.getId();
+        Log.d("onCreate: ", name + " " + email + " " + person_id + " " + photo);
     }
 }

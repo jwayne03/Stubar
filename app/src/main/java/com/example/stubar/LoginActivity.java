@@ -1,6 +1,5 @@
 package com.example.stubar;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -62,11 +61,10 @@ public class LoginActivity extends AppCompatActivity {
 
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(String.valueOf(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
-        googleSignInClient = GoogleSignIn.getClient(LoginActivity.this, googleSignInOptions);
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
     }
 
     private void signIn() {
@@ -75,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -84,9 +82,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            updateUI(account);
+        } catch (ApiException e) {
+            Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
+            updateUI(null);
+        }
+    }
+
+    private void updateUI(GoogleSignInAccount account) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-
     }
 }
