@@ -22,11 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
-        if (googleSignInAccount != null) {
-            getGoogleCredentials(googleSignInAccount);
-        } else {
-            Log.d("onCreate: ", "nada");
-        }
+        if (googleSignInAccount != null) getGoogleCredentials(googleSignInAccount);
+        else Log.d("onCreate: ", "nada");
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(R.id.home);

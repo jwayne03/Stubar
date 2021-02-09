@@ -53,9 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @SuppressLint("NonConstantResourceId")
             @Override
             public void onClick(View view) {
-                if (view.getId() == R.id.sign_in_button) {
-                    signIn();
-                }
+                if (view.getId() == R.id.sign_in_button) signIn();
             }
         });
 
