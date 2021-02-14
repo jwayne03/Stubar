@@ -20,39 +20,5 @@
         app:menu="@menu/menu_bottom"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/tvStuDocs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="359dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="329dp"
-        android:text="@string/tvStuDocs"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="40dp" />
-
-    <TextView
-        android:id="@+id/tvStubar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="-1dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="693dp"
-        android:text="@string/tvStubar"
-        android:textColor="@color/white"
-        android:textAlignment="center"
-        android:textSize="40dp" />
-
 
 </RelativeLayout>

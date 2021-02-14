@@ -5,56 +5,34 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        View rootView = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (googleSignInAccount != null) getGoogleCredentials(googleSignInAccount);
         else Log.d("onCreate: ", "nada");
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        bottomNavigationView.setSelectedItemId(R.id.home);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.promotions:
-                        startActivity(new Intent(getApplicationContext(), Promotions.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                    case R.id.book:
-                        startActivity(new Intent(getApplicationContext(), UploadFile.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                    case R.id.maps:
-                        startActivity(new Intent(getApplicationContext(), MapsActivity.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                    case R.id.home:
-                }
-                return false;
-            }
-        });
+        initBottomNavigation(rootView, R.id.home);
     }
+
+
 
     private void getGoogleCredentials(GoogleSignInAccount googleSignInAccount) {
         String name = googleSignInAccount.getDisplayName();

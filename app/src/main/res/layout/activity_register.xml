@@ -53,15 +53,15 @@
                 android:background="@color/white_greyish" />
 
             <EditText
-                android:id="@+id/edEmail"
+                android:id="@+id/edUsername"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@android:color/transparent"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
+                android:hint="@string/username"
+                android:inputType="phone"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColor="@color/white"
@@ -74,20 +74,17 @@
                 android:background="@color/white_greyish" />
 
             <EditText
-                android:id="@+id/edMobile"
-                android:layout_width="fill_parent"
+                android:id="@+id/edEmail"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/transparent"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                android:hint="@string/mobileNumber"
-                android:inputType="phone"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:singleLine="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                />
 
             <View
                 android:layout_width="fill_parent"
@@ -106,6 +103,24 @@
                 android:inputType="textCapWords"
                 android:padding="10dp"
                 android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/white_greyish" />
+
+            <EditText
+                android:id="@+id/edBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/birthday"
+                android:inputType="date"
+                android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="16sp" />
@@ -206,7 +221,6 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@android:color/holo_blue_light"
                     android:textSize="15sp"
-                    app:elevation="0dp"
                     app:iconPadding="0dp" />
             </LinearLayout>
 

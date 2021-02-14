@@ -50,7 +50,8 @@
     <string name="closebutton">Close Button for Activity</string>
     <string name="newUser">Not a Member yet? Sign Up here.</string>
     <string name="fullName">Full Name</string>
-    <string name="mobileNumber">Mobile Number</string>
+    <string name="username">Username</string>
+    <string name="birthday">Birthday</string>
     <string name="location">Location</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="terms_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>
@@ -59,4 +60,11 @@
     <string name="registered_emailid">Please enter your Registered Email Id below:</string>
     <string name="submit">SUBMIT</string>
     <string name="back">BACK</string>
+    <string name="title_activity_test">test</string>
+    <string name="drawer_closed">Closed</string>
+    <string name="drawer_open">Open</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="documents">Documents</string>
+    <string name="search">Search</string>
 </resources>

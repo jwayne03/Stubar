@@ -37,50 +37,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.IOException;
 import java.util.List;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
-    private ActionBar toolbar;
+
     private GoogleMap mMap;
     private SupportMapFragment supportMapFragment;
-
     ImageButton searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        View rootView = getLayoutInflater().inflate(R.layout.activity_maps, frameLayout);
+        initBottomNavigation(rootView, R.id.maps);
 
-        searchButton = findViewById(R.id.searchImageButton);
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        bottomNavigationView.setSelectedItemId(R.id.maps);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.promotions:
-                        startActivity(new Intent(getApplicationContext(), Promotions.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                    case R.id.book:
-                        startActivity(new Intent(getApplicationContext(), UploadFile.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                    case R.id.maps:
-                }
-                return false;
-            }
-        });
     }
 
     @Override
