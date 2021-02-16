@@ -1,4 +1,4 @@
-package com.example.stubar.model;
+package com.example.stubar.model.user;
 
 import java.time.LocalDate;
 import java.util.UUID;
