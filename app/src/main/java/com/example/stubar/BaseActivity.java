@@ -140,12 +140,10 @@ public class BaseActivity extends AppCompatActivity
         builder.show();
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //TODO INFLATE LAYOUT WITH TOOLBAR
-        //getMenuInflater().inflate(R.menu.base, menu);
-
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -155,27 +153,21 @@ public class BaseActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Intent intent;
         if (id == R.id.documents) {
-            intent=new Intent(this, ProfileActivity.class);
+            intent=new Intent(this, UploadFile.class);
             startActivity(intent);
             finish();
             // Handle the camera action
         } else if (id == R.id.restaurants) {
-            intent = new Intent(this, ProfileActivity.class);
+            intent = new Intent(this, Promotions.class);
             startActivity(intent);
             finish();
         } else if (id == R.id.profile) {
@@ -183,7 +175,7 @@ public class BaseActivity extends AppCompatActivity
             startActivity(intent);
             finish();
         } else if (id == R.id.settings) {
-            intent = new Intent(this, ProfileActivity.class);
+            intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             finish();
         }

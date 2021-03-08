@@ -20,9 +20,7 @@ public class User {
 
     public User(String idUser, String username, String password, String name, String email,
                 String surname, String profilePhoto, LocalDate birthday, String institution) {
-        if (idUser != null) {
-            this.idUser = UUID.fromString(idUser);
-        }
+        if (idUser != null) this.idUser = UUID.fromString(idUser);
         this.username = username;
         this.password = password;
         this.name = name;

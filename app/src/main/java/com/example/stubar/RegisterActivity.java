@@ -1,5 +1,6 @@
 package com.example.stubar;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +52,16 @@ public class RegisterActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btnSignUp);
         btnLoginHere = findViewById(R.id.btnLoginHere);
 
+        btnLoginHere.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            finish();
+        });
+
+        btnSignUp.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            finish();
+        });
+        
         sendRequest();
     }
 

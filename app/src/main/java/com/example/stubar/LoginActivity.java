@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private final int RC_SIGN_IN = 0;
 
-    Button login;
+    Button login, regiter;
     SignInButton signInWithGoogle;
     GoogleSignInClient googleSignInClient;
 
@@ -33,6 +33,15 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btnLogin);
         signInWithGoogle = findViewById(R.id.sign_in_button);
         signInWithGoogle.setSize(SignInButton.SIZE_STANDARD);
+        regiter = findViewById(R.id.btnRegister);
+
+        regiter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
+            }
+        });
         normalLogin();
         signInWithGoogle();
     }
