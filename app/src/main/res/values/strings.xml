@@ -50,9 +50,10 @@
     <string name="forgot">Forgot password?</string>
     <string name="closebutton">Close Button for Activity</string>
     <string name="newUser">Not a Member yet? Sign Up here.</string>
-    <string name="fullName">Full Name</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
     <string name="username">Username</string>
-    <string name="birthday">Birthday</string>
+    <string name="birthday">Birthday (00–00–0000)</string>
     <string name="location">Location</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="terms_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>

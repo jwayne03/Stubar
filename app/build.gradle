@@ -15,6 +15,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.stubar"
+        multiDexEnabled true
         minSdkVersion 18
         targetSdkVersion 30
         versionCode 1
@@ -61,6 +62,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'androidx.mediarouter:mediarouter:1.2.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.2'
+    implementation 'com.android.support:multidex:1.0.3'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'}

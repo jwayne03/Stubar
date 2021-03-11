@@ -1,5 +1,16 @@
 package com.example.stubar.model.user;
 
+import android.os.Build;
+import android.util.Log;
+
+import com.example.stubar.utils.deserializer.LocalDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -12,24 +23,11 @@ public class User {
     private String email;
     private String surname;
     private String profilePhoto;
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthday;
     private String institution;
 
-    public User() {
-    }
-
-    public User(String idUser, String username, String password, String name, String email,
-                String surname, String profilePhoto, LocalDate birthday, String institution) {
-        if (idUser != null) this.idUser = UUID.fromString(idUser);
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.surname = surname;
-        this.profilePhoto = profilePhoto;
-        this.birthday = birthday;
-        this.institution = institution;
-    }
+    public User() {}
 
     public UUID getIdUser() {
         return idUser;
@@ -91,8 +89,10 @@ public class User {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
+    public void setBirthday(String birthday) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.birthday = LocalDate.parse(birthday);
+        }
     }
 
     public String getInstitution() {
@@ -101,5 +101,25 @@ public class User {
 
     public void setInstitution(String institution) {
         this.institution = institution;
+    }
+
+    public JSONObject toJSON() {
+
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("username", this.username);
+            jo.put("password", this.password);
+            jo.put("name", this.name);
+            jo.put("surname", this.surname);
+            jo.put("email", this.email);
+            jo.put("profilePhoto", this.profilePhoto);
+            jo.put("birthday", this.birthday.toString());
+            jo.put("institution", this.institution);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("JSONOBJECT", "-" + jo.toString());
+        return jo;
     }
 }

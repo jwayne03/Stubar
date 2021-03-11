@@ -1,24 +1,25 @@
 package com.example.stubar;
 
 import android.content.Intent;
-import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.stubar.model.user.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,21 +29,23 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText edName, edUsername, edEmail, edLocation, edBirthday,
+    EditText edName, edSurname, edUsername, edEmail, edLocation, edBirthday,
             edPassword, edConfirmPassword;
 
     CheckBox cbTermsConditions;
     Button btnSignUp, btnLoginHere;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         edName = findViewById(R.id.edName);
+        edSurname = findViewById(R.id.edSurname);
         edUsername = findViewById(R.id.edUsername);
         edEmail = findViewById(R.id.edEmail);
-        edLocation = findViewById(R.id.edLocation);
+//        edLocation = findViewById(R.id.edLocation);
         edBirthday = findViewById(R.id.edBirthday);
         edPassword = findViewById(R.id.edPassword);
         edConfirmPassword = findViewById(R.id.edConfirmPassword);
@@ -58,33 +61,26 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         btnSignUp.setOnClickListener(v -> {
+            sendRequest();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            finish();
         });
-        
-        sendRequest();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendRequest() {
+        User newUser = new User();
+        newUser.setName(this.edName.getText().toString().trim());
+        newUser.setSurname(this.edSurname.getText().toString().trim());
+        newUser.setUsername(this.edUsername.getText().toString().trim());
+        newUser.setEmail(this.edEmail.getText().toString().trim());
+        newUser.setBirthday(this.edBirthday.getText().toString().trim());
+        newUser.setPassword(this.edPassword.getText().toString().trim());
+        newUser.setInstitution("UAB");
+        newUser.setProfilePhoto("test");
         String url = "http://46.101.46.166:8080/stuapi/api/user";
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        final JSONObject jsonObject = new JSONObject();
-
-        try {
-            jsonObject.put("username", edUsername);
-            jsonObject.put("password", edPassword);
-            jsonObject.put("name", edName);
-            jsonObject.put("email", edEmail);
-            jsonObject.put("surname", null);
-            jsonObject.put("profilePhoto", null);
-            jsonObject.put("birthday", edBirthday);
-            jsonObject.put("institution", null);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject,
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, newUser.toJSON(),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -97,9 +93,6 @@ public class RegisterActivity extends AppCompatActivity {
                         Log.d("Error.Response", error.toString());
                     }
                 });
-
         queue.add(putRequest);
     }
-
-
 }

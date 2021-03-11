@@ -39,13 +39,34 @@
                 android:background="@android:color/transparent"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:hint="@string/fullName"
+                android:hint="@string/name"
                 android:inputType="textCapWords"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:autofillHints="" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@color/white_greyish" /><EditText
+                android:id="@+id/edSurname"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:hint="@string/surname"
+                android:inputType="textCapWords"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="16sp"
+                android:autofillHints="" />
 
             <View
                 android:layout_width="fill_parent"
@@ -61,7 +82,7 @@
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
                 android:hint="@string/username"
-                android:inputType="phone"
+                android:inputType="textCapWords"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColor="@color/white"
@@ -84,34 +105,34 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="16sp"
-                />
+                android:autofillHints="" />
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
                 android:background="@color/white_greyish" />
 
-            <EditText
-                android:id="@+id/edLocation"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/transparent"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                android:hint="@string/location"
-                android:inputType="textCapWords"
-                android:padding="10dp"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="16sp" />
+<!--            <EditText-->
+<!--                android:id="@+id/edLocation"-->
+<!--                android:layout_width="fill_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:hint="@string/location"-->
+<!--                android:inputType="textCapWords"-->
+<!--                android:padding="10dp"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textColorHint="@color/white"-->
+<!--                android:textSize="16sp" />-->
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/white_greyish" />
+<!--            <View-->
+<!--                android:id="@+id/view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1px"-->
+<!--                android:background="@color/white_greyish" />-->
 
             <EditText
                 android:id="@+id/edBirthday"
@@ -165,7 +186,8 @@
                 android:singleLine="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:autofillHints="" />
 
             <CheckBox
                 android:id="@+id/cbTermsConditions"
