@@ -31,6 +31,12 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:visibility="gone" />
+
             <EditText
                 android:id="@+id/edName"
                 android:layout_width="fill_parent"

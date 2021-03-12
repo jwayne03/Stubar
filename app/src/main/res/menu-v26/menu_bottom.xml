@@ -23,5 +23,6 @@
         android:id="@+id/maps"
         android:icon="@drawable/ic_maps"
         android:iconTint="@color/lightgrey"
-        android:title="Maps" />
+        android:title="Maps"
+        android:visible="false" />
 </menu>

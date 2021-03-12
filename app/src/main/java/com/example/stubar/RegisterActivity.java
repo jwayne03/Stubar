@@ -19,11 +19,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.user.User;
+import com.example.stubar.utils.serializer.LocalDateSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +72,30 @@ public class RegisterActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendRequest() {
+
+        User newUser = checkData();
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+                .create();
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(gson.toJson(newUser));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String url = "http://46.101.46.166:8080/stuapi/api/user";
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject,
+                response -> Log.d("Response", response.toString()),
+                error -> Log.d("Error.Response", error.toString()));
+        queue.add(putRequest);
+    }
+
+    private User checkData() {
         User newUser = new User();
         newUser.setName(this.edName.getText().toString().trim());
         newUser.setSurname(this.edSurname.getText().toString().trim());
@@ -77,22 +105,8 @@ public class RegisterActivity extends AppCompatActivity {
         newUser.setPassword(this.edPassword.getText().toString().trim());
         newUser.setInstitution("UAB");
         newUser.setProfilePhoto("test");
-        String url = "http://46.101.46.166:8080/stuapi/api/user";
-        RequestQueue queue = Volley.newRequestQueue(this);
 
-        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, newUser.toJSON(),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("Response", response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.toString());
-                    }
-                });
-        queue.add(putRequest);
+        return newUser;
+
     }
 }

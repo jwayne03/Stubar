@@ -91,7 +91,8 @@ public class User {
 
     public void setBirthday(String birthday) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            this.birthday = LocalDate.parse(birthday);
+            String[] date = birthday.split("-");
+            this.birthday = LocalDate.of(Integer.parseInt(date[2]), Integer.parseInt(date[1]), Integer.parseInt(date[0]));
         }
     }
 
