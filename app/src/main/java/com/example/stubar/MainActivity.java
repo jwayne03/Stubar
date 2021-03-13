@@ -1,20 +1,12 @@
 package com.example.stubar;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,16 +14,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.stubar.model.offer.Offer;
 import com.example.stubar.model.offer.OfferAdapter;
 import com.example.stubar.model.offer.OfferApiResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
-
-import java.net.URLEncoder;
 
 public class MainActivity extends BaseActivity {
     RecyclerView recyclerView;
@@ -43,7 +30,7 @@ public class MainActivity extends BaseActivity {
         if (googleSignInAccount != null) getGoogleCredentials(googleSignInAccount);
         else Log.d("onCreate: ", "nada");
         initBottomNavigation(rootView, R.id.home);
-        recyclerView = findViewById(R.id.rvPromotions);
+        recyclerView = findViewById(R.id.rvDocument);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         showPromotions();
     }
@@ -51,7 +38,7 @@ public class MainActivity extends BaseActivity {
     private void showPromotions() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "http://46.101.46.166:8080/stuapi/api/user/offers/57e16364-7110-11eb-91d0-06a55b230c35";
+        String url = "http://46.101.46.166:8080/stuapi/api/user/offers/" + "57e16364-7110-11eb-91d0-06a55b230c35";
 
         StringRequest request = new StringRequest(
                 Request.Method.GET,
