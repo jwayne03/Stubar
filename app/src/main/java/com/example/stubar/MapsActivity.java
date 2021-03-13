@@ -49,7 +49,6 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         View rootView = getLayoutInflater().inflate(R.layout.activity_maps, frameLayout);
         initBottomNavigation(rootView, R.id.maps);
-
     }
 
     @Override
