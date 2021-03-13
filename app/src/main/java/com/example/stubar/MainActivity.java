@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.offer.OfferAdapter;
 import com.example.stubar.model.offer.OfferApiResponse;
+import com.example.stubar.utils.constants.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.gson.Gson;
@@ -39,7 +40,7 @@ public class MainActivity extends BaseActivity {
     private void showPromotions() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "http://46.101.46.166:8080/stuapi/api/user/offers/" + "57e16364-7110-11eb-91d0-06a55b230c35";
+        String url = "http://46.101.46.166:8080/stuapi/api/user/offers/" +  Constants.userLogged.getIdUser().toString();
 
         StringRequest request = new StringRequest(
                 Request.Method.GET,

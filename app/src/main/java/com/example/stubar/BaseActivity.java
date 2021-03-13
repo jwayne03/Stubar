@@ -170,7 +170,7 @@ public class BaseActivity extends AppCompatActivity
             intent = new Intent(this, Promotions.class);
             startActivity(intent);
             finish();
-        } else if (id == R.id.profile) {
+        } /*else if (id == R.id.profile) {
             intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
             finish();
@@ -178,7 +178,7 @@ public class BaseActivity extends AppCompatActivity
             intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
