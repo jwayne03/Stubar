@@ -24,6 +24,7 @@ public class UploadFile extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Documents");
         View rootView = getLayoutInflater().inflate(R.layout.activity_upload_file, frameLayout);
         initBottomNavigation(rootView, R.id.book);
         recyclerView = findViewById(R.id.rvDocument);

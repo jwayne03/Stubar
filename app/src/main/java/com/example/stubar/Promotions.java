@@ -22,6 +22,7 @@ public class Promotions extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Promotions");
         View rootView = getLayoutInflater().inflate(R.layout.activity_promotions, frameLayout);
         initBottomNavigation(rootView, R.id.promotions);
         recyclerView = findViewById(R.id.rvDocument);

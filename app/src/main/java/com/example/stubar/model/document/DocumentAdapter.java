@@ -25,7 +25,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
     @NonNull
     @Override
     public DocumentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_promotions, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_documents, parent, false);
         return new DocumentAdapter.ViewHolder(view);
     }
 
