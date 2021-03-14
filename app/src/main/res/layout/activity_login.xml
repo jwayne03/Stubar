@@ -85,17 +85,5 @@
         app:layout_constraintTop_toBottomOf="@+id/btnRegister"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/tvErrorLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="11dp"
-        android:textColor="#F44336"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/edUsernameLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLogin" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

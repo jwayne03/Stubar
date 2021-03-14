@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.user.User;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -60,16 +62,13 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         btnSignUp.setOnClickListener(v -> {
-            sendRequest();
+            checkData(v);
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void sendRequest() {
-
-        User newUser = checkData();
-
+    private void registerUser(User newUser) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
                 .create();
@@ -90,18 +89,32 @@ public class RegisterActivity extends AppCompatActivity {
         queue.add(putRequest);
     }
 
-    private User checkData() {
-        User newUser = new User();
-        newUser.setName(this.edName.getText().toString().trim());
-        newUser.setSurname(this.edSurname.getText().toString().trim());
-        newUser.setUsername(this.edUsername.getText().toString().trim());
-        newUser.setEmail(this.edEmail.getText().toString().trim());
-        newUser.setBirthday(this.edBirthday.getText().toString().trim());
-        newUser.setPassword(this.edPassword.getText().toString().trim());
-        newUser.setInstitution("UAB");
-        newUser.setProfilePhoto("test");
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void checkData(View view) {
 
-        return newUser;
 
+
+        if (!edPassword.getText().toString().equals(edConfirmPassword.getText().toString())) {
+            Snackbar.make(view, "The passwords don't coincide", Snackbar.LENGTH_LONG)
+                    .show();
+        } else if (this.edEmail.getText().toString().matches("/^(([^<>()\\[\\]\\\\.,;:\\s@”]+(\\.[^<>()\\[\\]\\\\.,;:\\s@”]+)*)|(“.+”))@((\\[[0–9]{1,3}\\.[0–9]{1,3}\\.[0–9]{1,3}\\.[0–9]{1,3}])|(([a-zA-Z\\-0–9]+\\.)+[a-zA-Z]{2,}))$/")) {
+            Snackbar.make(view, "The email is in the incorrect format", Snackbar.LENGTH_LONG)
+                    .show();
+        } else if (this.edBirthday.getText().toString().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})")) {
+            Snackbar.make(view, "The Birthday is in the incorrect format", Snackbar.LENGTH_LONG)
+                    .show();
+        } else {
+            User newUser = new User();
+            newUser.setName(this.edName.getText().toString().trim());
+            newUser.setSurname(this.edSurname.getText().toString().trim());
+            newUser.setUsername(this.edUsername.getText().toString().trim());
+            newUser.setEmail(this.edEmail.getText().toString().trim());
+            newUser.setBirthday(this.edBirthday.getText().toString().trim());
+            newUser.setPassword(this.edPassword.getText().toString().trim());
+            newUser.setInstitution("UAB");
+            newUser.setProfilePhoto("test");
+
+            registerUser(newUser);
+        }
     }
 }
