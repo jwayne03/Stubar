@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.offer.OfferAdapter;
 import com.example.stubar.model.offer.OfferApiResponse;
+import com.example.stubar.utils.constants.Constants;
 import com.google.gson.Gson;
 
 public class Promotions extends BaseActivity {
@@ -39,16 +40,14 @@ public class Promotions extends BaseActivity {
     private void showPromotions() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "http://46.101.46.166:8080/stuapi/api/offer";
-
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                url,
+                Constants.ALL_OFFERS_URL,
                 response -> {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
                     response = "{ \"offers\": " + response + "}";
-                    Log.d("flx", response);
+                    Log.d("NADIFLEX", response);
                     OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
                     OfferAdapter adapter = new OfferAdapter(Promotions.this, offer);
                     recyclerView.setAdapter(adapter);

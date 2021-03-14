@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity {
 
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                Constants.OFFERS_URL + Constants.USER_LOGGED.getIdUser().toString(),
+                Constants.USER_OFFERS_URL + Constants.USER_LOGGED.getIdUser().toString(),
                 response -> {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();

@@ -2,23 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
-        android:icon="@drawable/homeicon"
-        android:title="Home"
-        android:iconTint="@color/lightgrey"/>
-
-    <item
         android:id="@+id/promotions"
         android:icon="@drawable/ic_fastfood"
         android:iconTint="@color/lightgrey"
         android:title="Promotions" />
 
     <item
+        android:id="@+id/home"
+        android:icon="@drawable/homeicon"
+        android:iconTint="@color/lightgrey"
+        android:title="Home" />
+
+    <item
         android:id="@+id/book"
         android:icon="@drawable/ic_book"
         android:iconTint="@color/lightgrey"
-        android:title="Upload File" />
-
+        android:title="@string/documents" />
     <item
         android:id="@+id/maps"
         android:icon="@drawable/ic_maps"
