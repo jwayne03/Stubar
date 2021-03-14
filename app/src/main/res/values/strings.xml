@@ -69,4 +69,5 @@
     <string name="restaurants">Restaurants</string>
     <string name="documents">Documents</string>
     <string name="search">Search</string>
+    <string name="logOut">Log out</string>
 </resources>

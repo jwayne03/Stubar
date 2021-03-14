@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -110,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void checkAuthentication(View v) {
+    private void checkAuthentication(View view) {
         User newUser = new User();
         newUser.setUsername(edUsername.getText().toString().trim());
         newUser.setPassword(edPassword.getText().toString().trim());
@@ -142,8 +143,9 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         try {
                             String errorMessage = response.getString("error");
-                            Snackbar.make(v, errorMessage, Snackbar.LENGTH_LONG)
-                                    .show();
+                            Snackbar snackbar = Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG);
+                            snackbar.getView().setBackgroundColor(ContextCompat.getColor(LoginActivity.this, R.color.orange));
+                            snackbar.show();
                         } catch (JSONException e) {
                             Log.d("error", e.getMessage());
                         }

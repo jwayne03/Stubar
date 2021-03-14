@@ -5,12 +5,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -63,7 +65,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnSignUp.setOnClickListener(v -> {
             checkData(v);
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         });
     }
 
@@ -87,22 +88,23 @@ public class RegisterActivity extends AppCompatActivity {
                 response -> Log.d("Response", response.toString()),
                 error -> Log.d("Error.Response", error.toString()));
         queue.add(putRequest);
+
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkData(View view) {
-
-
+        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        Snackbar snackbar = Snackbar.make(view, "FATAL ERROR", Snackbar.LENGTH_LONG);
+        snackbar.getView().setBackgroundColor(ContextCompat.getColor(RegisterActivity.this, R.color.orange));
 
         if (!edPassword.getText().toString().equals(edConfirmPassword.getText().toString())) {
-            Snackbar.make(view, "The passwords don't coincide", Snackbar.LENGTH_LONG)
-                    .show();
-        } else if (this.edEmail.getText().toString().matches("/^(([^<>()\\[\\]\\\\.,;:\\s@”]+(\\.[^<>()\\[\\]\\\\.,;:\\s@”]+)*)|(“.+”))@((\\[[0–9]{1,3}\\.[0–9]{1,3}\\.[0–9]{1,3}\\.[0–9]{1,3}])|(([a-zA-Z\\-0–9]+\\.)+[a-zA-Z]{2,}))$/")) {
-            Snackbar.make(view, "The email is in the incorrect format", Snackbar.LENGTH_LONG)
-                    .show();
-        } else if (this.edBirthday.getText().toString().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})")) {
-            Snackbar.make(view, "The Birthday is in the incorrect format", Snackbar.LENGTH_LONG)
-                    .show();
+            snackbar.setText("The passwords don't coincide").show();
+        } else if (!this.edEmail.getText().toString().matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+            snackbar.setText("The email is in the incorrect format").show();
+        } else if (!this.edBirthday.getText().toString().matches("([0-9]{2})-([0-9]{2})-([0-9]{4})")) {
+            snackbar.setText("The Birthday is in the incorrect format").show();
         } else {
             User newUser = new User();
             newUser.setName(this.edName.getText().toString().trim());

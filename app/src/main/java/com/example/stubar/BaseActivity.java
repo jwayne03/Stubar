@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.stubar.utils.constants.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -130,7 +131,12 @@ public class BaseActivity extends AppCompatActivity
             intent = new Intent(this, Promotions.class);
             startActivity(intent);
             finish();
-        } /*else if (id == R.id.profile) {
+        } else if (id == R.id.logOut) {
+            Constants.USER_LOGGED = null;
+            intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        /*} else if (id == R.id.profile) {
             intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
             finish();
@@ -139,6 +145,7 @@ public class BaseActivity extends AppCompatActivity
             startActivity(intent);
             finish();
         }*/
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
