@@ -28,10 +28,10 @@ public class UploadFile extends BaseActivity {
         super.onCreate(savedInstanceState);
         setTitle("");
         tbTitle = findViewById(R.id.tbTitle);
-        tbTitle.setText("Documents");
+        tbTitle.setText("DOCUMENTS");
         View rootView = getLayoutInflater().inflate(R.layout.activity_upload_file, frameLayout);
         initBottomNavigation(rootView, R.id.book);
-        recyclerView = findViewById(R.id.rvDocument);
+        recyclerView = findViewById(R.id.rvOffer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         showDocuments();
 

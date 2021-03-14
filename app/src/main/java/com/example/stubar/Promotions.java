@@ -28,10 +28,10 @@ public class Promotions extends BaseActivity {
         super.onCreate(savedInstanceState);
         setTitle("");
         tbTitle = findViewById(R.id.tbTitle);
-        tbTitle.setText("Promotions");
+        tbTitle.setText("PROMOTIONS");
         View rootView = getLayoutInflater().inflate(R.layout.activity_promotions, frameLayout);
         initBottomNavigation(rootView, R.id.promotions);
-        recyclerView = findViewById(R.id.rvDocument);
+        recyclerView = findViewById(R.id.rvOffer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         showPromotions();
     }
@@ -47,7 +47,6 @@ public class Promotions extends BaseActivity {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
                     response = "{ \"offers\": " + response + "}";
-                    Log.d("NADIFLEX", response);
                     OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
                     OfferAdapter adapter = new OfferAdapter(Promotions.this, offer);
                     recyclerView.setAdapter(adapter);

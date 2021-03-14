@@ -36,21 +36,36 @@
 
             <TextView
                 android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textSize="22dp"
-                android:textColor="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="135dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:gravity="center"
                 android:text="TextView"
                 android:textColor="#FFFFFF"
                 android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                android:textSize="22dp" />
+
+            <ImageButton
+                android:id="@+id/ibDownload"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="?attr/colorPrimary"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                app:srcCompat="@drawable/ic_baseline_cloud_download_24" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
