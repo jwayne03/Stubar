@@ -15,8 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.document.DocumentAdapter;
 import com.example.stubar.model.document.DocumentApiResponse;
-import com.example.stubar.model.offer.OfferAdapter;
-import com.example.stubar.model.offer.OfferApiResponse;
+import com.example.stubar.utils.constants.Constants;
 import com.google.gson.Gson;
 
 public class UploadFile extends BaseActivity {
@@ -36,11 +35,9 @@ public class UploadFile extends BaseActivity {
     private void showDocuments() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "http://46.101.46.166:8080/stuapi/api/document";
-
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                url,
+                Constants.DOCUMENTS_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

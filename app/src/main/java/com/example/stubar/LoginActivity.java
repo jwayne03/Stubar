@@ -27,6 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -68,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void normalLogin() {
-        btnLogin.setOnClickListener(v -> checkAuthentication());
+        btnLogin.setOnClickListener(v -> checkAuthentication(v));
     }
 
     private void signInWithGoogle() {
@@ -118,12 +119,12 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void checkAuthentication() {
+    private void checkAuthentication(View v) {
         User newUser = new User();
         newUser.setUsername(edUsername.getText().toString().trim());
         newUser.setPassword(edPassword.getText().toString().trim());
 
-        String url = "http://46.101.46.166:8080/stuapi/api/user/authentication";
+
         RequestQueue queue = Volley.newRequestQueue(this);
 
         JSONObject jsonObject = null;
@@ -133,13 +134,13 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, Constants.AUTHENTICATION_USER_URL, jsonObject,
                 response -> {
                     if (response.has("response")) {
                         try {
                             String uuid = response.getString("response");
                             newUser.setIdUser(uuid);
-                            Constants.userLogged = newUser;
+                            Constants.USER_LOGGED = newUser;
 
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -150,8 +151,8 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         try {
                             String errorMessage = response.getString("error");
-                            tvError.setText(errorMessage);
-                            tvError.setVisibility(View.VISIBLE);
+                            Snackbar.make(v,errorMessage, Snackbar.LENGTH_LONG)
+                                    .show();
                         } catch (JSONException e) {
                             Log.d("error", e.getMessage());
                         }

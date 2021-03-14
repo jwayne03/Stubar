@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.user.User;
+import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -86,10 +87,10 @@ public class RegisterActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String url = "http://46.101.46.166:8080/stuapi/api/user";
+
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject,
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, Constants.REGISTER_URL, jsonObject,
                 response -> Log.d("Response", response.toString()),
                 error -> Log.d("Error.Response", error.toString()));
         queue.add(putRequest);

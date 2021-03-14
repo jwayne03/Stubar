@@ -21,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.gson.Gson;
 
+import kotlin.sequences.ConstrainedOnceSequence;
+
 public class MainActivity extends BaseActivity {
     RecyclerView recyclerView;
     @Override
@@ -40,11 +42,9 @@ public class MainActivity extends BaseActivity {
     private void showPromotions() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "http://46.101.46.166:8080/stuapi/api/user/offers/" +  Constants.userLogged.getIdUser().toString();
-
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                url,
+                Constants.OFFERS_URL + Constants.USER_LOGGED.getIdUser().toString(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
