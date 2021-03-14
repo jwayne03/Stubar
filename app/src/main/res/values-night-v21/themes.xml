@@ -2,8 +2,9 @@
 <resources>
 
     <style name="Theme.Stubar.NoActionBar">
-        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

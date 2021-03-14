@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -81,10 +80,8 @@ public class BaseActivity extends AppCompatActivity
         txt_username = headerview.findViewById(R.id.txt_username);
         txt_email = headerview.findViewById(R.id.txt_email);
         image_profile.setImageResource(R.drawable.alarm);
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.tbStubar);
-        setSupportActionBar(mToolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.setDrawerIndicatorEnabled(false);
         toggle.syncState();
