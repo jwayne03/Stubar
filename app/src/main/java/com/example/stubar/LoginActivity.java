@@ -1,23 +1,18 @@
 package com.example.stubar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.stubar.model.local.Local;
 import com.example.stubar.model.user.User;
 import com.example.stubar.utils.constants.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -37,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private final int RC_SIGN_IN = 0;
     private EditText edUsername, edPassword;
-    private TextView tvError;
 
     private Button btnLogin, btnRegister;
     private SignInButton signInWithGoogle;
@@ -50,35 +44,27 @@ public class LoginActivity extends AppCompatActivity {
 
         edUsername = findViewById(R.id.edUsernameLogin);
         edPassword = findViewById(R.id.edPasswordLogin);
-        tvError = findViewById(R.id.tvErrorLogin);
 
         btnLogin = findViewById(R.id.btnLogin);
         signInWithGoogle = findViewById(R.id.sign_in_button);
         signInWithGoogle.setSize(SignInButton.SIZE_STANDARD);
         btnRegister = findViewById(R.id.btnRegister);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                finish();
-            }
+        btnRegister.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            finish();
         });
         normalLogin();
         signInWithGoogle();
     }
 
     private void normalLogin() {
-        btnLogin.setOnClickListener(v -> checkAuthentication(v));
+        btnLogin.setOnClickListener(this::checkAuthentication);
     }
 
     private void signInWithGoogle() {
-        signInWithGoogle.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public void onClick(View view) {
-                if (view.getId() == R.id.sign_in_button) signIn();
-            }
+        signInWithGoogle.setOnClickListener(view -> {
+            if (view.getId() == R.id.sign_in_button) signIn();
         });
 
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions

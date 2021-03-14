@@ -9,8 +9,6 @@ import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.document.DocumentAdapter;
@@ -38,27 +36,21 @@ public class UploadFile extends BaseActivity {
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 Constants.DOCUMENTS_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Log.d("flx", "RESPONSE: " + response);
-                        Gson gson = new Gson();
-                        response = "{ \"document\": " + response + "}";
-                        Log.d("flx", response);
-                        DocumentApiResponse documentApiResponse = gson.fromJson(response, DocumentApiResponse.class);
-                        DocumentAdapter adapter = new DocumentAdapter(UploadFile.this, documentApiResponse);
-                        recyclerView.setAdapter(adapter);
-                    }
+                response -> {
+                    // Log.d("flx", "RESPONSE: " + response);
+                    Gson gson = new Gson();
+                    response = "{ \"document\": " + response + "}";
+                    Log.d("flx", response);
+                    DocumentApiResponse documentApiResponse = gson.fromJson(response, DocumentApiResponse.class);
+                    DocumentAdapter adapter = new DocumentAdapter(UploadFile.this, documentApiResponse);
+                    recyclerView.setAdapter(adapter);
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        String msg = "Network error (timeout or disconnected)";
-                        if (error.networkResponse != null) {
-                            msg = "ERROR: " + error.networkResponse.statusCode;
-                        }
-                        Log.d("flx", msg);
+                error -> {
+                    String msg = "Network error (timeout or disconnected)";
+                    if (error.networkResponse != null) {
+                        msg = "ERROR: " + error.networkResponse.statusCode;
                     }
+                    Log.d("flx", msg);
                 });
         queue.add(request);
     }

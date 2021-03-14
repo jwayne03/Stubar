@@ -10,8 +10,6 @@ import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.offer.OfferAdapter;
@@ -20,8 +18,6 @@ import com.example.stubar.utils.constants.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.gson.Gson;
-
-import kotlin.sequences.ConstrainedOnceSequence;
 
 public class MainActivity extends BaseActivity {
     RecyclerView recyclerView;
@@ -45,27 +41,21 @@ public class MainActivity extends BaseActivity {
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 Constants.OFFERS_URL + Constants.USER_LOGGED.getIdUser().toString(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Log.d("flx", "RESPONSE: " + response);
-                        Gson gson = new Gson();
-                        response = "{ \"offers\": " + response + "}";
-                        Log.d("flx", response);
-                        OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
-                        OfferAdapter adapter = new OfferAdapter(MainActivity.this, offer);
-                        recyclerView.setAdapter(adapter);
-                    }
+                response -> {
+                    // Log.d("flx", "RESPONSE: " + response);
+                    Gson gson = new Gson();
+                    response = "{ \"offers\": " + response + "}";
+                    Log.d("flx", response);
+                    OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
+                    OfferAdapter adapter = new OfferAdapter(MainActivity.this, offer);
+                    recyclerView.setAdapter(adapter);
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        String msg = "Network error (timeout or disconnected)";
-                        if (error.networkResponse != null) {
-                            msg = "ERROR: " + error.networkResponse.statusCode;
-                        }
-                        Log.d("flx", msg);
+                error -> {
+                    String msg = "Network error (timeout or disconnected)";
+                    if (error.networkResponse != null) {
+                        msg = "ERROR: " + error.networkResponse.statusCode;
                     }
+                    Log.d("flx", msg);
                 });
         queue.add(request);
 
@@ -78,6 +68,6 @@ public class MainActivity extends BaseActivity {
         String person_id = googleSignInAccount.getId();
         Uri photo = googleSignInAccount.getPhotoUrl();
         String id = googleSignInAccount.getId();
-        Log.d("onCreate: ", name + " " + email + " " + person_id + " " + photo);
+        Log.d("onCreate: ", name + " " + email + " " + person_id + " " + photo + " " + id);
     }
 }

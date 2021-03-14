@@ -2,35 +2,24 @@ package com.example.stubar;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-
-import android.view.MenuItem;
-
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,37 +46,34 @@ public class BaseActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void initBottomNavigation(View rootView, int home) {
         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(home);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.promotions:
-                        startActivity(new Intent(getApplicationContext(), Promotions.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                    case R.id.book:
-                        startActivity(new Intent(getApplicationContext(), UploadFile.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                    case R.id.maps:
-                        startActivity(new Intent(getApplicationContext(), MapsActivity.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return false;
-                }
-                return false;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.promotions:
+                    startActivity(new Intent(getApplicationContext(), Promotions.class));
+                    finish();
+                    overridePendingTransition(0, 0);
+                    return false;
+                case R.id.book:
+                    startActivity(new Intent(getApplicationContext(), UploadFile.class));
+                    finish();
+                    overridePendingTransition(0, 0);
+                    return false;
+                case R.id.maps:
+                    startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+                    finish();
+                    overridePendingTransition(0, 0);
+                    return false;
+                case R.id.home:
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                    overridePendingTransition(0, 0);
+                    return false;
             }
+            return false;
         });
 
     }
@@ -123,19 +109,9 @@ public class BaseActivity extends AppCompatActivity
         builder.setMessage("Do You Want To Exit?");
 
         //final AlertDialog dialog = builder.create();
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        builder.setPositiveButton("YES", (dialogInterface, i) -> finish());
+        builder.setNegativeButton("NO", (dialogInterface, i) -> {
 
-                finish();
-
-            }
-        });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
         });
         builder.show();
     }
