@@ -12,8 +12,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-public class LocalDateDeserializer extends StdDeserializer<LocalDate>{
-	private static final long serialVersionUID = 1L;
+public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
+    private static final long serialVersionUID = 1L;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected LocalDateDeserializer() {
@@ -25,5 +25,5 @@ public class LocalDateDeserializer extends StdDeserializer<LocalDate>{
     public LocalDate deserialize(JsonParser jp, DeserializationContext ctxt)
             throws IOException, JsonProcessingException {
         return LocalDate.parse(jp.readValueAs(String.class));
-    }  
+    }
 }

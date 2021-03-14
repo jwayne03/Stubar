@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stubar.R;
-import com.example.stubar.model.offer.Offer;
-import com.example.stubar.model.offer.OfferApiResponse;
 
 public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
     private Context context;
@@ -42,6 +40,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
     protected class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvRate, tvGrade, tvTopic;
         Document document;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvDescription);

@@ -4,10 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,25 +26,18 @@ public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     protected FrameLayout frameLayout;
     private Context context;
-    private Toolbar toolbar;
-    public TextView txt_menuTitle, txt_username, txt_email, txt_change_pass,txt_card_value;
-    public ImageView img_menuOption, image_profile,img_menu_add_cart;
+    public TextView txt_username, txt_email;
+    public ImageView image_profile;
 
     private DrawerLayout drawer;
-    private static final int INTENT_REQUEST_CODE = 200;
-    private int INTENT_CAMERA_CODE = 100;
-    ActionBarDrawerToggle toggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        context=this;
+        context = this;
         initView();
         frameLayout = (FrameLayout) findViewById(R.id.container);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -77,6 +71,8 @@ public class BaseActivity extends AppCompatActivity
         });
 
     }
+
+    @SuppressLint("RtlHardcoded")
     private void initView() {
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -85,12 +81,16 @@ public class BaseActivity extends AppCompatActivity
         txt_username = headerview.findViewById(R.id.txt_username);
         txt_email = headerview.findViewById(R.id.txt_email);
         image_profile.setImageResource(R.drawable.alarm);
-        toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.tbStubar);
+        setSupportActionBar(mToolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.setDrawerIndicatorEnabled(false);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        ImageButton tbIcon = findViewById(R.id.tbButton);
+        tbIcon.setOnClickListener(v -> drawer.openDrawer(Gravity.LEFT));
     }
 
     @Override
@@ -102,6 +102,7 @@ public class BaseActivity extends AppCompatActivity
             ExitApp();
         }
     }
+
     private void ExitApp() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
@@ -117,20 +118,6 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @SuppressLint("ResourceType")
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -138,7 +125,7 @@ public class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
         Intent intent;
         if (id == R.id.documents) {
-            intent=new Intent(this, UploadFile.class);
+            intent = new Intent(this, UploadFile.class);
             startActivity(intent);
             finish();
             // Handle the camera action

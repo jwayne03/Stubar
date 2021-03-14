@@ -5,7 +5,8 @@
         android:id="@+id/searchImageButton"
         app:showAsAction="ifRoom"
         app:actionViewClass="android.widget.SearchView"
-        android:title="SEARCH" />
+        android:title="SEARCH"
+        />
     <item
         android:id="@+id/settingsImageButton"
         app:showAsAction="always"

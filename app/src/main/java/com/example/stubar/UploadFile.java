@@ -3,9 +3,11 @@ package com.example.stubar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,10 +20,15 @@ import com.google.gson.Gson;
 
 public class UploadFile extends BaseActivity {
     RecyclerView recyclerView;
+    TextView tbTitle;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Documents");
+        setTitle("");
+        tbTitle = findViewById(R.id.tbTitle);
+        tbTitle.setText("Documents");
         View rootView = getLayoutInflater().inflate(R.layout.activity_upload_file, frameLayout);
         initBottomNavigation(rootView, R.id.book);
         recyclerView = findViewById(R.id.rvDocument);

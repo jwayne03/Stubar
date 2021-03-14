@@ -3,10 +3,12 @@ package com.example.stubar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,10 +23,15 @@ import com.google.gson.Gson;
 
 public class MainActivity extends BaseActivity {
     RecyclerView recyclerView;
+    TextView tbTitle;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Offers");
+        setTitle("");
+        tbTitle = findViewById(R.id.tbTitle);
+        tbTitle.setText("Offers");
         View rootView = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (googleSignInAccount != null) getGoogleCredentials(googleSignInAccount);

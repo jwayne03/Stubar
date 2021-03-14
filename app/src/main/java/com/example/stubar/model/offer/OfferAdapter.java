@@ -41,6 +41,7 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
     protected class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvDescription, tvPrice;
         Offer offer;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDescription = itemView.findViewById(R.id.tvDescription);

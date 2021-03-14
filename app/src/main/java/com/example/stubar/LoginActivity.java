@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         try {
                             String errorMessage = response.getString("error");
-                            Snackbar.make(v,errorMessage, Snackbar.LENGTH_LONG)
+                            Snackbar.make(v, errorMessage, Snackbar.LENGTH_LONG)
                                     .show();
                         } catch (JSONException e) {
                             Log.d("error", e.getMessage());

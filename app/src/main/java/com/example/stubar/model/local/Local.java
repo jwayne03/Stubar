@@ -1,4 +1,5 @@
 package com.example.stubar.model.local;
+
 import java.util.UUID;
 
 
@@ -18,7 +19,8 @@ public class Local {
         this.geolong = geolong;
     }
 
-    public Local() {}
+    public Local() {
+    }
 
     public UUID getIdLocal() {
         return idLocal;

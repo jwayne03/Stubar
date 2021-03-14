@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onResume();
         SharedPreferences sharedPreferences = (SharedPreferences) getSharedPreferences(getPackageName(), MODE_PRIVATE);
 
-        boolean darkmode = sharedPreferences.getBoolean("value", false );
+        boolean darkmode = sharedPreferences.getBoolean("value", false);
         swDarkMode.setChecked(darkmode);
 
     }

@@ -18,7 +18,6 @@
         android:icon="@drawable/ic_book"
         android:iconTint="@color/lightgrey"
         android:title="Upload File" />
-
     <item
         android:id="@+id/maps"
         android:icon="@drawable/ic_maps"

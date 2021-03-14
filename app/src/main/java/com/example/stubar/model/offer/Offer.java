@@ -1,6 +1,5 @@
 package com.example.stubar.model.offer;
 
-
 import java.time.LocalDate;
 import java.util.UUID;
 

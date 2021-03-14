@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 
 public class LocalDateSerializer implements JsonSerializer<LocalDate> {
 
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {

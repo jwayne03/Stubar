@@ -32,7 +32,8 @@ public class Document {
         this.topicName = topicName;
     }
 
-    public Document() {}
+    public Document() {
+    }
 
     public UUID getIdDocument() {
         return idDocument;

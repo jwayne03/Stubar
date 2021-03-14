@@ -19,12 +19,13 @@ public class Critic {
         this.userID = UUID.fromString(userID);
         this.comment = comment;
         this.rate = rate;
-        if (offerID != null) this.offerID= UUID.fromString(offerID);
+        if (offerID != null) this.offerID = UUID.fromString(offerID);
         if (documentID != null) this.documentID = UUID.fromString(documentID);
         this.date = date;
     }
 
-    public Critic() {}
+    public Critic() {
+    }
 
     public UUID getIdCritic() {
         return idCritic;

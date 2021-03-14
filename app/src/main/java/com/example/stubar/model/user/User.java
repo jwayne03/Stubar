@@ -3,17 +3,11 @@ package com.example.stubar.model.user;
 import android.os.Build;
 import android.util.Log;
 
-import com.example.stubar.utils.deserializer.LocalDateDeserializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.UUID;
-
 
 public class User {
     private UUID idUser;
@@ -23,11 +17,12 @@ public class User {
     private String email;
     private String surname;
     private String profilePhoto;
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
+    //    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthday;
     private String institution;
 
-    public User() {}
+    public User() {
+    }
 
     public UUID getIdUser() {
         return idUser;
