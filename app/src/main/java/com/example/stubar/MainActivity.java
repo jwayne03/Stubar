@@ -14,6 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.stubar.model.document.DocumentAdapter;
+import com.example.stubar.model.document.DocumentApiResponse;
 import com.example.stubar.model.offer.OfferAdapter;
 import com.example.stubar.model.offer.OfferApiResponse;
 import com.example.stubar.utils.constants.Constants;
@@ -22,8 +24,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.gson.Gson;
 
 public class MainActivity extends BaseActivity {
-    RecyclerView recyclerView;
-    TextView tbTitle;
+    RecyclerView rvOffer, rvDocument;
+    TextView tbTitle, tvEmptyOffer, tvEmptyDocument;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -31,15 +33,51 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setTitle("");
         tbTitle = findViewById(R.id.tbTitle);
-        tbTitle.setText("Offers");
+        tbTitle.setText("HOME");
         View rootView = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (googleSignInAccount != null) getGoogleCredentials(googleSignInAccount);
         else Log.d("onCreate: ", "nada");
         initBottomNavigation(rootView, R.id.home);
-        recyclerView = findViewById(R.id.rvDocument);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        rvOffer = findViewById(R.id.rvOffer);
+        rvOffer.setLayoutManager(new LinearLayoutManager(this));
+        rvDocument = findViewById(R.id.rvDocument);
+        rvDocument.setLayoutManager(new LinearLayoutManager(this));
+        tvEmptyOffer = findViewById(R.id.tvEmptyOffer);
+        tvEmptyDocument = findViewById(R.id.tvEmptyDocument);
         showPromotions();
+        showDocuments();
+    }
+
+    private void showDocuments() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                Constants.USER_DOCUMENTS_URL + Constants.USER_LOGGED.getIdUser().toString(),
+                response -> {
+                    // Log.d("flx", "RESPONSE: " + response);
+                    Gson gson = new Gson();
+                    response = "{ \"document\": " + response + "}";
+                    Log.d("documents", response);
+                    DocumentApiResponse documentApiResponse = gson.fromJson(response, DocumentApiResponse.class);
+                    if(documentApiResponse.getDocuments().size() != 0) {
+                        DocumentAdapter adapter = new DocumentAdapter(MainActivity.this, documentApiResponse);
+                        rvDocument.setAdapter(adapter);
+                    } else {
+                        tvEmptyDocument.setVisibility(View.VISIBLE);
+                        tvEmptyDocument.setText("EMPTY");
+                    }
+
+                },
+                error -> {
+                    String msg = "Network error (timeout or disconnected)";
+                    if (error.networkResponse != null) {
+                        msg = "ERROR: " + error.networkResponse.statusCode;
+                    }
+                    Log.d("flx", msg);
+                });
+        queue.add(request);
     }
 
     private void showPromotions() {
@@ -52,10 +90,15 @@ public class MainActivity extends BaseActivity {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
                     response = "{ \"offers\": " + response + "}";
-                    Log.d("flx", response);
+                    Log.d("promotions", response);
                     OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
-                    OfferAdapter adapter = new OfferAdapter(MainActivity.this, offer);
-                    recyclerView.setAdapter(adapter);
+                    if(offer.getOffers().size() != 0) {
+                        OfferAdapter adapter = new OfferAdapter(MainActivity.this, offer);
+                        rvOffer.setAdapter(adapter);
+                    } else {
+                        tvEmptyOffer.setVisibility(View.VISIBLE);
+                        tvEmptyOffer.setText("EMPTY");
+                    }
                 },
                 error -> {
                     String msg = "Network error (timeout or disconnected)";

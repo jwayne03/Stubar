@@ -60,13 +60,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void normalLogin() {
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkAuthentication(v);
-                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-            }
+        btnLogin.setOnClickListener(v -> {
+            checkAuthentication(v);
+            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         });
     }
 
@@ -155,6 +152,5 @@ public class LoginActivity extends AppCompatActivity {
                 error -> Log.d("Authentication/Error", error.toString()));
 
         queue.add(postRequest);
-
     }
 }
