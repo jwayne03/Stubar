@@ -24,12 +24,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white"
+        android:background="@color/colorbottomnavigation"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_base"
-        app:itemBackground="@color/white"
-        app:itemIconTint="@android:color/black"
-        app:itemTextColor="@android:color/black"
+        app:itemBackground="@color/colorbottomnavigation"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white"
         app:menu="@menu/activity_base_drawer">
 
     </com.google.android.material.navigation.NavigationView>

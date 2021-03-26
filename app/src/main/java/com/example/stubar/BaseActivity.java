@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.stubar.model.user.User;
 import com.example.stubar.utils.constants.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -81,6 +82,7 @@ public class BaseActivity extends AppCompatActivity
         txt_username = headerview.findViewById(R.id.txt_username);
         txt_email = headerview.findViewById(R.id.txt_email);
         image_profile.setImageResource(R.drawable.alarm);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);

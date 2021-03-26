@@ -36,7 +36,7 @@
 
             <TextView
                 android:id="@+id/tvDescription"
-                android:layout_width="300dp"
+                android:layout_width="279dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="TextView"
@@ -61,10 +61,10 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:background="?attr/colorPrimary"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                app:srcCompat="@drawable/ic_baseline_cloud_download_24" />
+                app:srcCompat="@drawable/ic_baseline_cloud_download_24"
+                tools:ignore="VectorDrawableCompat" />
 
         </LinearLayout>
 
