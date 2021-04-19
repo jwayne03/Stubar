@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.stubar.model.user.User;
 import com.example.stubar.utils.constants.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -27,7 +26,7 @@ public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     protected FrameLayout frameLayout;
     private Context context;
-    public TextView txt_username, txt_email;
+    public TextView tvUsername, tvEmail;
     public ImageView image_profile;
 
     private DrawerLayout drawer;
@@ -38,7 +37,14 @@ public class BaseActivity extends AppCompatActivity
         setContentView(R.layout.activity_base);
         context = this;
         initView();
-        frameLayout = (FrameLayout) findViewById(R.id.container);
+        setUsernameInformation();
+    }
+
+
+    private void setUsernameInformation() {
+        tvUsername.setText(Constants.USER_LOGGED.getUsername());
+        tvEmail.setText(Constants.USER_LOGGED.getEmail());
+        //todo implement image
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -79,9 +85,10 @@ public class BaseActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
         image_profile = headerview.findViewById(R.id.image_profile);
-        txt_username = headerview.findViewById(R.id.txt_username);
-        txt_email = headerview.findViewById(R.id.txt_email);
         image_profile.setImageResource(R.drawable.alarm);
+        tvUsername = headerview.findViewById(R.id.txt_username);
+        tvEmail =  headerview.findViewById(R.id.txt_email);
+        frameLayout = findViewById(R.id.container);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -138,15 +145,12 @@ public class BaseActivity extends AppCompatActivity
             intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
-        /*} else if (id == R.id.profile) {
+        } else if (id == R.id.edProfileNav) {
             intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
             finish();
-        } else if (id == R.id.settings) {
-            intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+        } else if (id == R.id.maps) {
             finish();
-        }*/
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

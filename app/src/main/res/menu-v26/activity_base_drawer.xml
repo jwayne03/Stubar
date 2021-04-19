@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group
-        android:checkableBehavior="single"
-        android:visible="false">
-        <item
-            android:id="@+id/profile"
-            android:icon="@drawable/ic_baseline_person_24"
-            android:title="@string/edit_profile" />
-        <item
-            android:id="@+id/settings"
-            android:icon="@drawable/ic_baseline_settings_24"
-            android:title="@string/menu_gallery" />
-    </group>
-
+    <item android:title="Profile">
+        <menu>
+            <item
+                android:id="@+id/edProfileNav"
+                android:icon="@drawable/ic_baseline_person_24"
+                android:title="Edit Profile" />
+            <item
+                android:id="@+id/logOut"
+                android:icon="@drawable/ic_baseline_exit_to_app_24"
+                android:title="@string/logOut" />
+        </menu>
+    </item>
     <item android:title="@string/search">
         <menu>
             <item
@@ -27,10 +26,11 @@
                 android:icon="@drawable/ic_baseline_menu_book_24"
                 android:title="@string/documents" />
             <item
-                android:id="@+id/logOut"
-                android:icon="@drawable/ic_baseline_exit_to_app_24"
-                android:title="@string/logOut" />
+                android:id="@id/maps"
+                android:icon="@drawable/ic_maps"
+                android:title="Maps" />
         </menu>
     </item>
+
 
 </menu>
