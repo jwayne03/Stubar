@@ -3,6 +3,7 @@ package com.example.stubar;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -150,7 +151,9 @@ public class BaseActivity extends AppCompatActivity
             startActivity(intent);
             finish();
         } else if (id == R.id.maps) {
-            finish();
+            Uri uri = Uri.parse("https://www.google.es/maps/?hl=es");
+            intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
