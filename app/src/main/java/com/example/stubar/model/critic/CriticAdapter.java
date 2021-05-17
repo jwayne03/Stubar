@@ -6,8 +6,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.stubar.model.user.UserAdapter;
-
 public class CriticAdapter extends RecyclerView.Adapter<com.example.stubar.model.critic.CriticAdapter.ViewHolder> {
 
     @NonNull

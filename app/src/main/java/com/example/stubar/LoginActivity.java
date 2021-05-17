@@ -2,11 +2,14 @@ package com.example.stubar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -14,8 +17,10 @@ import androidx.core.content.ContextCompat;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.user.User;
+import com.example.stubar.model.user.UserApiResponse;
 import com.example.stubar.utils.constants.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -34,10 +39,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private final int RC_SIGN_IN = 0;
     private EditText edUsername, edPassword;
-
+    private User newUser;
     private Button btnLogin, btnRegister;
     private SignInButton signInWithGoogle;
     private GoogleSignInClient googleSignInClient;
+    private String uuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,12 +118,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkAuthentication(View view) {
-        User newUser = new User();
+        newUser = new User();
+        RequestQueue queue = Volley.newRequestQueue(this);
         newUser.setUsername(edUsername.getText().toString().trim());
         newUser.setPassword(edPassword.getText().toString().trim());
-
-
-        RequestQueue queue = Volley.newRequestQueue(this);
+        Constants.USER_LOGGED = newUser;
 
         JSONObject jsonObject = null;
         try {
@@ -130,10 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                 response -> {
                     if (response.has("response")) {
                         try {
-                            String uuid = response.getString("response");
-                            newUser.setIdUser(uuid);
-                            Constants.USER_LOGGED = newUser;
-
+                            getUserApi(response);
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -155,4 +157,34 @@ public class LoginActivity extends AppCompatActivity {
 
         queue.add(postRequest);
     }
-}
+
+
+    private void getUserApi(JSONObject loginResponse) throws JSONException{
+        uuid = loginResponse.getString("response");
+        Constants.USER_LOGGED.setIdUser(uuid);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                Constants.USER_URL + Constants.USER_LOGGED.getIdUser().toString(),
+                response -> {
+                    Gson gson = new Gson();
+                    response = "{ \"user\": " + response + "}";
+                    Log.d("user", response);
+                    UserApiResponse userApiResponse = gson.fromJson(response, UserApiResponse.class);
+                    if(userApiResponse.getUser() != null) {
+                        Constants.USER_LOGGED = userApiResponse.getUser();
+                        Constants.USER_LOGGED.setIdUser(uuid);
+                    }
+                },
+                error -> {
+                    String msg = "Network error (timeout or disconnected)";
+                    if (error.networkResponse != null) {
+                        msg = "ERROR: " + error.networkResponse.statusCode;
+                    }
+                    Log.d("flx", msg);
+                });
+        queue.add(request);
+    }
+    }

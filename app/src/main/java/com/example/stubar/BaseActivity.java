@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +24,14 @@ import com.example.stubar.utils.constants.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import javax.xml.XMLConstants;
+
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     protected FrameLayout frameLayout;
     private Context context;
     public TextView tvUsername, tvEmail;
-    public ImageView image_profile;
+    public ImageView ivProfileImage;
 
     private DrawerLayout drawer;
 
@@ -41,11 +44,11 @@ public class BaseActivity extends AppCompatActivity
         setUsernameInformation();
     }
 
-
     private void setUsernameInformation() {
         tvUsername.setText(Constants.USER_LOGGED.getUsername());
         tvEmail.setText(Constants.USER_LOGGED.getEmail());
-        //todo implement image
+        ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24);
+        Log.d("image", "setUsernameInformation: " + Constants.USER_LOGGED.getProfilePhoto());
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -84,12 +87,13 @@ public class BaseActivity extends AppCompatActivity
     private void initView() {
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        View headerview = navigationView.getHeaderView(0);
-        image_profile = headerview.findViewById(R.id.image_profile);
-        image_profile.setImageResource(R.drawable.alarm);
-        tvUsername = headerview.findViewById(R.id.txt_username);
-        tvEmail =  headerview.findViewById(R.id.txt_email);
+        View headerView = navigationView.getHeaderView(0);
+
+        ivProfileImage = headerView.findViewById(R.id.image_profile);
+        tvUsername = headerView.findViewById(R.id.txt_username);
+        tvEmail =  headerView.findViewById(R.id.txt_email);
         frameLayout = findViewById(R.id.container);
+        ImageButton tbIcon = findViewById(R.id.tbButton);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -97,7 +101,6 @@ public class BaseActivity extends AppCompatActivity
         toggle.setDrawerIndicatorEnabled(false);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        ImageButton tbIcon = findViewById(R.id.tbButton);
         tbIcon.setOnClickListener(v -> drawer.openDrawer(Gravity.LEFT));
     }
 
