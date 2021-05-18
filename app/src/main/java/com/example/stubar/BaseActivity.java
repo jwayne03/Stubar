@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.example.stubar.utils.constants.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import javax.xml.XMLConstants;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,8 +44,11 @@ public class BaseActivity extends AppCompatActivity
     private void setUsernameInformation() {
         tvUsername.setText(Constants.USER_LOGGED.getUsername());
         tvEmail.setText(Constants.USER_LOGGED.getEmail());
-        ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24);
-        Log.d("image", "setUsernameInformation: " + Constants.USER_LOGGED.getEmail());
+        if(Constants.USER_LOGGED.getProfilePhoto() == null)
+            ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24);
+        else
+            ivProfileImage.setImageURI(Uri.parse(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser()
+            + "/profilePhoto"));
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -99,12 +100,9 @@ public class BaseActivity extends AppCompatActivity
         toggle.setDrawerIndicatorEnabled(false);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        tbIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawer.openDrawer(Gravity.LEFT);
-                setUsernameInformation();
-            }
+        tbIcon.setOnClickListener(view -> {
+            drawer.openDrawer(Gravity.LEFT);
+            setUsernameInformation();
         });
     }
 

@@ -35,10 +35,10 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = (SharedPreferences) getSharedPreferences(getPackageName(), MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
 
-        boolean darkmode = sharedPreferences.getBoolean("value", false);
-        swDarkMode.setChecked(darkmode);
+        boolean darkMode = sharedPreferences.getBoolean("value", false);
+        swDarkMode.setChecked(darkMode);
 
     }
 
@@ -49,8 +49,8 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        boolean darkmode = swDarkMode.isChecked();
-        editor.putBoolean("value", darkmode);
+        boolean darkMode = swDarkMode.isChecked();
+        editor.putBoolean("value", darkMode);
 
         editor.apply();
     }

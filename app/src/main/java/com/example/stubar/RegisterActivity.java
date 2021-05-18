@@ -148,9 +148,7 @@ public class RegisterActivity extends AppCompatActivity {
                         spInstitution.setAdapter(new InstitutionAdapter(this, listOfInstitutions));
                     }
                 },
-                error -> {
-                    Log.d("ERROR", "Error downloading institutions");
-                }
+                error -> Log.d("ERROR", "Error downloading institutions")
 
         );
         queque.add(request);

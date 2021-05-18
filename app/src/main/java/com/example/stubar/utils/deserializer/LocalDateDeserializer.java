@@ -23,7 +23,7 @@ public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public LocalDate deserialize(JsonParser jp, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+            throws IOException {
         return LocalDate.parse(jp.readValueAs(String.class));
     }
 }

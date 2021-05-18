@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity {
                         rvDocument.setAdapter(adapter);
                     } else {
                         tvEmptyDocument.setVisibility(View.VISIBLE);
-                        tvEmptyDocument.setText("EMPTY");
+                        tvEmptyDocument.setText(R.string.empty);
                     }
 
                 },
@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity {
                         rvOffer.setAdapter(adapter);
                     } else {
                         tvEmptyOffer.setVisibility(View.VISIBLE);
-                        tvEmptyOffer.setText("EMPTY");
+                        tvEmptyOffer.setText(R.string.empty);
                     }
                 },
                 error -> {
@@ -110,7 +110,6 @@ public class MainActivity extends BaseActivity {
         queue.add(request);
 
     }
-
 
     private void getGoogleCredentials(GoogleSignInAccount googleSignInAccount) {
         String name = googleSignInAccount.getDisplayName();

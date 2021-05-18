@@ -8,10 +8,6 @@ public class DocumentApiResponse {
     @SerializedName("document")
     List<Document> documents;
 
-    public DocumentApiResponse(List<Document> documents) {
-        this.documents = documents;
-    }
-
     public DocumentApiResponse() {
     }
 

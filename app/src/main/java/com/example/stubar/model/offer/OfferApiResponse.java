@@ -8,10 +8,6 @@ public class OfferApiResponse {
     @SerializedName("offers")
     List<Offer> offers;
 
-    public OfferApiResponse(List<Offer> offers) {
-        this.offers = offers;
-    }
-
     public OfferApiResponse() {
     }
 
