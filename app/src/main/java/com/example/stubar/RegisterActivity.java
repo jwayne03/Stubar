@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,11 @@ import androidx.core.content.ContextCompat;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.stubar.model.institution.Institution;
+import com.example.stubar.model.institution.InstitutionAdapter;
+import com.example.stubar.model.institution.InstitutionApiResponse;
 import com.example.stubar.model.user.User;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
@@ -37,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     CheckBox cbTermsConditions;
     Button btnSignUp, btnLoginHere;
+    Spinner spInstitution;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -48,24 +55,24 @@ public class RegisterActivity extends AppCompatActivity {
         edSurname = findViewById(R.id.edSurname);
         edUsername = findViewById(R.id.edUsername);
         edEmail = findViewById(R.id.edEmail);
-//        edLocation = findViewById(R.id.edLocation);
         edBirthday = findViewById(R.id.edBirthday);
         edPassword = findViewById(R.id.edPassword);
         edConfirmPassword = findViewById(R.id.edConfirmPassword);
+        spInstitution = findViewById(R.id.spInstitution);
 
         cbTermsConditions = findViewById(R.id.cbTermsConditions);
 
         btnSignUp = findViewById(R.id.btnSignUp);
         btnLoginHere = findViewById(R.id.btnLoginHere);
 
+        setSpInstitution();
+
         btnLoginHere.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             finish();
         });
 
-        btnSignUp.setOnClickListener(v -> {
-            checkData(v);
-        });
+        btnSignUp.setOnClickListener(this::checkData);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -94,17 +101,19 @@ public class RegisterActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkData(View view) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         Snackbar snackbar = Snackbar.make(view, "FATAL ERROR", Snackbar.LENGTH_LONG);
         snackbar.getView().setBackgroundColor(ContextCompat.getColor(RegisterActivity.this, R.color.orange));
+        InstitutionAdapter adapter = (InstitutionAdapter) this.spInstitution.getAdapter();
+        String institution  = adapter.getItemName(this.spInstitution.getSelectedItemPosition());
 
         if (!edPassword.getText().toString().equals(edConfirmPassword.getText().toString())) {
-            snackbar.setText("The passwords don't coincide").show();
+            snackbar.setText(R.string.errorPassword).show();
         } else if (!this.edEmail.getText().toString().matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
-            snackbar.setText("The email is in the incorrect format").show();
+            snackbar.setText(R.string.errorEmail).show();
         } else if (!this.edBirthday.getText().toString().matches("([0-9]{2})-([0-9]{2})-([0-9]{4})")) {
-            snackbar.setText("The Birthday is in the incorrect format").show();
+            snackbar.setText(R.string.errorBirthday).show();
+        } else if (institution.equals("Institution")) {
+            snackbar.setText(R.string.errorInstitution).show();
         } else {
             User newUser = new User();
             newUser.setName(this.edName.getText().toString().trim());
@@ -113,10 +122,37 @@ public class RegisterActivity extends AppCompatActivity {
             newUser.setEmail(this.edEmail.getText().toString().trim());
             newUser.setBirthday(this.edBirthday.getText().toString().trim());
             newUser.setPassword(this.edPassword.getText().toString().trim());
-            newUser.setInstitution("UAB");
-            newUser.setProfilePhoto("test");
+
+            InstitutionAdapter a = (InstitutionAdapter) this.spInstitution.getAdapter();
+            newUser.setInstitution(a.getItemName(this.spInstitution.getSelectedItemPosition()));
 
             registerUser(newUser);
         }
+    }
+
+    private void setSpInstitution() {
+        RequestQueue queque = Volley.newRequestQueue(this);
+        String url = Constants.INSTITUTION_URL;
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                url,
+                response -> {
+                    Gson gson = new Gson();
+                    InstitutionApiResponse listOfInstitutions = gson.fromJson(response, InstitutionApiResponse.class);
+
+                    if (listOfInstitutions.size() == 0) {
+                        spInstitution.setVisibility(View.GONE);
+                        Log.d("ERROR", "setSpInstitution: " + response);
+                    } else {
+                        listOfInstitutions.add(0, new Institution());
+                        spInstitution.setAdapter(new InstitutionAdapter(this, listOfInstitutions));
+                    }
+                },
+                error -> {
+                    Log.d("ERROR", "Error downloading institutions");
+                }
+
+        );
+        queque.add(request);
     }
 }

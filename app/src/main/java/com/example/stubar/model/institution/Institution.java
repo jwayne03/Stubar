@@ -3,16 +3,21 @@ package com.example.stubar.model.institution;
 import java.util.UUID;
 
 public class Institution {
-    private UUID id_Institution;
+    private UUID idInstitution;
     private String name;
     private String postcode;
 
-    public UUID getId_Institution() {
-        return id_Institution;
+    //Hint contructor
+    public Institution() {
+        this.name = "Institution";
     }
 
-    public void setId_Institution(UUID id_Institution) {
-        this.id_Institution = id_Institution;
+    public UUID getIdInstitution() {
+        return idInstitution;
+    }
+
+    public void setIdInstitution(String idInstitution) {
+        this.idInstitution = UUID.fromString(idInstitution);
     }
 
     public String getName() {

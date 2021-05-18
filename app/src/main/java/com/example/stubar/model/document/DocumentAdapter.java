@@ -1,11 +1,13 @@
-package com.example.stubar.model.document;
+ package com.example.stubar.model.document;
 
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -54,6 +56,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
             ibDownload = itemView.findViewById(R.id.ibDownload);
         }
 
+        @SuppressLint("SetJavaScriptEnabled")
         public void setOffer(Document document) {
             this.document = document;
             tvName.setText(document.getName());

@@ -2,14 +2,13 @@ package com.example.stubar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -40,7 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     private final int RC_SIGN_IN = 0;
     private EditText edUsername, edPassword;
     private User newUser;
-    private Button btnLogin, btnRegister;
+    private Button btnLogin;
+    private TextView tvBtnRegister;
     private SignInButton signInWithGoogle;
     private GoogleSignInClient googleSignInClient;
     private String uuid;
@@ -56,9 +56,10 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         signInWithGoogle = findViewById(R.id.sign_in_button);
         signInWithGoogle.setSize(SignInButton.SIZE_STANDARD);
-        btnRegister = findViewById(R.id.btnRegister);
 
-        btnRegister.setOnClickListener(v -> {
+        tvBtnRegister = findViewById(R.id.btnRegister);
+
+        tvBtnRegister.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             finish();
         });

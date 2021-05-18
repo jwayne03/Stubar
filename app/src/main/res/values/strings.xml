@@ -4,7 +4,8 @@
 
     <string name="tvLogin">Login</string>
     <string name="btnLogin">Login</string>
-    <string name="btnRegister">Register</string>
+    <string name="tvAskRegister">You are not registered yet?</string>
+    <string name="tvBtnRegister">Click here!</string>
     <string name="btnSignInGoogle">Sign in with Google</string>
     <string name="title_activity_slide_bar_menu">SlideBarMenu</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -70,4 +71,11 @@
     <string name="documents">Documents</string>
     <string name="search">Search</string>
     <string name="logOut">Log out</string>
+
+    <!---REGISTER OUTPUT -->
+    <string name="errorPassword">The passwords don\'t coincide</string>
+    <string name="errorEmail">The email is in the incorrect format</string>
+    <string name="errorBirthday">The Birthday is in the incorrect format</string>
+    <string name="errorInstitution">The Institution can\'t be empty</string>
+
 </resources>
