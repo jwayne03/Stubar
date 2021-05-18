@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
                     response = "{ \"document\": " + response + "}";
-                    Log.d("documents", response);
+                    Log.d("main documents", response);
                     DocumentApiResponse documentApiResponse = gson.fromJson(response, DocumentApiResponse.class);
                     if(documentApiResponse.getDocuments().size() != 0) {
                         DocumentAdapter adapter = new DocumentAdapter(MainActivity.this, documentApiResponse);
@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
                     response = "{ \"offers\": " + response + "}";
-                    Log.d("promotions", response);
+                    Log.d("main promotions", response);
                     OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
                     if(offer.getOffers().size() != 0) {
                         OfferAdapter adapter = new OfferAdapter(MainActivity.this, offer);

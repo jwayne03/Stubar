@@ -130,7 +130,7 @@ public class BaseActivity extends AppCompatActivity
         builder.show();
     }
 
-    @SuppressLint("ResourceType")
+    @SuppressLint({"ResourceType", "QueryPermissionsNeeded"})
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -155,9 +155,10 @@ public class BaseActivity extends AppCompatActivity
             startActivity(intent);
             finish();
         } else if (id == R.id.maps) {
-            Uri uri = Uri.parse("https://www.google.es/maps/?hl=es");
-            intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194?q=restaurants");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
         }
 
         drawer.closeDrawer(GravityCompat.START);

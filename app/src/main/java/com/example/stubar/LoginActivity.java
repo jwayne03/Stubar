@@ -172,9 +172,9 @@ public class LoginActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     response = "{ \"user\": " + response + "}";
                     Log.d("user", response);
-                    UserApiResponse userApiResponse = gson.fromJson(response, UserApiResponse.class);
-                    if(userApiResponse.getUser() != null) {
-                        Constants.USER_LOGGED = userApiResponse.getUser();
+                    User user = gson.fromJson(response, UserApiResponse.class).getUser();
+                    if(user != null) {
+                        Constants.USER_LOGGED = user;
                         Constants.USER_LOGGED.setIdUser(uuid);
                     }
                 },

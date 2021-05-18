@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.stubar.model.local.LocalApiResponse;
 import com.example.stubar.model.offer.OfferAdapter;
 import com.example.stubar.model.offer.OfferApiResponse;
 import com.example.stubar.utils.constants.Constants;
@@ -47,6 +48,7 @@ public class Promotions extends BaseActivity {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
                     response = "{ \"offers\": " + response + "}";
+                    Log.d("promotions", response);
                     OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
                     OfferAdapter adapter = new OfferAdapter(Promotions.this, offer);
                     recyclerView.setAdapter(adapter);
@@ -59,6 +61,5 @@ public class Promotions extends BaseActivity {
                     Log.d("flx", msg);
                 });
         queue.add(request);
-
     }
 }
