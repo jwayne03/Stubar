@@ -41,14 +41,13 @@ public class BaseActivity extends AppCompatActivity
         setContentView(R.layout.activity_base);
         context = this;
         initView();
-        setUsernameInformation();
     }
 
     private void setUsernameInformation() {
         tvUsername.setText(Constants.USER_LOGGED.getUsername());
         tvEmail.setText(Constants.USER_LOGGED.getEmail());
         ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24);
-        Log.d("image", "setUsernameInformation: " + Constants.USER_LOGGED.getProfilePhoto());
+        Log.d("image", "setUsernameInformation: " + Constants.USER_LOGGED.getEmail());
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -88,11 +87,10 @@ public class BaseActivity extends AppCompatActivity
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-
+        frameLayout = findViewById(R.id.container);
         ivProfileImage = headerView.findViewById(R.id.image_profile);
         tvUsername = headerView.findViewById(R.id.txt_username);
         tvEmail =  headerView.findViewById(R.id.txt_email);
-        frameLayout = findViewById(R.id.container);
         ImageButton tbIcon = findViewById(R.id.tbButton);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -101,7 +99,13 @@ public class BaseActivity extends AppCompatActivity
         toggle.setDrawerIndicatorEnabled(false);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        tbIcon.setOnClickListener(v -> drawer.openDrawer(Gravity.LEFT));
+        tbIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.openDrawer(Gravity.LEFT);
+                setUsernameInformation();
+            }
+        });
     }
 
     @Override
@@ -139,7 +143,6 @@ public class BaseActivity extends AppCompatActivity
             intent = new Intent(this, UploadFile.class);
             startActivity(intent);
             finish();
-            // Handle the camera action
         } else if (id == R.id.restaurants) {
             intent = new Intent(this, Promotions.class);
             startActivity(intent);
@@ -159,7 +162,6 @@ public class BaseActivity extends AppCompatActivity
             startActivity(intent);
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

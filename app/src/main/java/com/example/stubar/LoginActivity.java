@@ -134,14 +134,14 @@ public class LoginActivity extends AppCompatActivity {
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, Constants.AUTHENTICATION_USER_URL, jsonObject,
                 response -> {
                     if (response.has("response")) {
-                        try {
-                            getUserApi(response);
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } catch (JSONException e) {
-                            Log.d("response", e.getMessage());
-                        }
+                            try {
+                                getUserApi(response);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                     } else {
                         try {
                             String errorMessage = response.getString("error");
@@ -157,7 +157,6 @@ public class LoginActivity extends AppCompatActivity {
 
         queue.add(postRequest);
     }
-
 
     private void getUserApi(JSONObject loginResponse) throws JSONException{
         uuid = loginResponse.getString("response");

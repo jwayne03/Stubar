@@ -35,9 +35,6 @@ public class MainActivity extends BaseActivity {
         tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText("HOME");
         View rootView = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
-        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
-        if (googleSignInAccount != null) getGoogleCredentials(googleSignInAccount);
-        else Log.d("onCreate: ", "nada");
         initBottomNavigation(rootView, R.id.home);
         rvOffer = findViewById(R.id.rvOffer);
         rvOffer.setLayoutManager(new LinearLayoutManager(this));
@@ -45,6 +42,9 @@ public class MainActivity extends BaseActivity {
         rvDocument.setLayoutManager(new LinearLayoutManager(this));
         tvEmptyOffer = findViewById(R.id.tvEmptyOffer);
         tvEmptyDocument = findViewById(R.id.tvEmptyDocument);
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if (googleSignInAccount != null) getGoogleCredentials(googleSignInAccount);
+        else Log.d("onCreate: ", "nada");
         showPromotions();
         showDocuments();
     }
