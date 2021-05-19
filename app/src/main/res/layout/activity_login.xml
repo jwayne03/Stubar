@@ -9,9 +9,10 @@
 
     <EditText
         android:id="@+id/edUsernameLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="252dp"
+        android:layout_height="46dp"
         android:layout_marginTop="64dp"
+        android:background="@drawable/edittext_custom"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textEmailAddress"
@@ -22,14 +23,15 @@
         android:textColorHighlight="@color/white"
         android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLogin" />
 
     <EditText
         android:id="@+id/edPasswordLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="252dp"
+        android:layout_height="46dp"
+        android:background="@drawable/edittext_custom"
         android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="@string/passowrd"

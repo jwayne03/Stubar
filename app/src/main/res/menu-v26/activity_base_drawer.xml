@@ -19,7 +19,7 @@
         <menu>
             <item
                 android:id="@+id/restaurants"
-                android:icon="@drawable/ic_baseline_sports_bar_24"
+                android:icon="@drawable/ic_fastfood"
                 android:title="@string/restaurants" />
             <item
                 android:id="@+id/documents"
@@ -27,6 +27,4 @@
                 android:title="@string/documents" />
         </menu>
     </item>
-
-
 </menu>
