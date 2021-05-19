@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,6 +36,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private Context context;
     public TextView tvUsername, tvEmail;
     public ImageView ivProfileImage;
+    public EditText edSearch;
 
     private DrawerLayout drawer;
 
@@ -87,7 +91,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    @SuppressLint("RtlHardcoded")
+    @SuppressLint({"RtlHardcoded", "WrongConstant"})
     private void initView() {
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -97,6 +101,10 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         tvUsername = headerView.findViewById(R.id.txt_username);
         tvEmail =  headerView.findViewById(R.id.txt_email);
         ImageButton tbIcon = findViewById(R.id.tbButton);
+        ImageButton tbSearch = findViewById(R.id.tbSearch);
+        ImageButton tbCross = findViewById(R.id.tbCross);
+        edSearch = findViewById(R.id.ptSearch);
+        TextView tbTitle = findViewById(R.id.tbTitle);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -109,6 +117,21 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             drawer.openDrawer(Gravity.LEFT);
             setUsernameInformation();
         });
+
+        tbSearch.setOnClickListener(view -> {
+            edSearch.setVisibility(View.VISIBLE);
+            tbCross.setVisibility(View.VISIBLE);
+            tbSearch.setVisibility(View.GONE);
+            tbTitle.setVisibility(View.GONE);
+        });
+
+        tbCross.setOnClickListener(view -> {
+            edSearch.setVisibility(View.GONE);
+            tbCross.setVisibility(View.GONE);
+            tbSearch.setVisibility(View.VISIBLE);
+            tbTitle.setVisibility(View.VISIBLE);
+        });
+
     }
 
     @Override

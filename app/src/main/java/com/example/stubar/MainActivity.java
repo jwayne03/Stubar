@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,12 +23,13 @@ import com.example.stubar.model.offer.OfferApiResponse;
 import com.example.stubar.utils.constants.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 public class MainActivity extends BaseActivity {
     RecyclerView rvOffer, rvDocument;
     TextView tbTitle, tvEmptyOffer, tvEmptyDocument;
-
+    FloatingActionButton fbAdd, fbDoc, fbPro, fbDel;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,40 @@ public class MainActivity extends BaseActivity {
         rvDocument.setLayoutManager(new LinearLayoutManager(this));
         tvEmptyOffer = findViewById(R.id.tvEmptyOffer);
         tvEmptyDocument = findViewById(R.id.tvEmptyDocument);
+        fbAdd = findViewById(R.id.fbAdd);
+        fbDoc = findViewById(R.id.fbDocuments);
+        fbPro = findViewById(R.id.fbPromotions);
+        fbDel = findViewById(R.id.fbClose);
+
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (googleSignInAccount != null) getGoogleCredentials(googleSignInAccount);
         else Log.d("onCreate: ", "nada");
+
+        fbAdd.setOnClickListener(view -> {
+            fbDel.setVisibility(View.VISIBLE);
+            fbAdd.setVisibility(View.GONE);
+            fbDoc.setVisibility(View.VISIBLE);
+            fbPro.setVisibility(View.VISIBLE);
+        });
+
+        fbDoc.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, UploadFile.class);
+            startActivity(intent);
+        });
+
+        fbPro.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, Promotions.class);
+            startActivity(intent);
+        });
+
+        fbDel.setOnClickListener(view -> {
+            fbDel.setVisibility(View.GONE);
+            fbAdd.setVisibility(View.VISIBLE);
+            fbDoc.setVisibility(View.INVISIBLE);
+            fbPro.setVisibility(View.INVISIBLE);
+
+        });
+
         showPromotions();
         showDocuments();
     }
