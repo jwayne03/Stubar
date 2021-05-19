@@ -81,4 +81,13 @@
     <string name="errorBirthday">The Birthday is in the incorrect format</string>
     <string name="errorInstitution">The Institution can\'t be empty</string>
 
+    <!--- Upload file text -->
+    <string name="uploadfile">Upload a Document</string>
+    <string name="edNameDocument">Enter the name of the document</string>
+    <string name="edNameDegree">Enter your degree (ex: Computer science…)</string>
+
+    <!-- Upload offer text  -->
+    <string name="btnUploadImage">Upload an Image here</string>
+    <string name="edOfferPrice">Enter the price of the offer</string>
+    <string name="edOfferComment">Put your comment here</string>
 </resources>
