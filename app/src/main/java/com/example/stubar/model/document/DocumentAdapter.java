@@ -7,12 +7,12 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stubar.R;
@@ -36,7 +36,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull DocumentAdapter.ViewHolder holder, int position) {
-        holder.setOffer(documentApiResponse.getDocuments().get(position));
+        holder.setDocument(documentApiResponse.getDocuments().get(position));
     }
 
     @Override
@@ -45,28 +45,50 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvLocalName, tvDescription, tvAuthorDoc, tvTopic;
+        ConstraintLayout cnstLayFront, cnstLayBack;
+        TextView tvLocalName, tvGrade, tvAuthorDoc, tvTopic, tvBackName;
         ImageButton btnDownloadDoc;
         ImageView ivBackground;
+
         Document document;
         DownloadManager downloadManager;
+        boolean clicked;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            cnstLayFront = itemView.findViewById(R.id.cnstLayFront);
+            cnstLayBack = itemView.findViewById(R.id.cnstLayBack);
             tvLocalName = itemView.findViewById(R.id.tvLocalName);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvBackName = itemView.findViewById(R.id.tvBackName);
+            tvGrade = itemView.findViewById(R.id.tvGrade);
             tvAuthorDoc = itemView.findViewById(R.id.tvAuthorDoc);
             tvTopic = itemView.findViewById(R.id.tvTopic);
+            ivBackground = itemView.findViewById(R.id.ivBackground);
             btnDownloadDoc = itemView.findViewById(R.id.btnDownloadDoc);
+
+            clicked = false;
+
+            itemView.setOnClickListener(view -> {
+                clicked = !clicked;
+
+                if (clicked) {
+                    tvLocalName.setVisibility(View.GONE);
+                    cnstLayBack.setVisibility(View.VISIBLE);
+                } else {
+                    tvLocalName.setVisibility(View.VISIBLE);
+                    cnstLayBack.setVisibility(View.GONE);
+                }
+            });
         }
 
         @SuppressLint("SetJavaScriptEnabled")
-        public void setOffer(Document document) {
+        private void setDocument(Document document) {
             this.document = document;
             tvLocalName.setText(document.getName());
-            tvDescription.setText(document.getName());
-            tvAuthorDoc.setText(document.getName());
-            tvTopic.setText(String.valueOf(document.getRate()));
+            tvBackName.setText(document.getName());
+            tvGrade.setText(String.valueOf(document.getGrade()));
+            tvAuthorDoc.setText("hola");
+            tvTopic.setText(String.valueOf(document.getTopicName()));
 
             downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             btnDownloadDoc.setOnClickListener(v -> {

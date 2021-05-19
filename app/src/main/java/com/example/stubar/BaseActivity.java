@@ -4,9 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< Updated upstream
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+=======
+>>>>>>> Stashed changes
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,10 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.stubar.utils.constants.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -66,12 +65,12 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.promotions:
-                    startActivity(new Intent(getApplicationContext(), Promotions.class));
+                    startActivity(new Intent(getApplicationContext(), ListPromotions.class));
                     finish();
                     overridePendingTransition(0, 0);
                     return false;
                 case R.id.book:
-                    startActivity(new Intent(getApplicationContext(), UploadFile.class));
+                    startActivity(new Intent(getApplicationContext(), ListDocuments.class));
                     finish();
                     overridePendingTransition(0, 0);
                     return false;
@@ -164,11 +163,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         Intent intent;
         if (id == R.id.documents) {
-            intent = new Intent(this, UploadFile.class);
+            intent = new Intent(this, ListDocuments.class);
             startActivity(intent);
             finish();
         } else if (id == R.id.restaurants) {
-            intent = new Intent(this, Promotions.class);
+            intent = new Intent(this, ListPromotions.class);
             startActivity(intent);
             finish();
         } else if (id == R.id.logOut) {

@@ -97,6 +97,7 @@ public class MainActivity extends BaseActivity {
                     DocumentApiResponse documentApiResponse = gson.fromJson(response, DocumentApiResponse.class);
                     if(documentApiResponse.getDocuments().size() != 0) {
                         DocumentAdapter adapter = new DocumentAdapter(MainActivity.this, documentApiResponse);
+                        rvDocument.setLayoutManager(new GridLayoutManager(this, 2));
                         rvDocument.setAdapter(adapter);
                     } else {
                         tvEmptyDocument.setVisibility(View.VISIBLE);

@@ -7,16 +7,15 @@
     android:layout_margin="4dp">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cnstLayFront"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_margin="5dp"
-        android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ivBackground"
@@ -44,14 +43,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cnstLayBack"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="#99000000"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/tvBackName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -68,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/tvDescription"
-            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+            app:layout_constraintStart_toStartOf="@+id/tvBackName"
+            app:layout_constraintTop_toBottomOf="@+id/tvBackName" />
 
         <TextView
             android:id="@+id/tvTopic"
@@ -77,9 +77,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="TextView"
-            app:layout_constraintEnd_toEndOf="@+id/tvAuthorDoc"
             app:layout_constraintStart_toStartOf="@+id/tvAuthorDoc"
             app:layout_constraintTop_toBottomOf="@+id/tvAuthorDoc" />
+
+        <TextView
+            android:id="@+id/tvGrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/tvTopic"
+            app:layout_constraintTop_toBottomOf="@+id/tvTopic" />
 
         <ImageButton
             android:id="@+id/btnDownloadDoc"

@@ -8,10 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -25,7 +27,6 @@ import com.example.stubar.utils.constants.Constants;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.offer.OfferAdapter.ViewHolder> {
@@ -55,30 +56,55 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDescription, tvPrice;
-        ImageView ivLego;
+        ConstraintLayout cnstLayFront, cnstLayBack;
+        TextView tvLocalName, tvComment, tvGoTo, tvOfferPrice;
+        ImageView ivBackground;
+        ImageButton btnDownloadOffer;
         Offer offers;
+
+        boolean clicked;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    getLocal(offer.getOffers().get(getAdapterPosition()).getLocalID().toString());
+            cnstLayFront = itemView.findViewById(R.id.cnstLayFront);
+            cnstLayBack = itemView.findViewById(R.id.cnstLayBack);
+            tvLocalName = itemView.findViewById(R.id.tvLocalName);
+            tvComment = itemView.findViewById(R.id.tvComment);
+            tvOfferPrice = itemView.findViewById(R.id.tvOfferPrice);
+            tvGoTo = itemView.findViewById(R.id.tvGoTo);
+            ivBackground = itemView.findViewById(R.id.ivBackground);
+            btnDownloadOffer = itemView.findViewById(R.id.btnDownloadOffer);
+
+            clicked = false;
+
+            itemView.setOnClickListener(view -> {
+                clicked = !clicked;
+
+                if (clicked) {
+                    tvLocalName.setVisibility(View.GONE);
+                    cnstLayBack.setVisibility(View.VISIBLE);
+                } else {
+                    tvLocalName.setVisibility(View.VISIBLE);
+                    cnstLayBack.setVisibility(View.GONE);
                 }
             });
-            tvDescription = itemView.findViewById(R.id.tvDescription);
-            tvPrice = itemView.findViewById(R.id.tvPrice);
-            ivLego = itemView.findViewById(R.id.ivLego);
         }
 
         public void setOffer(Offer offer) {
             this.offers = offer;
-            tvDescription.setText(offer.getComment());
-            tvPrice.setText(String.valueOf(offer.getPrice()));
+            tvLocalName.setText(decodeUTF8(offer.getLocalName());
+            tvComment.setText(offer.getComment());
+            tvOfferPrice.setText(String.valueOf(offer.getPrice()));
+            tvGoTo.setText("Go to " + decodeUTF8(offer.getLocalName()));
+
+
             if(!offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
                 Picasso.with(context).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
-                        "/profilePhoto").fit().into(ivLego);
+                        "/profilePhoto").fit().into(ivBackground);
+
+            btnDownloadOffer.setOnClickListener(view -> {
+                getLocal(offer.getLocalID().toString());
+            });
         }
     }
 

@@ -45,12 +45,13 @@
         android:id="@+id/cnstLayBack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#99000000"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/tvComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -62,15 +63,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvOfferPrize"
+            android:id="@+id/tvOfferPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="TextView"
             android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="@+id/tvDescription"
-            app:layout_constraintStart_toStartOf="@+id/tvDescription"
-            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+            app:layout_constraintEnd_toEndOf="@+id/tvComment"
+            app:layout_constraintStart_toStartOf="@+id/tvComment"
+            app:layout_constraintTop_toBottomOf="@+id/tvComment" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -79,17 +80,17 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvOfferPrize">
+            app:layout_constraintTop_toBottomOf="@+id/tvOfferPrice">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tvGoTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:text="TextView" />
 
             <ImageButton
-                android:id="@+id/btnDownloadDoc"
+                android:id="@+id/btnDownloadOffer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00FFFFFF"

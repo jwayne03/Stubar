@@ -1,5 +1,6 @@
 package com.example.stubar;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,12 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.stubar.model.document.DocumentAdapter;
-import com.example.stubar.model.document.DocumentApiResponse;
+import com.example.stubar.model.offer.OfferAdapter;
+import com.example.stubar.model.offer.OfferApiResponse;
 import com.example.stubar.utils.constants.Constants;
 import com.google.gson.Gson;
 
-public class UploadFile extends BaseActivity {
+public class ListPromotions extends BaseActivity {
     RecyclerView recyclerView;
     TextView tbTitle;
 
@@ -28,28 +29,28 @@ public class UploadFile extends BaseActivity {
         super.onCreate(savedInstanceState);
         setTitle("");
         tbTitle = findViewById(R.id.tbTitle);
-        tbTitle.setText("DOCUMENTS");
-        View rootView = getLayoutInflater().inflate(R.layout.activity_upload_file, frameLayout);
-        initBottomNavigation(rootView, R.id.book);
+        tbTitle.setText("PROMOTIONS");
+        View rootView = getLayoutInflater().inflate(R.layout.activity_promotions, frameLayout);
+        initBottomNavigation(rootView, R.id.promotions);
         recyclerView = findViewById(R.id.rvOffer);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        showDocuments();
-
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        showPromotions();
     }
 
-    private void showDocuments() {
+
+    private void showPromotions() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                Constants.DOCUMENTS_URL,
+                Constants.ALL_OFFERS_URL,
                 response -> {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
-                    response = "{ \"document\": " + response + "}";
-                    Log.d("flx", response);
-                    DocumentApiResponse documentApiResponse = gson.fromJson(response, DocumentApiResponse.class);
-                    DocumentAdapter adapter = new DocumentAdapter(UploadFile.this, documentApiResponse);
+                    response = "{ \"offers\": " + response + "}";
+                    Log.d("promotions", response);
+                    OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
+                    OfferAdapter adapter = new OfferAdapter(ListPromotions.this, offer);
                     recyclerView.setAdapter(adapter);
                 },
                 error -> {

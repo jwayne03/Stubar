@@ -12,7 +12,9 @@ public class Offer {
     private UUID userID;
     private LocalDate date;
 
-    public Offer(String idOffer, String imageOffer, String comment, double price, String localID, String userID, LocalDate date) {
+    private String localName;
+
+    public Offer(String idOffer, String imageOffer, String comment, double price, String localID, String userID, LocalDate date, String localName) {
         if (idOffer != null) this.idOffer = UUID.fromString(idOffer);
         this.imageOffer = imageOffer;
         this.comment = comment;
@@ -20,7 +22,7 @@ public class Offer {
         this.localID = UUID.fromString(localID);
         this.userID = UUID.fromString(userID);
         this.date = date;
-
+        this.localName = localName;
     }
 
     public Offer() {
@@ -80,5 +82,13 @@ public class Offer {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getLocalName() {
+        return localName;
+    }
+
+    public void setLocalName(String localName) {
+        this.localName = localName;
     }
 }

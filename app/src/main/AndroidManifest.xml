@@ -21,8 +21,8 @@
         android:theme="@style/Theme.Stubar"
         tools:targetApi="m">
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".UploadFile" />
-        <activity android:name=".Promotions" />
+        <activity android:name=".ListDocuments" />
+        <activity android:name=".ListPromotions" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".LoginActivity" />
         <!--
