@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,25 +45,31 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvRate, tvGrade, tvTopic;
-        ImageButton ibDownload;
+        TextView tvLocalName, tvDescription, tvAuthorDoc, tvTopic;
+        ImageButton btnDownloadDoc;
+        ImageView ivBackground;
         Document document;
         DownloadManager downloadManager;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tvDescription);
-            tvRate = itemView.findViewById(R.id.tvPrice);
-            ibDownload = itemView.findViewById(R.id.ibDownload);
+            tvLocalName = itemView.findViewById(R.id.tvLocalName);
+            tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvAuthorDoc = itemView.findViewById(R.id.tvAuthorDoc);
+            tvTopic = itemView.findViewById(R.id.tvTopic);
+            btnDownloadDoc = itemView.findViewById(R.id.btnDownloadDoc);
         }
 
         @SuppressLint("SetJavaScriptEnabled")
         public void setOffer(Document document) {
             this.document = document;
-            tvName.setText(document.getName());
-            tvRate.setText(String.valueOf(document.getRate()));
+            tvLocalName.setText(document.getName());
+            tvDescription.setText(document.getName());
+            tvAuthorDoc.setText(document.getName());
+            tvTopic.setText(String.valueOf(document.getRate()));
+
             downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-            ibDownload.setOnClickListener(v -> {
+            btnDownloadDoc.setOnClickListener(v -> {
                 Uri uri = Uri.parse(Constants.DOCUMENTS_DOWNLOAD_URL + document.getDocPath());
 
                 DownloadManager.Request request = new DownloadManager.Request(uri);
