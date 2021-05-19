@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.stubar.model.local.Local;
 import com.example.stubar.model.local.LocalApiResponse;
 import com.example.stubar.utils.constants.Constants;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -54,6 +56,7 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvDescription, tvPrice;
+        ImageView ivLego;
         Offer offers;
 
         public ViewHolder(@NonNull View itemView) {
@@ -66,12 +69,16 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
             });
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            ivLego = itemView.findViewById(R.id.ivLego);
         }
 
         public void setOffer(Offer offer) {
             this.offers = offer;
             tvDescription.setText(offer.getComment());
             tvPrice.setText(String.valueOf(offer.getPrice()));
+            if(!offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
+                Picasso.with(context).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
+                        "/profilePhoto").fit().into(ivLego);
         }
     }
 

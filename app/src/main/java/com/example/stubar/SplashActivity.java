@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
 
 public class SplashActivity extends AppCompatActivity implements Runnable {
 
     Handler handler;
-
+    int stepCounter;
+    TextView tvCurrentStep;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,13 +19,36 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
 
         // Program and fire the handler immediately
         handler = new Handler();
-        handler.postDelayed(this, 2000);
+        stepCounter = 0;
+        handler.postDelayed(this, 0);
     }
 
     @Override
     public void run() {
-        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-        finish();
-        startActivity(intent);
+        tvCurrentStep = findViewById(R.id.tvStep);
+
+        if (stepCounter == 0) {
+            // First step
+            tvCurrentStep.setText(R.string.lbl_step_initializing);
+            stepCounter++;
+            handler.postDelayed(this, 1000);
+        }
+        else if (stepCounter == 1) {
+            // Second step
+            tvCurrentStep.setText(R.string.lbl_step_checkingUpdates);
+            stepCounter++;
+            handler.postDelayed(this, 1000);
+        }
+        else if (stepCounter == 2) {
+            // Third step
+            tvCurrentStep.setText(R.string.lbl_step_loading_data);
+            stepCounter++;
+            handler.postDelayed(this, 1000);
+        }
+        else {
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            finish();
+            startActivity(intent);
+        }
     }
 }

@@ -68,11 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void normalLogin() {
-        btnLogin.setOnClickListener(v -> {
-            checkAuthentication(v);
-            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        });
+        btnLogin.setOnClickListener(this::checkAuthentication);
     }
 
     private void signInWithGoogle() {

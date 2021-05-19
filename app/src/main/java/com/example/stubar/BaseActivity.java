@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,12 +44,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private void setUsernameInformation() {
         tvUsername.setText(Constants.USER_LOGGED.getUsername());
         tvEmail.setText(Constants.USER_LOGGED.getEmail());
-        if(Constants.USER_LOGGED.getProfilePhoto() == null)
+        if(Constants.USER_LOGGED.getProfilePhoto() == null || Constants.USER_LOGGED.getProfilePhoto().equals("00000000-0000-0000-0000-000000000000"))
             ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24);
         else
             Picasso.with(this).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
                     "/profilePhoto").into(ivProfileImage);
-
     }
 
     @SuppressLint("NonConstantResourceId")
