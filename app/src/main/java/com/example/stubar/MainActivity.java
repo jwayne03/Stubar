@@ -1,5 +1,6 @@
 package com.example.stubar;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -94,6 +95,7 @@ public class MainActivity extends BaseActivity {
                     OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
                     if(offer.getOffers().size() != 0) {
                         OfferAdapter adapter = new OfferAdapter(MainActivity.this, offer);
+                        rvOffer.setLayoutManager(new GridLayoutManager(this, 2));
                         rvOffer.setAdapter(adapter);
                     } else {
                         tvEmptyOffer.setVisibility(View.VISIBLE);

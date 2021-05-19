@@ -3,6 +3,7 @@ package com.example.stubar.model.offer;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,9 @@ import com.example.stubar.model.local.Local;
 import com.example.stubar.model.local.LocalApiResponse;
 import com.example.stubar.utils.constants.Constants;
 import com.google.gson.Gson;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.offer.OfferAdapter.ViewHolder> {
     private Context context;
@@ -86,7 +90,7 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
                     Local local = gson.fromJson(response, LocalApiResponse.class).getLocal();
 
                     Uri gmmIntentUri = Uri.parse("geo:" + local.getGeolat()+ "," +
-                            local.getGeolong() + "?q="+ local.getName());
+                            local.getGeolong() + "?q="+ decodeUTF8(local.getName()));
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     mapIntent.setPackage("com.google.android.apps.maps");
                     context.startActivity(mapIntent);
@@ -99,5 +103,12 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
                     Log.d("flx", msg);
                 });
         queue.add(request);
+    }
+
+    private String decodeUTF8(String name) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return new String(name.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        }
+        return "";
     }
 }

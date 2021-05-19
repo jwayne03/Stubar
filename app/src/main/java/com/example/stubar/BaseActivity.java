@@ -3,7 +3,6 @@ package com.example.stubar;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -22,10 +21,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.stubar.utils.constants.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 
-public class BaseActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     protected FrameLayout frameLayout;
     private Context context;
     public TextView tvUsername, tvEmail;
@@ -47,14 +46,16 @@ public class BaseActivity extends AppCompatActivity
         if(Constants.USER_LOGGED.getProfilePhoto() == null)
             ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24);
         else
-            ivProfileImage.setImageURI(Uri.parse(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser()
-            + "/profilePhoto"));
+            Picasso.with(this).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
+                    "/profilePhoto").into(ivProfileImage);
+
     }
 
     @SuppressLint("NonConstantResourceId")
     public void initBottomNavigation(View rootView, int home) {
         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(home);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.promotions:
@@ -100,6 +101,7 @@ public class BaseActivity extends AppCompatActivity
         toggle.setDrawerIndicatorEnabled(false);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
         tbIcon.setOnClickListener(view -> {
             drawer.openDrawer(Gravity.LEFT);
             setUsernameInformation();
@@ -124,9 +126,7 @@ public class BaseActivity extends AppCompatActivity
 
         //final AlertDialog dialog = builder.create();
         builder.setPositiveButton("YES", (dialogInterface, i) -> finish());
-        builder.setNegativeButton("NO", (dialogInterface, i) -> {
-
-        });
+        builder.setNegativeButton("NO", (dialogInterface, i) -> {});
         builder.show();
     }
 
@@ -154,11 +154,6 @@ public class BaseActivity extends AppCompatActivity
             intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
             finish();
-        } else if (id == R.id.maps) {
-            Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194?q=restaurants");
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            startActivity(mapIntent);
         }
 
         drawer.closeDrawer(GravityCompat.START);

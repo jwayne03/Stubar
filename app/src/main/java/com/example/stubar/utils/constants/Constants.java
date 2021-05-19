@@ -12,9 +12,7 @@ public class Constants {
     public static String REGISTER_URL = "http://46.101.46.166:8080/stuapi/api/user";
     public static String AUTHENTICATION_USER_URL = "http://46.101.46.166:8080/stuapi/api/user/authentication";
     public static String USER_URL = "http://46.101.46.166:8080/stuapi/api/user/";
-    public static String PROFILE_PHOTO_URL = "http://46.101.46.166:8080/stuapi/api/user/"; // + UUID + /profilePhoto;
+    public static String PROFILE_PHOTO_URL = "http://46.101.46.166:8080/stuapi/api/user/";
     public static String INSTITUTION_URL = "http://46.101.46.166:8080/stuapi/api/institution";
     public static String LOCAL_URL = "http://46.101.46.166:8080/stuapi/api/local/";
-
 }
-
