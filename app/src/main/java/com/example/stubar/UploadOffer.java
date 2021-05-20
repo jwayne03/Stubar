@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -48,6 +49,8 @@ public class UploadOffer extends BaseActivity{
     TextView tbTitle;
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent(UploadOffer.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 
@@ -66,6 +69,8 @@ public class UploadOffer extends BaseActivity{
 
         btnInsertOffer.setOnClickListener(view -> {
             insertOffer();
+            Intent intent = new Intent(UploadOffer.this, MainActivity.class);
+            startActivity(intent);
             finish();
         });
     }

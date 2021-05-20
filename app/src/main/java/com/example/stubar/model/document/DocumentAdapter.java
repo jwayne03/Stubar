@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.stubar.R;
 import com.example.stubar.utils.constants.Constants;
 
-public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
+import java.nio.charset.StandardCharsets;
+
+ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
     private Context context;
     private DocumentApiResponse documentApiResponse;
 
@@ -84,11 +87,11 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
         @SuppressLint("SetJavaScriptEnabled")
         private void setDocument(Document document) {
             this.document = document;
-            tvLocalName.setText(document.getName());
-            tvBackName.setText(document.getName());
+            tvLocalName.setText(decodeUTF8(document.getName()));
+            tvBackName.setText(decodeUTF8(document.getName()));
             tvGrade.setText(String.valueOf(document.getGrade()));
-            tvAuthorDoc.setText("hola");
-            tvTopic.setText(String.valueOf(document.getTopicName()));
+            tvAuthorDoc.setText("Anonymous");
+            tvTopic.setText(decodeUTF8(document.getTopicName()));
 
             downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             btnDownloadDoc.setOnClickListener(v -> {
@@ -99,6 +102,12 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
                 downloadManager.enqueue(request);
             });
 
+        }
+        private String decodeUTF8(String name) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                return new String(name.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+            }
+            return "";
         }
     }
 }

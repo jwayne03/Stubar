@@ -64,11 +64,13 @@ public class MainActivity extends BaseActivity {
         fbDoc.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, UploadDocument.class);
             startActivity(intent);
+            finish();
         });
 
         fbPro.setOnClickListener(view -> {
                 Intent intent = new Intent(MainActivity.this, UploadOffer.class);
             startActivity(intent);
+            finish();
         });
 
         fbDel.setOnClickListener(view -> {
@@ -81,12 +83,6 @@ public class MainActivity extends BaseActivity {
 
         showPromotions();
         //showDocuments();
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        showPromotions();
     }
 
     private void showDocuments() {
