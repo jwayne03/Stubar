@@ -62,12 +62,12 @@ public class MainActivity extends BaseActivity {
         });
 
         fbDoc.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, UploadFile.class);
+            Intent intent = new Intent(MainActivity.this, UploadDocument.class);
             startActivity(intent);
         });
 
         fbPro.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, Promotions.class);
+                Intent intent = new Intent(MainActivity.this, UploadOffer.class);
             startActivity(intent);
         });
 
@@ -80,7 +80,13 @@ public class MainActivity extends BaseActivity {
         });
 
         showPromotions();
-        showDocuments();
+        //showDocuments();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        showPromotions();
     }
 
     private void showDocuments() {

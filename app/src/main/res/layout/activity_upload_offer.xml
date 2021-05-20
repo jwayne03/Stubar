@@ -67,6 +67,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
+        android:id="@+id/btnUploadImage"
         android:layout_width="239dp"
         android:layout_height="52dp"
         android:layout_marginTop="28dp"
@@ -75,4 +76,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spGrade" />
+
+    <Button
+        android:id="@+id/btnInsertOffer"
+        android:layout_width="239dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="86dp"
+        android:background="@color/purple_200"
+        android:text="INSERT OFFER"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUploadImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

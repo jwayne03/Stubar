@@ -91,4 +91,16 @@ public class Offer {
     public void setLocalName(String localName) {
         this.localName = localName;
     }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                ", imageOffer='" + imageOffer + '\'' +
+                ", comment='" + comment + '\'' +
+                ", price=" + price +
+                ", localID=" + localID +
+                ", userID=" + userID +
+                ", date=" + date +
+                '}';
+    }
 }

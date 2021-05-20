@@ -15,4 +15,7 @@ public class Constants {
     public static String PROFILE_PHOTO_URL = "http://46.101.46.166:8080/stuapi/api/user/";
     public static String INSTITUTION_URL = "http://46.101.46.166:8080/stuapi/api/institution";
     public static String LOCAL_URL = "http://46.101.46.166:8080/stuapi/api/local/";
+    public static String INSERT_OFFER = "http://46.101.46.166:8080/stuapi/api/offer";
+    public static String INSERT_DOCUMENT = "http://46.101.46.166:8080/stuapi/api/document";
+
 }

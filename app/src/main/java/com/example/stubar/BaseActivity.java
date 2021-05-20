@@ -4,12 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< Updated upstream
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-=======
->>>>>>> Stashed changes
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +30,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     public TextView tvUsername, tvEmail;
     public ImageView ivProfileImage;
     public EditText edSearch;
+    public ImageButton tbSearch;
 
     private DrawerLayout drawer;
 
@@ -100,10 +95,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         tvUsername = headerView.findViewById(R.id.txt_username);
         tvEmail =  headerView.findViewById(R.id.txt_email);
         ImageButton tbIcon = findViewById(R.id.tbButton);
-        ImageButton tbSearch = findViewById(R.id.tbSearch);
+        tbSearch = findViewById(R.id.tbSearch);
         ImageButton tbCross = findViewById(R.id.tbCross);
         edSearch = findViewById(R.id.ptSearch);
         TextView tbTitle = findViewById(R.id.tbTitle);
+        tbSearch.setVisibility(View.VISIBLE);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

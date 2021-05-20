@@ -92,15 +92,15 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
 
         public void setOffer(Offer offer) {
             this.offers = offer;
-            tvLocalName.setText(decodeUTF8(offer.getLocalName());
+            tvLocalName.setText(decodeUTF8(offer.getLocalName()));
             tvComment.setText(offer.getComment());
             tvOfferPrice.setText(String.valueOf(offer.getPrice()));
             tvGoTo.setText("Go to " + decodeUTF8(offer.getLocalName()));
 
 
-            if(!offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
-                Picasso.with(context).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
-                        "/profilePhoto").fit().into(ivBackground);
+            //if(offer.getImageOffer() != null || !offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
+              //  Picasso.with(context).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
+                  //      "/profilePhoto").fit().into(ivBackground);
 
             btnDownloadOffer.setOnClickListener(view -> {
                 getLocal(offer.getLocalID().toString());
