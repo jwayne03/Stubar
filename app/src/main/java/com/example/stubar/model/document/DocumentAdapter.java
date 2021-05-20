@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stubar.R;
 import com.example.stubar.utils.constants.Constants;
+import com.example.stubar.utils.decode.Decode;
 
 import java.nio.charset.StandardCharsets;
 
@@ -87,11 +88,11 @@ import java.nio.charset.StandardCharsets;
         @SuppressLint("SetJavaScriptEnabled")
         private void setDocument(Document document) {
             this.document = document;
-            tvLocalName.setText(decodeUTF8(document.getName()));
-            tvBackName.setText(decodeUTF8(document.getName()));
+            tvLocalName.setText(Decode.decodeUTF8(document.getName()));
+            tvBackName.setText(Decode.decodeUTF8(document.getName()));
             tvGrade.setText(String.valueOf(document.getGrade()));
             tvAuthorDoc.setText("Anonymous");
-            tvTopic.setText(decodeUTF8(document.getTopicName()));
+            tvTopic.setText(Decode.decodeUTF8(document.getTopicName()));
 
             downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             btnDownloadDoc.setOnClickListener(v -> {
@@ -102,12 +103,6 @@ import java.nio.charset.StandardCharsets;
                 downloadManager.enqueue(request);
             });
 
-        }
-        private String decodeUTF8(String name) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                return new String(name.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-            }
-            return "";
         }
     }
 }

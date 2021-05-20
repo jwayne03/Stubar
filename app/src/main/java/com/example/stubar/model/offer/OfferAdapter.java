@@ -1,33 +1,19 @@
 package com.example.stubar.model.offer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.stubar.R;
-import com.example.stubar.model.local.Local;
-import com.example.stubar.model.local.LocalApiResponse;
-import com.example.stubar.utils.constants.Constants;
-import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
-
-import java.nio.charset.StandardCharsets;
+import com.example.stubar.utils.api.Requests;
+import com.example.stubar.utils.decode.Decode;
 
 public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.offer.OfferAdapter.ViewHolder> {
     private Context context;
@@ -90,12 +76,14 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
             });
         }
 
+        @SuppressLint("SetTextI18n")
         public void setOffer(Offer offer) {
+            Requests requests = new Requests();
             this.offers = offer;
-            tvLocalName.setText(decodeUTF8(offer.getLocalName()));
+            tvLocalName.setText(Decode.decodeUTF8(offer.getLocalName()));
             tvComment.setText(offer.getComment());
             tvOfferPrice.setText(String.valueOf(offer.getPrice()));
-            tvGoTo.setText("Go to " + decodeUTF8(offer.getLocalName()));
+            tvGoTo.setText("Go to " + Decode.decodeUTF8(offer.getLocalName()));
 
 
             //if(offer.getImageOffer() != null || !offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
@@ -103,45 +91,8 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
                   //      "/profilePhoto").fit().into(ivBackground);
 
             btnDownloadOffer.setOnClickListener(view -> {
-                getLocal(offer.getLocalID().toString());
+                requests.getLocal(offer.getLocalID().toString(), context);
             });
         }
-    }
-
-
-    private void getLocal(String localId) {
-        RequestQueue queue = Volley.newRequestQueue(context);
-
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                Constants.LOCAL_URL + localId,
-                response -> {
-                    // Log.d("flx", "RESPONSE: " + response);
-                    Gson gson = new Gson();
-                    response = "{ \"local\": " + response + "}";
-                    Log.d("local", response);
-                    Local local = gson.fromJson(response, LocalApiResponse.class).getLocal();
-
-                    Uri gmmIntentUri = Uri.parse("geo:" + local.getGeolat()+ "," +
-                            local.getGeolong() + "?q="+ decodeUTF8(local.getName()));
-                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                    mapIntent.setPackage("com.google.android.apps.maps");
-                    context.startActivity(mapIntent);
-                },
-                error -> {
-                    String msg = "Network error (timeout or disconnected)";
-                    if (error.networkResponse != null) {
-                        msg = "ERROR: " + error.networkResponse.statusCode;
-                    }
-                    Log.d("flx", msg);
-                });
-        queue.add(request);
-    }
-
-    private String decodeUTF8(String name) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            return new String(name.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-        }
-        return "";
     }
 }

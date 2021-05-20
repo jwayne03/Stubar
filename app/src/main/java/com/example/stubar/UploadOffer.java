@@ -75,7 +75,6 @@ public class UploadOffer extends BaseActivity{
         });
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void insertOffer() {
             Gson gson = new GsonBuilder()
