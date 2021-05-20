@@ -93,8 +93,8 @@
                 android:id="@+id/btnDownloadOffer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:contentDescription="Button fro download document"
+                android:background="@drawable/border_custom"
+                android:contentDescription="Button for download document"
                 app:srcCompat="@drawable/ic_maps"
                 tools:ignore="VectorDrawableCompat" />
         </LinearLayout>
