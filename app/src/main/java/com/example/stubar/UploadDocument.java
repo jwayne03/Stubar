@@ -1,7 +1,6 @@
 package com.example.stubar;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Build;
@@ -20,7 +19,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.document.Document;
-import com.example.stubar.model.offer.Offer;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
 import com.google.gson.Gson;
@@ -54,7 +52,7 @@ public class UploadDocument extends BaseActivity {
         getLayoutInflater().inflate(R.layout.activity_upload_document, frameLayout);
         tbSearch.setVisibility(View.GONE);
         tbTitle = findViewById(R.id.tbTitle);
-        tbTitle.setText("DOCUMENTS");
+        tbTitle.setText(R.string.documents_upper);
 
         this.ivStubar = findViewById(R.id.ivStubar);
         this.spinnerGrade = findViewById(R.id.spGrade);
@@ -73,8 +71,8 @@ public class UploadDocument extends BaseActivity {
 
     private void inflateSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.spGrade);
-        ArrayAdapter<String> spinnerTopicAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, grades);
+        ArrayAdapter<String> spinnerTopicAdapter;
+        spinnerTopicAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, grades);
         spinnerTopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerTopicAdapter);
     }
@@ -105,7 +103,7 @@ public class UploadDocument extends BaseActivity {
         Document document = new Document();
         document.setName(edNameOfTheDocument.getText().toString().trim());
         document.setGrade(Integer.parseInt(spinnerGrade.getSelectedItem().toString().trim()));
-        document.setDocPath(null);
+        document.setDocPath("dfeb1757-a128-11eb-9ac4-06a55b230c35");
         document.setTopicID("effffc25-8434-11eb-9ac4-06a55b230c35");
         document.setTopicName(null);
         document.setUsername(Constants.USER_LOGGED.getUsername().trim());
@@ -113,5 +111,4 @@ public class UploadDocument extends BaseActivity {
         document.setDate(LocalDate.now());
         return document;
     }
-
 }

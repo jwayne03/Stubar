@@ -90,4 +90,6 @@
     <string name="btnUploadImage">Upload an Image here</string>
     <string name="edOfferPrice">Enter the price of the offer</string>
     <string name="edOfferComment">Put your comment here</string>
+    <string name="offers">OFFERS</string>
+    <string name="documents_upper">DOCUMENTS</string>
 </resources>

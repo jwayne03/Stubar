@@ -1,10 +1,11 @@
- package com.example.stubar.model.document;
+package com.example.stubar.model.document;
 
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,10 @@ import com.example.stubar.R;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.decode.Decode;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 
- public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
+public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
     private Context context;
     private DocumentApiResponse documentApiResponse;
 
@@ -99,10 +101,10 @@ import java.nio.charset.StandardCharsets;
                 Uri uri = Uri.parse(Constants.DOCUMENTS_DOWNLOAD_URL + document.getDocPath());
 
                 DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setDestinationUri(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/Download",document.getName() +".pdf")));
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 downloadManager.enqueue(request);
             });
-
         }
     }
 }
