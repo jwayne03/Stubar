@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.stubar.R;
 import com.example.stubar.utils.api.Requests;
 import com.example.stubar.utils.decode.Decode;
@@ -87,8 +89,8 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
 
 
             //if(offer.getImageOffer() != null || !offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
-              //  Picasso.with(context).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
-                  //      "/profilePhoto").fit().into(ivBackground);
+            //  Picasso.with(context).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
+            //      "/profilePhoto").fit().into(ivBackground);
 
             btnDownloadOffer.setOnClickListener(view -> {
                 requests.getLocal(offer.getLocalID().toString(), context);

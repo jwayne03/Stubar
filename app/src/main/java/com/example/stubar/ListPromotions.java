@@ -1,11 +1,12 @@
 package com.example.stubar;
 
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -34,18 +35,38 @@ public class ListPromotions extends BaseActivity {
         initBottomNavigation(rootView, R.id.promotions);
         recyclerView = findViewById(R.id.rvOffer);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        showPromotions();
+        edSearch.addTextChangedListener(filterTextWatcher);
+        showPromotions(false, "");
     }
 
+    private final TextWatcher filterTextWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (edSearch.getText().length() == 0) {
+                showPromotions(false, "");
+            } else {
+                showPromotions(true, edSearch.getText().toString());
+            }
+        }
+        @Override
+        public void afterTextChanged(Editable editable) {}
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    };
 
-    private void showPromotions() {
+
+    private void showPromotions(boolean isSearching, String searchText) {
         RequestQueue queue = Volley.newRequestQueue(this);
+        String url;
+        if (!isSearching)
+            url = Constants.ALL_OFFERS_URL;
+        else
+            url = Constants.SEARCH_OFFER + searchText;
 
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                Constants.ALL_OFFERS_URL,
+                url,
                 response -> {
-                    // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
                     response = "{ \"offers\": " + response + "}";
                     Log.d("promotions", response);

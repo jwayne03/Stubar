@@ -35,8 +35,6 @@ public class InstitutionAdapter extends BaseAdapter {
         return 0;
     }
 
-
-
     public String getItemName(int i) {
         return listOfInstitutions.get(i).getName();
     }
@@ -57,15 +55,13 @@ public class InstitutionAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getDropDownView(int position, View convertView,
-                                ViewGroup parent) {
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
         View view = super.getDropDownView(position, convertView, parent);
         TextView tv = (TextView) view;
-        if(position == 0) {
+        if (position == 0) {
             // Set the hint text color gray
             tv.setVisibility(View.GONE);
         }
-
         return view;
     }
 }

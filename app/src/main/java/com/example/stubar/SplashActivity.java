@@ -12,6 +12,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
     Handler handler;
     int stepCounter;
     TextView tvCurrentStep;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,20 +33,17 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
             tvCurrentStep.setText(R.string.lbl_step_initializing);
             stepCounter++;
             handler.postDelayed(this, 1000);
-        }
-        else if (stepCounter == 1) {
+        } else if (stepCounter == 1) {
             // Second step
             tvCurrentStep.setText(R.string.lbl_step_checkingUpdates);
             stepCounter++;
             handler.postDelayed(this, 1000);
-        }
-        else if (stepCounter == 2) {
+        } else if (stepCounter == 2) {
             // Third step
             tvCurrentStep.setText(R.string.lbl_step_loading_data);
             stepCounter++;
             handler.postDelayed(this, 1000);
-        }
-        else {
+        } else {
             Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
             finish();
             startActivity(intent);

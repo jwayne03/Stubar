@@ -92,4 +92,5 @@
     <string name="edOfferComment">Put your comment here</string>
     <string name="offers">OFFERS</string>
     <string name="documents_upper">DOCUMENTS</string>
+    <string name="author">Anonymous</string>
 </resources>

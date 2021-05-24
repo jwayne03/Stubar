@@ -2,10 +2,7 @@ package com.example.stubar;
 
 import androidx.annotation.RequiresApi;
 
-import android.annotation.SuppressLint;
-import android.content.ContentUris;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -150,7 +147,7 @@ public class UploadOffer extends BaseActivity {
                     e.printStackTrace();
                 }
             }
-            if(thumbnail != null) image64 = BitMapToString(thumbnail);
+            if (thumbnail != null) image64 = BitMapToString(thumbnail);
             Log.d("dwwdowdd", "onActivityResult: " + image64);
         }
     }

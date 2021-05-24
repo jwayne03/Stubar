@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -21,7 +22,7 @@ import org.json.JSONObject;
 
 public class Requests {
 
-    public void getUserApi(JSONObject loginResponse, Context context) throws JSONException{
+    public void getUserApi(JSONObject loginResponse, Context context) throws JSONException {
         String uuid = loginResponse.getString("response");
         Constants.USER_LOGGED.setIdUser(uuid);
 
@@ -35,7 +36,7 @@ public class Requests {
                     response = "{ \"user\": " + response + "}";
                     Log.d("user", response);
                     User user = gson.fromJson(response, UserApiResponse.class).getUser();
-                    if(user != null) {
+                    if (user != null) {
                         Constants.USER_LOGGED = user;
                         Constants.USER_LOGGED.setIdUser(uuid);
                     }
@@ -64,8 +65,8 @@ public class Requests {
                     Log.d("local", response);
                     Local local = gson.fromJson(response, LocalApiResponse.class).getLocal();
 
-                    Uri gmmIntentUri = Uri.parse("geo:" + local.getGeolat()+ "," +
-                            local.getGeolong() + "?q="+ Decode.decodeUTF8(local.getName()));
+                    Uri gmmIntentUri = Uri.parse("geo:" + local.getGeolat() + "," +
+                            local.getGeolong() + "?q=" + Decode.decodeUTF8(local.getName()));
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     mapIntent.setPackage("com.google.android.apps.maps");
                     context.startActivity(mapIntent);

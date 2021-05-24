@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.decode.Decode;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 
 public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
     private Context context;
@@ -93,7 +91,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
             tvLocalName.setText(Decode.decodeUTF8(document.getName()));
             tvBackName.setText(Decode.decodeUTF8(document.getName()));
             tvGrade.setText(String.valueOf(document.getGrade()));
-            tvAuthorDoc.setText("Anonymous");
+            tvAuthorDoc.setText(R.string.author);
             tvTopic.setText(Decode.decodeUTF8(document.getTopicName()));
 
             downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
@@ -101,7 +99,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
                 Uri uri = Uri.parse(Constants.DOCUMENTS_DOWNLOAD_URL + document.getDocPath());
 
                 DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setDestinationUri(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/Download",document.getName() +".pdf")));
+                request.setDestinationUri(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/Download", document.getName() + ".pdf")));
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 downloadManager.enqueue(request);
             });

@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -104,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
         Snackbar snackbar = Snackbar.make(view, "FATAL ERROR", Snackbar.LENGTH_LONG);
         snackbar.getView().setBackgroundColor(ContextCompat.getColor(RegisterActivity.this, R.color.orange));
         InstitutionAdapter adapter = (InstitutionAdapter) this.spInstitution.getAdapter();
-        String institution  = adapter.getItemName(this.spInstitution.getSelectedItemPosition());
+        String institution = adapter.getItemName(this.spInstitution.getSelectedItemPosition());
 
         if (!edPassword.getText().toString().equals(edConfirmPassword.getText().toString())) {
             snackbar.setText(R.string.errorPassword).show();

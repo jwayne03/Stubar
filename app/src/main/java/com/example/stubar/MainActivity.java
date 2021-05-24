@@ -8,6 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ public class MainActivity extends BaseActivity {
     RecyclerView rvOffer, rvDocument;
     TextView tbTitle, tvEmptyOffer, tvEmptyDocument;
     FloatingActionButton fbAdd, fbDoc, fbPro, fbDel;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,7 @@ public class MainActivity extends BaseActivity {
         });
 
         fbPro.setOnClickListener(view -> {
-                Intent intent = new Intent(MainActivity.this, UploadOffer.class);
+            Intent intent = new Intent(MainActivity.this, UploadOffer.class);
             startActivity(intent);
             finish();
         });
@@ -81,23 +84,45 @@ public class MainActivity extends BaseActivity {
 
         });
 
-        showPromotions();
-        //showDocuments();
+        edSearch.addTextChangedListener(filterTextWatcher);
+        showPromotions(false, "");
+        showDocuments(false, "");
     }
 
-    private void showDocuments() {
+    private final TextWatcher filterTextWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (edSearch.getText().length() == 0) {
+                showDocuments(false, "");
+                showPromotions(false, "");
+            } else {
+                showDocuments(true, edSearch.getText().toString());
+                showPromotions(true, edSearch.getText().toString());
+            }
+        }
+        @Override
+        public void afterTextChanged(Editable editable) {}
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    };
+
+    private void showDocuments(boolean isSearching, String searchText) {
         RequestQueue queue = Volley.newRequestQueue(this);
+        String url;
+        if (!isSearching)
+            url = Constants.USER_DOCUMENTS_URL + Constants.USER_LOGGED.getIdUser().toString();
+        else
+            url = Constants.SEARCH_DOCUMENT + searchText;
 
         StringRequest request = new StringRequest(
-                Request.Method.GET,
-                Constants.USER_DOCUMENTS_URL + Constants.USER_LOGGED.getIdUser().toString(),
+                Request.Method.GET, url,
                 response -> {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
                     response = "{ \"document\": " + response + "}";
                     Log.d("main documents", response);
                     DocumentApiResponse documentApiResponse = gson.fromJson(response, DocumentApiResponse.class);
-                    if(documentApiResponse.getDocuments().size() != 0) {
+                    if (documentApiResponse.getDocuments().size() != 0) {
                         DocumentAdapter adapter = new DocumentAdapter(MainActivity.this, documentApiResponse);
                         rvDocument.setLayoutManager(new GridLayoutManager(this, 2));
                         rvDocument.setAdapter(adapter);
@@ -117,19 +142,23 @@ public class MainActivity extends BaseActivity {
         queue.add(request);
     }
 
-    private void showPromotions() {
+    private void showPromotions(boolean isSearching, String searchText) {
         RequestQueue queue = Volley.newRequestQueue(this);
+        String url;
+        if (!isSearching)
+            url = Constants.USER_OFFERS_URL + Constants.USER_LOGGED.getIdUser().toString();
+        else
+            url = Constants.SEARCH_OFFER + searchText;
 
         StringRequest request = new StringRequest(
-                Request.Method.GET,
-                Constants.USER_OFFERS_URL + Constants.USER_LOGGED.getIdUser().toString(),
+                Request.Method.GET, url,
                 response -> {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
                     response = "{ \"offers\": " + response + "}";
                     Log.d("main promotions", response);
                     OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
-                    if(offer.getOffers().size() != 0) {
+                    if (offer.getOffers().size() != 0) {
                         OfferAdapter adapter = new OfferAdapter(MainActivity.this, offer);
                         rvOffer.setLayoutManager(new GridLayoutManager(this, 2));
                         rvOffer.setAdapter(adapter);

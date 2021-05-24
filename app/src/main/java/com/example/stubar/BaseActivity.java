@@ -45,7 +45,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private void setUsernameInformation() {
         tvUsername.setText(Constants.USER_LOGGED.getUsername());
         tvEmail.setText(Constants.USER_LOGGED.getEmail());
-        if(Constants.USER_LOGGED.getProfilePhoto() == null || Constants.USER_LOGGED.getProfilePhoto().equals("00000000-0000-0000-0000-000000000000"))
+        if (Constants.USER_LOGGED.getProfilePhoto() == null || Constants.USER_LOGGED.getProfilePhoto().equals("00000000-0000-0000-0000-000000000000"))
             ivProfileImage.setImageResource(R.drawable.ic_baseline_person_24);
         else
             Picasso.with(this).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
@@ -93,7 +93,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         frameLayout = findViewById(R.id.container);
         ivProfileImage = headerView.findViewById(R.id.image_profile);
         tvUsername = headerView.findViewById(R.id.txt_username);
-        tvEmail =  headerView.findViewById(R.id.txt_email);
+        tvEmail = headerView.findViewById(R.id.txt_email);
         ImageButton tbIcon = findViewById(R.id.tbButton);
         tbSearch = findViewById(R.id.tbSearch);
         ImageButton tbCross = findViewById(R.id.tbCross);
@@ -125,6 +125,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             tbCross.setVisibility(View.GONE);
             tbSearch.setVisibility(View.VISIBLE);
             tbTitle.setVisibility(View.VISIBLE);
+            edSearch.getText().clear();
         });
 
     }
@@ -147,7 +148,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         //final AlertDialog dialog = builder.create();
         builder.setPositiveButton("YES", (dialogInterface, i) -> finish());
-        builder.setNegativeButton("NO", (dialogInterface, i) -> {});
+        builder.setNegativeButton("NO", (dialogInterface, i) -> {
+        });
         builder.show();
     }
 

@@ -33,7 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class LoginActivity extends AppCompatActivity {
 

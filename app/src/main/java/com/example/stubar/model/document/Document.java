@@ -103,9 +103,13 @@ public class Document {
         this.username = username;
     }
 
-    public String getUsername() { return username; }
+    public String getUsername() {
+        return username;
+    }
 
-    public String getTopicName() { return topicName; }
+    public String getTopicName() {
+        return topicName;
+    }
 
     public void setTopicName(String topicName) {
         this.topicName = topicName;
