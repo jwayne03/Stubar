@@ -115,7 +115,7 @@ public class UploadOffer extends BaseActivity {
         offer.setPrice(Double.parseDouble(edOfferPrice.getText().toString().trim()));
         offer.setLocal("57e28428-7110-11eb-91d0-06a55b230c35");
         offer.setUserID(Constants.USER_LOGGED.getIdUser().toString().trim());
-        //offer.setImageOffer(image64.trim());
+        offer.setImageOffer(image64);
         offer.setDate(LocalDate.now());
         return offer;
     }
@@ -148,7 +148,7 @@ public class UploadOffer extends BaseActivity {
                 }
             }
             if (thumbnail != null) image64 = BitMapToString(thumbnail);
-            Log.d("dwwdowdd", "onActivityResult: " + image64);
+            Log.d("length", "onActivityResult: " + image64.length());
         }
     }
 

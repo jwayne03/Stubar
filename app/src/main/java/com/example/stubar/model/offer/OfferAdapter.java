@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stubar.R;
 import com.example.stubar.utils.api.Requests;
+import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.decode.Decode;
+import com.squareup.picasso.Picasso;
 
 public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.offer.OfferAdapter.ViewHolder> {
     private Context context;
@@ -88,9 +90,9 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
             tvGoTo.setText("Go to " + Decode.decodeUTF8(offer.getLocalName()));
 
 
-            //if(offer.getImageOffer() != null || !offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
-            //  Picasso.with(context).load(Constants.PROFILE_PHOTO_URL + Constants.USER_LOGGED.getIdUser() +
-            //      "/profilePhoto").fit().into(ivBackground);
+            if(!offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
+                  Picasso.with(context).load(Constants.ALL_OFFERS_URL + offer.getIdOffer() +
+                  "/offerImage").fit().into(ivBackground);
 
             btnDownloadOffer.setOnClickListener(view -> {
                 requests.getLocal(offer.getLocalID().toString(), context);

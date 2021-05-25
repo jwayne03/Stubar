@@ -1,5 +1,6 @@
 package com.example.stubar;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +40,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setTitle("");
         tbTitle = findViewById(R.id.tbTitle);
-        tbTitle.setText("HOME");
+        tbTitle.setText("MY CREATIONS");
         View rootView = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
         initBottomNavigation(rootView, R.id.home);
         rvOffer = findViewById(R.id.rvOffer);
@@ -103,11 +104,10 @@ public class MainActivity extends BaseActivity {
                     DocumentApiResponse documentApiResponse = gson.fromJson(response, DocumentApiResponse.class);
                     if (documentApiResponse.getDocuments().size() != 0) {
                         DocumentAdapter adapter = new DocumentAdapter(MainActivity.this, documentApiResponse);
-                        rvDocument.setLayoutManager(new GridLayoutManager(this, 2));
+                        rvDocument.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false));
                         rvDocument.setAdapter(adapter);
                     } else {
                         tvEmptyDocument.setVisibility(View.VISIBLE);
-                        tvEmptyDocument.setText(R.string.empty);
                     }
 
                 },
@@ -133,11 +133,10 @@ public class MainActivity extends BaseActivity {
                     OfferApiResponse offer = gson.fromJson(response, OfferApiResponse.class);
                     if (offer.getOffers().size() != 0) {
                         OfferAdapter adapter = new OfferAdapter(MainActivity.this, offer);
-                        rvOffer.setLayoutManager(new GridLayoutManager(this, 2));
+                        rvOffer.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false));
                         rvOffer.setAdapter(adapter);
                     } else {
                         tvEmptyOffer.setVisibility(View.VISIBLE);
-                        tvEmptyOffer.setText(R.string.empty);
                     }
                 },
                 error -> {

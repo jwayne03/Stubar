@@ -11,7 +11,7 @@
         android:id="@+id/home"
         android:icon="@drawable/homeicon"
         android:iconTint="@color/lightgrey"
-        android:title="Home" />
+        android:title="My Creations" />
 
     <item
         android:id="@+id/book"
