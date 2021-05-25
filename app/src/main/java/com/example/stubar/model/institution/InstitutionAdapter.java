@@ -2,14 +2,11 @@ package com.example.stubar.model.institution;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import java.util.UUID;
 
 public class InstitutionAdapter extends BaseAdapter {
     private Context context;
@@ -50,7 +47,6 @@ public class InstitutionAdapter extends BaseAdapter {
         TextView textView = view.findViewById(android.R.id.text1);
         textView.setText(listOfInstitutions.get(i).getName());
         textView.setHeight(100);
-
         return view;
     }
 

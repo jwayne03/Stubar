@@ -35,14 +35,12 @@ import org.json.JSONObject;
 import java.time.LocalDate;
 
 public class RegisterActivity extends AppCompatActivity {
-
     EditText edName, edSurname, edUsername, edEmail, edLocation, edBirthday,
             edPassword, edConfirmPassword;
 
     CheckBox cbTermsConditions;
     Button btnSignUp, btnLoginHere;
     Spinner spInstitution;
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -87,7 +85,6 @@ public class RegisterActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         RequestQueue queue = Volley.newRequestQueue(this);
 
         JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, Constants.REGISTER_URL, jsonObject,
@@ -107,7 +104,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (!edPassword.getText().toString().equals(edConfirmPassword.getText().toString())) {
             snackbar.setText(R.string.errorPassword).show();
-        } else if (!this.edEmail.getText().toString().matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+        } else if (!this.edEmail.getText().toString().matches(
+                "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:" +
+                        "[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-" +
+                        "\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)" +
+                        "+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]" +
+                        "|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|" +
+                        "[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\" +
+                        "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
             snackbar.setText(R.string.errorEmail).show();
         } else if (!this.edBirthday.getText().toString().matches("([0-9]{2})-([0-9]{2})-([0-9]{4})")) {
             snackbar.setText(R.string.errorBirthday).show();
@@ -132,24 +136,17 @@ public class RegisterActivity extends AppCompatActivity {
     private void setSpInstitution() {
         RequestQueue queque = Volley.newRequestQueue(this);
         String url = Constants.INSTITUTION_URL;
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                url,
-                response -> {
-                    Gson gson = new Gson();
-                    InstitutionApiResponse listOfInstitutions = gson.fromJson(response, InstitutionApiResponse.class);
-
-                    if (listOfInstitutions.size() == 0) {
-                        spInstitution.setVisibility(View.GONE);
-                        Log.d("ERROR", "setSpInstitution: " + response);
-                    } else {
-                        listOfInstitutions.add(0, new Institution());
-                        spInstitution.setAdapter(new InstitutionAdapter(this, listOfInstitutions));
-                    }
-                },
-                error -> Log.d("ERROR", "Error downloading institutions")
-
-        );
+        StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+            Gson gson = new Gson();
+            InstitutionApiResponse listOfInstitutions = gson.fromJson(response, InstitutionApiResponse.class);
+            if (listOfInstitutions.size() == 0) {
+                spInstitution.setVisibility(View.GONE);
+                Log.d("ERROR", "setSpInstitution: " + response);
+            } else {
+                listOfInstitutions.add(0, new Institution());
+                spInstitution.setAdapter(new InstitutionAdapter(this, listOfInstitutions));
+            }
+        }, error -> Log.d("ERROR", "Error downloading institutions"));
         queque.add(request);
     }
 }

@@ -20,6 +20,7 @@ public class Local {
     }
 
     public Local() {
+        this.name = "Search a local";
     }
 
     public UUID getIdLocal() {

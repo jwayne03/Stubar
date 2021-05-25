@@ -29,6 +29,7 @@ import com.example.stubar.model.local.LocalAdapterSpinner;
 import com.example.stubar.model.local.LocalResponseArray;
 import com.example.stubar.model.offer.Offer;
 import com.example.stubar.utils.constants.Constants;
+import com.example.stubar.utils.decode.Decode;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,14 +42,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 
-/**
- * Ofertas:
- * <p>
- * - Comment
- * - Image
- * - Price
- * - Local (Spinner)
- */
 public class UploadOffer extends BaseActivity {
     Button btnImage, btnInsertOffer;
     EditText edOfferComment, edOfferPrice;
@@ -142,21 +135,20 @@ public class UploadOffer extends BaseActivity {
             if (Build.VERSION.SDK_INT >= 29) {
                 Uri imageUri = data.getData();
                 try (ParcelFileDescriptor pfd = this.getContentResolver().openFileDescriptor(imageUri, "r")) {
-                    if (pfd != null) {
+                    if (pfd != null)
                         thumbnail = BitmapFactory.decodeFileDescriptor(pfd.getFileDescriptor());
-                    }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if (thumbnail != null) image64 = BitMapToString(thumbnail);
+            if (thumbnail != null) image64 = bitMapToString(thumbnail);
             Log.d("length", "onActivityResult: " + image64.length());
         }
     }
 
-    public String BitMapToString(Bitmap userImage1) {
+    public String bitMapToString(Bitmap userImage1) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         userImage1.compress(Bitmap.CompressFormat.JPEG, 60, baos);
         byte[] b = baos.toByteArray();
@@ -168,7 +160,8 @@ public class UploadOffer extends BaseActivity {
         String url = Constants.LOCAL_URL;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
             Gson gson = new Gson();
-            LocalResponseArray localResponseArray = gson.fromJson(String.valueOf(response), LocalResponseArray.class);
+            LocalResponseArray localResponseArray = gson
+                    .fromJson((Decode.decodeUTF8(response)), LocalResponseArray.class);
             if (localResponseArray.size() == 0) {
                 nameOfLocalSpinner.setVisibility(View.GONE);
             } else {
