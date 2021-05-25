@@ -177,7 +177,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.edProfileNav) {
             intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
-            finish();
         } else if (id == R.id.stucat) {
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.stu.cat"));
             startActivity(intent);

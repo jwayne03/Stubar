@@ -3,6 +3,10 @@ package com.example.stubar.model.user;
 import android.os.Build;
 import android.util.Log;
 
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,7 +21,7 @@ public class User {
     private String email;
     private String surname;
     private String profilePhoto;
-    //    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthday;
     private String institution;
 
@@ -85,9 +89,13 @@ public class User {
     }
 
     public void setBirthday(String birthday) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String[] date = birthday.split("-");
-            this.birthday = LocalDate.of(Integer.parseInt(date[2]), Integer.parseInt(date[1]), Integer.parseInt(date[0]));
+        if(birthday != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                String[] date = birthday.split("-");
+                this.birthday = LocalDate.of(Integer.parseInt(date[2]), Integer.parseInt(date[1]), Integer.parseInt(date[0]));
+            }
+        } else {
+            this.birthday = null;
         }
     }
 

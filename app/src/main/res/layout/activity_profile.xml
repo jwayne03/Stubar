@@ -7,4 +7,77 @@
     android:background="#121212"
     tools:context=".ProfileActivity">
 
+    <Button
+        android:id="@+id/btnProfileImage"
+        android:layout_width="239dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/purple_200"
+        android:text="@string/btnUploadImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPorfileImage"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/ivPorfileImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/stubarlogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edPorfilePass"
+        android:layout_width="288dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/edittext_custom"
+        android:ems="10"
+        android:hint="Enter the new password"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+        android:shadowColor="@color/white"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnProfileImage" />
+
+    <EditText
+        android:id="@+id/edProfileConfirmPass"
+        android:layout_width="288dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edittext_custom"
+        android:ems="10"
+        android:hint="Confirm the new password"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+        android:shadowColor="@color/white"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edPorfilePass" />
+
+    <Button
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="239dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="84dp"
+        android:background="@color/purple_200"
+        android:text="SAVE CHANGES"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edProfileConfirmPass" />
 </androidx.constraintlayout.widget.ConstraintLayout>

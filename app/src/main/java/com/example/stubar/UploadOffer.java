@@ -143,16 +143,9 @@ public class UploadOffer extends BaseActivity {
                     e.printStackTrace();
                 }
             }
-            if (thumbnail != null) image64 = bitMapToString(thumbnail);
+            if (thumbnail != null) image64 = Decode.bitMapToString(thumbnail);
             Log.d("length", "onActivityResult: " + image64.length());
         }
-    }
-
-    public String bitMapToString(Bitmap userImage1) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        userImage1.compress(Bitmap.CompressFormat.JPEG, 60, baos);
-        byte[] b = baos.toByteArray();
-        return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
     private void setOfferSpinner() {

@@ -19,4 +19,5 @@ public class Constants {
     public static String INSERT_DOCUMENT = "http://46.101.46.166:8080/stuapi/api/document";
     public static String SEARCH_DOCUMENT = "http://46.101.46.166:8080/stuapi/api/document/search?name=";
     public static String SEARCH_OFFER = "http://46.101.46.166:8080/stuapi/api/offer/search?name=";
+    public static String UPDATE_USER = "http://46.101.46.166:8080/stuapi/api/user/modify";
 }
