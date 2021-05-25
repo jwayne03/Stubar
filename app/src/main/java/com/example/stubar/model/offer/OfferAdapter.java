@@ -91,8 +91,8 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
 
 
             if(!offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
-                  Picasso.with(context).load(Constants.ALL_OFFERS_URL + offer.getIdOffer() +
-                  "/offerImage").fit().into(ivBackground);
+                  Picasso.with(context).load(Constants.ALL_OFFERS_URL + "/" + offer.getIdOffer() +
+                  "/offerImage").into(ivBackground);
 
             btnDownloadOffer.setOnClickListener(view -> {
                 requests.getLocal(offer.getLocalID().toString(), context);
