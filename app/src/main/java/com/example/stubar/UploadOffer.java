@@ -15,12 +15,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.stubar.model.local.Local;
+import com.example.stubar.model.local.LocalAdapter;
+import com.example.stubar.model.local.LocalAdapterSpinner;
+import com.example.stubar.model.local.LocalResponseArray;
 import com.example.stubar.model.offer.Offer;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
@@ -47,6 +53,7 @@ public class UploadOffer extends BaseActivity {
     Button btnImage, btnInsertOffer;
     EditText edOfferComment, edOfferPrice;
     TextView tbTitle;
+    Spinner nameOfLocalSpinner;
     private String image64;
     private final String[] projection = new String[]{
             MediaStore.Images.ImageColumns._ID,
@@ -76,6 +83,8 @@ public class UploadOffer extends BaseActivity {
         edOfferComment = findViewById(R.id.edOfferComment);
         edOfferPrice = findViewById(R.id.edOfferPrice);
         btnInsertOffer = findViewById(R.id.btnInsertOffer);
+        nameOfLocalSpinner = findViewById(R.id.spOffer);
+        this.setOfferSpinner();
 
         btnInsertOffer.setOnClickListener(view -> {
             insertOffer();
@@ -129,14 +138,9 @@ public class UploadOffer extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-
             Bitmap thumbnail = null;
             if (Build.VERSION.SDK_INT >= 29) {
-                // You can replace '0' by 'cursor.getColumnIndex(MediaStore.Images.ImageColumns._ID)'
-                // Note that now, you read the column '_ID' and not the column 'DATA'
                 Uri imageUri = data.getData();
-
-                // now that you have the media URI, you can decode it to a bitmap
                 try (ParcelFileDescriptor pfd = this.getContentResolver().openFileDescriptor(imageUri, "r")) {
                     if (pfd != null) {
                         thumbnail = BitmapFactory.decodeFileDescriptor(pfd.getFileDescriptor());
@@ -157,5 +161,23 @@ public class UploadOffer extends BaseActivity {
         userImage1.compress(Bitmap.CompressFormat.JPEG, 60, baos);
         byte[] b = baos.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    private void setOfferSpinner() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = Constants.LOCAL_URL;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
+            Gson gson = new Gson();
+            LocalResponseArray localResponseArray = gson.fromJson(String.valueOf(response), LocalResponseArray.class);
+            if (localResponseArray.size() == 0) {
+                nameOfLocalSpinner.setVisibility(View.GONE);
+            } else {
+                localResponseArray.add(0, new Local());
+                nameOfLocalSpinner.setAdapter(new LocalAdapterSpinner(this, localResponseArray));
+            }
+        }, error -> {
+            Log.d("ERROR", "Error downloading institutions");
+        });
+        requestQueue.add(stringRequest);
     }
 }
