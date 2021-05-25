@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -25,6 +26,14 @@
                 android:id="@+id/documents"
                 android:icon="@drawable/ic_baseline_menu_book_24"
                 android:title="@string/documents" />
+        </menu>
+    </item>
+    <item android:title="More info">
+        <menu>
+            <item
+                android:id="@+id/stucat"
+                android:icon="@drawable/ic_baseline_language_24"
+                android:title="Stu.cat" />
         </menu>
     </item>
 </menu>

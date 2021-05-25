@@ -17,6 +17,6 @@ public class Constants {
     public static String LOCAL_URL = "http://46.101.46.166:8080/stuapi/api/local/";
     public static String INSERT_OFFER = "http://46.101.46.166:8080/stuapi/api/offer";
     public static String INSERT_DOCUMENT = "http://46.101.46.166:8080/stuapi/api/document";
-    public static String SEARCH_DOCUMENT = "http://46.101.46.166:8080/stuapi/api/document?name=";
-    public static String SEARCH_OFFER = "http://46.101.46.166:8080/stuapi/api/offer?name=";
+    public static String SEARCH_DOCUMENT = "http://46.101.46.166:8080/stuapi/api/document/search?name=";
+    public static String SEARCH_OFFER = "http://46.101.46.166:8080/stuapi/api/offer/search?name=";
 }

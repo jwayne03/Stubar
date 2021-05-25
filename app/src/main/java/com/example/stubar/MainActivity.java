@@ -84,38 +84,17 @@ public class MainActivity extends BaseActivity {
 
         });
 
-        edSearch.addTextChangedListener(filterTextWatcher);
-        showPromotions(false, "");
-        showDocuments(false, "");
+        edSearch.setVisibility(View.GONE);
+        tbSearch.setVisibility(View.GONE);
+        showPromotions();
+        showDocuments();
     }
 
-    private final TextWatcher filterTextWatcher = new TextWatcher() {
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (edSearch.getText().length() == 0) {
-                showDocuments(false, "");
-                showPromotions(false, "");
-            } else {
-                showDocuments(true, edSearch.getText().toString());
-                showPromotions(true, edSearch.getText().toString());
-            }
-        }
-        @Override
-        public void afterTextChanged(Editable editable) {}
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-    };
-
-    private void showDocuments(boolean isSearching, String searchText) {
+    private void showDocuments() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url;
-        if (!isSearching)
-            url = Constants.USER_DOCUMENTS_URL + Constants.USER_LOGGED.getIdUser().toString();
-        else
-            url = Constants.SEARCH_DOCUMENT + searchText;
 
         StringRequest request = new StringRequest(
-                Request.Method.GET, url,
+                Request.Method.GET, Constants.USER_DOCUMENTS_URL + Constants.USER_LOGGED.getIdUser().toString(),
                 response -> {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
@@ -142,16 +121,10 @@ public class MainActivity extends BaseActivity {
         queue.add(request);
     }
 
-    private void showPromotions(boolean isSearching, String searchText) {
+    private void showPromotions() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url;
-        if (!isSearching)
-            url = Constants.USER_OFFERS_URL + Constants.USER_LOGGED.getIdUser().toString();
-        else
-            url = Constants.SEARCH_OFFER + searchText;
-
         StringRequest request = new StringRequest(
-                Request.Method.GET, url,
+                Request.Method.GET, Constants.USER_OFFERS_URL + Constants.USER_LOGGED.getIdUser().toString(),
                 response -> {
                     // Log.d("flx", "RESPONSE: " + response);
                     Gson gson = new Gson();
@@ -175,7 +148,6 @@ public class MainActivity extends BaseActivity {
                     Log.d("flx", msg);
                 });
         queue.add(request);
-
     }
 
     private void getGoogleCredentials(GoogleSignInAccount googleSignInAccount) {

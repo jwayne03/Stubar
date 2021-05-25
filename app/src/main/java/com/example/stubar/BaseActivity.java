@@ -3,6 +3,7 @@ package com.example.stubar;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -177,6 +178,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
             finish();
+        } else if (id == R.id.stucat) {
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.stu.cat"));
+            startActivity(intent);
         }
 
         drawer.closeDrawer(GravityCompat.START);
