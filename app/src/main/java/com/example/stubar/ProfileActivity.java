@@ -129,10 +129,14 @@ public class ProfileActivity extends BaseActivity {
         builder.setTitle("IMPORTANT!");
         builder.setMessage("By clicking 'YES' you will accept all the changes. Are you sure?");
         builder.setPositiveButton("YES", (dialogInterface, i) ->  {
-            if(image64 != null) {
+            if(image64 != null && edConfirmPass.getText().toString().isEmpty() && edPass.getText().toString().isEmpty()) {
                 Constants.USER_LOGGED.setProfilePhoto(image64);
                 updateUser();
                 finish();
+            } else {
+                Snackbar snackbar = Snackbar.make(rootView, "ERROR! Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(ProfileActivity.this, R.color.orange));
+                snackbar.show();
             }
 
             if(!edPass.getText().toString().isEmpty() && !edConfirmPass.getText().toString().isEmpty()) {
@@ -145,10 +149,6 @@ public class ProfileActivity extends BaseActivity {
                     snackbar.getView().setBackgroundColor(ContextCompat.getColor(ProfileActivity.this, R.color.orange));
                     snackbar.show();
                 }
-            } else {
-                Snackbar snackbar = Snackbar.make(rootView, "ERROR! Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
-                snackbar.getView().setBackgroundColor(ContextCompat.getColor(ProfileActivity.this, R.color.orange));
-                snackbar.show();
             }
         });
         builder.setNegativeButton("NO", (dialogInterface, i) -> {});
