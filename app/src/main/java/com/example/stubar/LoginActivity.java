@@ -1,12 +1,16 @@
 package com.example.stubar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -36,7 +40,7 @@ import org.json.JSONObject;
 
 import java.util.Objects;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements Runnable {
 
     private final int RC_SIGN_IN = 0;
     private EditText edUsername, edPassword;
@@ -46,7 +50,11 @@ public class LoginActivity extends AppCompatActivity {
     private SignInButton signInWithGoogle;
     private GoogleSignInClient googleSignInClient;
     private String uuid;
+    private ProgressBar pbLogin;
+    private Handler handler;
+    private int stepCounter;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
         edUsername = findViewById(R.id.edUsernameLogin);
         edPassword = findViewById(R.id.edPasswordLogin);
+        pbLogin = findViewById(R.id.pbLogin);
 
         btnLogin = findViewById(R.id.btnLogin);
         signInWithGoogle = findViewById(R.id.sign_in_button);
@@ -65,12 +74,40 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             finish();
         });
+
+        handler = new Handler();
+        stepCounter = 0;
+        handler.postDelayed(this, 0);
+
+        edUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        });
+
+        edPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        });
+
         normalLogin();
         signInWithGoogle();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void normalLogin() {
-        btnLogin.setOnClickListener(this::checkAuthentication);
+        btnLogin.setOnClickListener(view -> {
+            checkAuthentication(view);
+            edPassword.clearFocus();
+            edUsername.clearFocus();
+        });
     }
 
     private void signInWithGoogle() {
@@ -137,9 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.has("response")) {
                             try {
                                 requests.getUserApi(response, LoginActivity.this);
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
+                                loadDashboard();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -157,5 +192,24 @@ public class LoginActivity extends AppCompatActivity {
                 error -> Log.d("Authentication/Error", error.toString()));
 
         queue.add(postRequest);
+    }
+
+
+    @Override
+    public void run() {
+        if (stepCounter == 1) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private void loadDashboard() {
+        if (stepCounter == 0) {
+            // First step
+            pbLogin.setVisibility(View.VISIBLE);
+            stepCounter++;
+            handler.postDelayed(this, 2000);
+        }
     }
 }
