@@ -20,9 +20,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.document.Document;
-import com.example.stubar.model.local.Local;
-import com.example.stubar.model.local.LocalAdapterSpinner;
-import com.example.stubar.model.local.LocalResponseArray;
 import com.example.stubar.model.topic.Topic;
 import com.example.stubar.model.topic.TopicAdapterSpinner;
 import com.example.stubar.model.topic.TopicResponse;
@@ -63,7 +60,7 @@ public class UploadDocument extends BaseActivity {
         tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText(R.string.documents_upper);
 
-        this.ivStubar = findViewById(R.id.ivStubar);
+        this.ivStubar = findViewById(R.id.ivDocument);
         this.spinnerGrade = findViewById(R.id.spGrade);
         this.spinnerStudy = findViewById(R.id.spStudy);
         this.edNameOfTheDocument = findViewById(R.id.edNameDocument);

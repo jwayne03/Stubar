@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -52,6 +53,7 @@ public class UploadOffer extends BaseActivity {
     private Spinner nameOfLocalSpinner;
     private String image64;
     private View rootView;
+    private ImageView ivOffer;
     private final String[] projection = new String[]{
             MediaStore.Images.ImageColumns._ID,
             MediaStore.Images.ImageColumns.DATA,
@@ -81,6 +83,8 @@ public class UploadOffer extends BaseActivity {
         edOfferPrice = findViewById(R.id.edOfferPrice);
         btnInsertOffer = findViewById(R.id.btnInsertOffer);
         nameOfLocalSpinner = findViewById(R.id.spOffer);
+        ivOffer = findViewById(R.id.ivOffer);
+
         this.setOfferSpinner();
 
         btnInsertOffer.setOnClickListener(view -> {
@@ -89,6 +93,10 @@ public class UploadOffer extends BaseActivity {
                 snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadOffer.this, R.color.orange));
                 snackbar.show();
             } else if (edOfferComment.getText() == null || edOfferComment.getText().toString().trim().isEmpty()) {
+                Snackbar snackbar = Snackbar.make(rootView, "Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadOffer.this, R.color.orange));
+                snackbar.show();
+            } else if (nameOfLocalSpinner.getSelectedItemPosition() == 0) {
                 Snackbar snackbar = Snackbar.make(rootView, "Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
                 snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadOffer.this, R.color.orange));
                 snackbar.show();
@@ -150,6 +158,8 @@ public class UploadOffer extends BaseActivity {
             Bitmap thumbnail = null;
             if (Build.VERSION.SDK_INT >= 29) {
                 Uri imageUri = data.getData();
+                ivOffer.setBackgroundResource(android.R.color.transparent);
+                ivOffer.setImageURI(imageUri);
                 try (ParcelFileDescriptor pfd = this.getContentResolver().openFileDescriptor(imageUri, "r")) {
                     if (pfd != null)
                         thumbnail = BitmapFactory.decodeFileDescriptor(pfd.getFileDescriptor());
