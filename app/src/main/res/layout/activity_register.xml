@@ -195,15 +195,37 @@
                 android:textSize="16sp"
                 android:autofillHints="" />
 
-            <CheckBox
-                android:id="@+id/cbTermsConditions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:text="@string/terms_conditions"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:visibility="visible" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbTermsConditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/terms_conditions"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/btnConditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="0dp"
+                    android:background="#00FFFFFF"
+                    android:fontFamily="sans-serif"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minHeight="5dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/terms_amp_conditions"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@android:color/holo_blue_light"
+                    android:textSize="13sp"
+                    app:iconPadding="0dp" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnSignUp"

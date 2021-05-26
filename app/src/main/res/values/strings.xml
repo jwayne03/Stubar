@@ -60,7 +60,7 @@
     <string name="birthday">Birthday (00–00–0000)</string>
     <string name="location">Location</string>
     <string name="confirmPassword">Confirm Password</string>
-    <string name="terms_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>
+    <string name="terms_conditions">By checking the box you agree</string>
     <string name="signUp">SIGN UP</string>
     <string name="already_user">Already have Account?.</string>
     <string name="registered_emailid">Please enter your Registered Email Id below:</string>
@@ -93,4 +93,5 @@
     <string name="offers">OFFERS</string>
     <string name="documents_upper">DOCUMENTS</string>
     <string name="author">Anonymous</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
 </resources>

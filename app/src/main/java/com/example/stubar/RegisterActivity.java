@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -39,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
             edPassword, edConfirmPassword;
 
     private CheckBox cbTermsConditions;
-    private Button btnSignUp, btnLoginHere;
+    private Button btnSignUp, btnLoginHere, btnConditions;
     private Spinner spInstitution;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -56,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         edPassword = findViewById(R.id.edPassword);
         edConfirmPassword = findViewById(R.id.edConfirmPassword);
         spInstitution = findViewById(R.id.spInstitution);
+        btnConditions = findViewById(R.id.btnConditions);
 
         cbTermsConditions = findViewById(R.id.cbTermsConditions);
 
@@ -64,12 +66,48 @@ public class RegisterActivity extends AppCompatActivity {
 
         setSpInstitution();
 
+        btnConditions.setOnClickListener(view -> {
+            showConditionsAlert();
+        });
+
         btnLoginHere.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             finish();
         });
 
         btnSignUp.setOnClickListener(this::checkData);
+    }
+
+    private void showConditionsAlert() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Terms and Conditions of Stubar");
+        builder.setMessage("Conditions of use\n" +
+                "By using this application, you certify that you have read and reviewed this Agreement and that you agree to comply with its terms. If you do not want to be bound by the terms of this Agreement, you are advised to uninstall the application accordingly. Stubar only grants use and access of this application, its products, and its services to those who have accepted its terms.\n" +
+                "\nPrivacy policy\n" +
+                "Before you continue using our application, we advise you to read our privacy policy stu.cat regarding our user data collection. It will help you better understand our practices.\n" +
+                "\nAge restriction\n" +
+                "You must be at least 16 (sixteen) years of age before you can use this application. By using this application, you warrant that you are at least 16 years of age and you may legally adhere to this Agreement. Stubar assumes no responsibility for liabilities related to age misrepresentation.\n" +
+                "\nIntellectual property\n" +
+                "You agree that all materials, products, and services provided on this application are the property of Stubar, its affiliates, directors, officers, employees, agents, suppliers, or licensors including all copyrights, trade secrets, trademarks, patents, and other intellectual property. You also agree that you will not reproduce or redistribute the Stubar’s intellectual property in any way, including electronic, digital, or new trademark registrations.\n" +
+                "You grant Stubar a royalty-free and non-exclusive license to display, use, copy, transmit, and broadcast the content you upload and publish. For issues regarding intellectual property claims, you should contact the company in order to come to an agreement.\n" +
+                "\nUser accounts\n" +
+                "As a user of this application, you may be asked to register with us and provide private information. You are responsible for ensuring the accuracy of this information, and you are responsible for maintaining the safety and security of your identifying information. You are also responsible for all activities that occur under your account or password.\n" +
+                "If you think there are any possible issues regarding the security of your account on the application, inform us immediately so we may address them accordingly.\n" +
+                "We reserve all rights to terminate accounts, edit or remove content and cancel orders at our sole discretion.\n" +
+                " \n" +
+                "Applicable law\n" +
+                "By visiting this application, you agree that the laws of the Spain government, without regard to principles of conflict laws, will govern these terms and conditions, or any dispute of any sort that might come between Stubar and you, or its business partners and associates.\n" +
+                "\nDisputes\n" +
+                "Any dispute related in any way to your visit to this application or to products you purchase from us shall be arbitrated by state or federal court [location] and you consent to exclusive jurisdiction and venue of such courts.\n" +
+                "\nIndemnification\n" +
+                "You agree to indemnify Stubar and its affiliates and hold Stubar harmless against legal claims and demands that may arise from your use or misuse of our services. We reserve the right to select our own legal counsel.\n" +
+                "\nLimitation on liability\n" +
+                "Stubar is not liable for any damages that may occur to you as a result of your misuse of our application.\n" +
+                "Stubar reserves the right to edit, modify, and change this Agreement at any time. We shall let our users know of these changes through electronic mail. This Agreement is an understanding between Stubar and the user, and this supersedes and replaces all prior agreements regarding the use of this application.");
+        builder.setNegativeButton("Close", (dialogInterface, i) -> {
+        });
+        builder.show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
