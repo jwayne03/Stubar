@@ -2,9 +2,13 @@ package com.example.stubar.model.offer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,7 +50,7 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
-        ConstraintLayout cnstLayFront, cnstLayBack;
+        ConstraintLayout cnstLayFront, cnstLayBack, itemPromo;
         TextView tvLocalName, tvComment, tvGoTo, tvOfferPrice;
         ImageView ivBackground;
         ImageButton btnDownloadOffer;
@@ -56,6 +60,7 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemPromo = itemView.findViewById(R.id.itemPromo);
             cnstLayFront = itemView.findViewById(R.id.cnstLayFront);
             cnstLayBack = itemView.findViewById(R.id.cnstLayBack);
             tvLocalName = itemView.findViewById(R.id.tvLocalName);
@@ -83,6 +88,13 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
         @SuppressLint("SetTextI18n")
         public void setOffer(Offer offer) {
             Requests requests = new Requests();
+
+            WindowManager wm = (WindowManager)    context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+
+            itemPromo.setMaxWidth(display.getWidth() / 2);
+            itemPromo.setMaxHeight(display.getWidth() / 2);
+
             this.offers = offer;
             tvLocalName.setText(Decode.decodeUTF8(offer.getLocalName()));
             tvComment.setText(offer.getComment());
