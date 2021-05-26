@@ -30,9 +30,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 public class MainActivity extends BaseActivity {
-    RecyclerView rvOffer, rvDocument;
-    TextView tbTitle, tvEmptyOffer, tvEmptyDocument;
-    FloatingActionButton fbAdd, fbDoc, fbPro, fbDel;
+    private RecyclerView rvOffer, rvDocument;
+    private TextView tbTitle, tvEmptyOffer, tvEmptyDocument;
+    private FloatingActionButton fbAdd, fbDoc, fbPro, fbDel;
 
     @SuppressLint("SetTextI18n")
     @Override

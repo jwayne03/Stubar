@@ -36,7 +36,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private SupportMapFragment supportMapFragment;
-    ImageButton searchButton;
+    private ImageButton searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 public class SplashActivity extends AppCompatActivity implements Runnable {
 
-    Handler handler;
-    int stepCounter;
-    TextView tvCurrentStep;
+    private Handler handler;
+    private int stepCounter;
+    private TextView tvCurrentStep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

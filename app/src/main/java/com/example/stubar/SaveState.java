@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 
 public class SaveState {
 
-    Context context;
-    SharedPreferences sharedPreferences;
+    private Context context;
+    private SharedPreferences sharedPreferences;
 
     public SaveState(Context context) {
         this.context = context;

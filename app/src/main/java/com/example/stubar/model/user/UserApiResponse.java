@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserApiResponse {
     @SerializedName("user")
-    User user;
+    private User user;
 
     public UserApiResponse() {
     }

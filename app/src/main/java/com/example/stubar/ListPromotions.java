@@ -21,8 +21,8 @@ import com.example.stubar.utils.constants.Constants;
 import com.google.gson.Gson;
 
 public class ListPromotions extends BaseActivity {
-    RecyclerView recyclerView;
-    TextView tbTitle;
+    private RecyclerView recyclerView;
+    private TextView tbTitle;
 
     @SuppressLint("SetTextI18n")
     @Override

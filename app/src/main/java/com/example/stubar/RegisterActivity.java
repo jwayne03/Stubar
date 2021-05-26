@@ -35,12 +35,12 @@ import org.json.JSONObject;
 import java.time.LocalDate;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText edName, edSurname, edUsername, edEmail, edLocation, edBirthday,
+    private EditText edName, edSurname, edUsername, edEmail, edLocation, edBirthday,
             edPassword, edConfirmPassword;
 
-    CheckBox cbTermsConditions;
-    Button btnSignUp, btnLoginHere;
-    Spinner spInstitution;
+    private CheckBox cbTermsConditions;
+    private Button btnSignUp, btnLoginHere;
+    private Spinner spInstitution;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override

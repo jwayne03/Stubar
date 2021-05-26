@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.decode.Decode;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -38,8 +39,9 @@ public class ProfileActivity extends BaseActivity {
     private Button btnImage, btnSaveChanges;
     private EditText edPass, edConfirmPass;
     private String image64;
-    TextView tbTitle;
+    private TextView tbTitle;
     private ImageView ivProfile;
+    private View rootView;
 
     @Override
     public void onBackPressed() {
@@ -53,7 +55,7 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.activity_profile, frameLayout);
+        rootView = getLayoutInflater().inflate(R.layout.activity_profile, frameLayout);
         tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText("MY PROFILE");
         tbSearch.setVisibility(View.GONE);
@@ -126,28 +128,28 @@ public class ProfileActivity extends BaseActivity {
 
         builder.setTitle("IMPORTANT!");
         builder.setMessage("By clicking 'YES' you will accept all the changes. Are you sure?");
-
-        //final AlertDialog dialog = builder.create();
         builder.setPositiveButton("YES", (dialogInterface, i) ->  {
-            boolean passCorrect = false;
-            if(image64 != null) Constants.USER_LOGGED.setProfilePhoto(image64);
+            if(image64 != null) {
+                Constants.USER_LOGGED.setProfilePhoto(image64);
+                updateUser();
+                finish();
+            }
 
             if(!edPass.getText().toString().isEmpty() && !edConfirmPass.getText().toString().isEmpty()) {
                 if(edPass.getText().toString().trim().equals(edConfirmPass.getText().toString().trim())) {
                     Constants.USER_LOGGED.setPassword(edPass.getText().toString());
                     updateUser();
-                    passCorrect = true;
+                    finish();
+                } else {
+                    Snackbar snackbar = Snackbar.make(rootView, "ERROR! Passwords do not match.", Snackbar.LENGTH_LONG);
+                    snackbar.getView().setBackgroundColor(ContextCompat.getColor(ProfileActivity.this, R.color.orange));
+                    snackbar.show();
                 }
-            }
-            if(passCorrect) {
-                finish();
             } else {
-                Toast toast1 =
-                        Toast.makeText(getApplicationContext(),
-                                "ERROR! Passwords do not match.", Toast.LENGTH_SHORT);
-                toast1.show();
+                Snackbar snackbar = Snackbar.make(rootView, "ERROR! Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(ProfileActivity.this, R.color.orange));
+                snackbar.show();
             }
-
         });
         builder.setNegativeButton("NO", (dialogInterface, i) -> {});
         builder.show();

@@ -10,8 +10,8 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    SwitchMaterial swDarkMode;
-    SaveState saveState;
+    private SwitchMaterial swDarkMode;
+    private SaveState saveState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

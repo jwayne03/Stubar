@@ -1,6 +1,7 @@
 package com.example.stubar;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ import com.example.stubar.model.offer.Offer;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.decode.Decode;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -43,11 +45,12 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class UploadOffer extends BaseActivity {
-    Button btnImage, btnInsertOffer;
-    EditText edOfferComment, edOfferPrice;
-    TextView tbTitle;
-    Spinner nameOfLocalSpinner;
+    private Button btnImage, btnInsertOffer;
+    private EditText edOfferComment, edOfferPrice;
+    private TextView tbTitle;
+    private Spinner nameOfLocalSpinner;
     private String image64;
+    private View rootView;
     private final String[] projection = new String[]{
             MediaStore.Images.ImageColumns._ID,
             MediaStore.Images.ImageColumns.DATA,
@@ -68,7 +71,7 @@ public class UploadOffer extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.activity_upload_offer, frameLayout);
+        rootView = getLayoutInflater().inflate(R.layout.activity_upload_offer, frameLayout);
         tbSearch.setVisibility(View.GONE);
         tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText(R.string.offers);
@@ -80,12 +83,21 @@ public class UploadOffer extends BaseActivity {
         this.setOfferSpinner();
 
         btnInsertOffer.setOnClickListener(view -> {
-            insertOffer();
-            Intent intent = new Intent(UploadOffer.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            if (edOfferPrice.getText() == null || edOfferPrice.getText().toString().trim().isEmpty()) {
+                Snackbar snackbar = Snackbar.make(rootView, "Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadOffer.this, R.color.orange));
+                snackbar.show();
+            } else if (edOfferComment.getText() == null || edOfferComment.getText().toString().trim().isEmpty()) {
+                Snackbar snackbar = Snackbar.make(rootView, "Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadOffer.this, R.color.orange));
+                snackbar.show();
+            } else {
+                insertOffer();
+                Intent intent = new Intent(UploadOffer.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
-
         btnImage.setOnClickListener(view -> selectImage());
     }
 
