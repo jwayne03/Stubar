@@ -24,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.stubar.model.institution.InstitutionAdapter;
 import com.example.stubar.model.local.Local;
 import com.example.stubar.model.local.LocalAdapter;
 import com.example.stubar.model.local.LocalAdapterSpinner;
@@ -127,7 +128,10 @@ public class UploadOffer extends BaseActivity {
         Offer offer = new Offer();
         offer.setComment(edOfferComment.getText().toString().trim());
         offer.setPrice(Double.parseDouble(edOfferPrice.getText().toString().trim()));
-        offer.setLocal("57e28428-7110-11eb-91d0-06a55b230c35");
+
+        LocalAdapterSpinner adapter = (LocalAdapterSpinner) this.nameOfLocalSpinner.getAdapter();
+        offer.setLocal(adapter.getItemName(this.nameOfLocalSpinner.getSelectedItemPosition()));
+
         offer.setUserID(Constants.USER_LOGGED.getIdUser().toString().trim());
         offer.setImageOffer(image64);
         offer.setDate(LocalDate.now());
@@ -156,7 +160,6 @@ public class UploadOffer extends BaseActivity {
                 }
             }
             if (thumbnail != null) image64 = Decode.bitMapToString(thumbnail);
-            Log.d("length", "onActivityResult: " + image64.length());
         }
     }
 

@@ -126,8 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
             newUser.setBirthday(this.edBirthday.getText().toString().trim());
             newUser.setPassword(this.edPassword.getText().toString().trim());
 
-            InstitutionAdapter a = (InstitutionAdapter) this.spInstitution.getAdapter();
-            newUser.setInstitution(a.getItemName(this.spInstitution.getSelectedItemPosition()));
+            newUser.setInstitution(adapter.getItemName(this.spInstitution.getSelectedItemPosition()));
 
             registerUser(newUser);
         }

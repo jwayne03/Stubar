@@ -2,11 +2,14 @@ package com.example.stubar.model.local;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.stubar.utils.constants.Constants;
 
 public class LocalAdapterSpinner extends BaseAdapter {
     private Context context;
@@ -33,7 +36,7 @@ public class LocalAdapterSpinner extends BaseAdapter {
     }
 
     public String getItemName(int i) {
-        return localResponseArray.get(i).getName();
+        return localResponseArray.get(i).getIdLocal().toString();
     }
 
     @Override
@@ -46,6 +49,8 @@ public class LocalAdapterSpinner extends BaseAdapter {
         @SuppressLint("ViewHolder") View view = LayoutInflater.from(context).inflate(android.R.layout.simple_spinner_item, null);
         TextView textView = view.findViewById(android.R.id.text1);
         textView.setText(localResponseArray.get(i).getName());
+//        Log.d("UUIDLOCAL", "getView: " + Constants.USER_LOGGED.getIdUser().toString());
+//        Log.d("NAME LOCAL", "getView: " + localResponseArray.get(i).getName());
         textView.setHeight(100);
         return view;
     }
