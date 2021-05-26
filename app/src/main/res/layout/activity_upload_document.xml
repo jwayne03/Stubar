@@ -66,7 +66,7 @@
                 tools:ignore="MissingConstraints" />
 
             <Spinner
-                android:id="@+id/spTopic"
+                android:id="@+id/spStudy"
                 android:layout_width="239dp"
                 android:layout_height="52dp"
                 android:layout_marginTop="22dp"

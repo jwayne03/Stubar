@@ -17,9 +17,17 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.stubar.model.document.Document;
+import com.example.stubar.model.local.Local;
+import com.example.stubar.model.local.LocalAdapterSpinner;
+import com.example.stubar.model.local.LocalResponseArray;
+import com.example.stubar.model.topic.Topic;
+import com.example.stubar.model.topic.TopicAdapterSpinner;
+import com.example.stubar.model.topic.TopicResponse;
 import com.example.stubar.utils.constants.Constants;
+import com.example.stubar.utils.decode.Decode;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,6 +41,7 @@ public class UploadDocument extends BaseActivity {
 
     private ImageView ivStubar;
     private Spinner spinnerGrade;
+    private Spinner spinnerStudy;
     private EditText edNameOfTheDocument, edNameOfTheGrade;
     private TextView tbTitle;
     private Button btnInsertDocument;
@@ -56,10 +65,12 @@ public class UploadDocument extends BaseActivity {
 
         this.ivStubar = findViewById(R.id.ivStubar);
         this.spinnerGrade = findViewById(R.id.spGrade);
+        this.spinnerStudy = findViewById(R.id.spStudy);
         this.edNameOfTheDocument = findViewById(R.id.edNameDocument);
         this.edNameOfTheGrade = findViewById(R.id.edNameGrade);
         this.btnInsertDocument = findViewById(R.id.btnInsertDocument);
         this.inflateSpinner();
+        this.setTopicSpinner();
 
         btnInsertDocument.setOnClickListener(view -> {
             insertDocument();
@@ -75,6 +86,25 @@ public class UploadDocument extends BaseActivity {
         spinnerTopicAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, grades);
         spinnerTopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerTopicAdapter);
+    }
+
+    private void setTopicSpinner() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = Constants.GET_ALL_TOPICS;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
+            Gson gson = new Gson();
+            TopicResponse topicResponse = gson
+                    .fromJson((Decode.decodeUTF8(response)), TopicResponse.class);
+            if (topicResponse.size() == 0) {
+                this.spinnerStudy.setVisibility(View.GONE);
+            } else {
+                topicResponse.add(0, new Topic());
+                this.spinnerStudy.setAdapter(new TopicAdapterSpinner(this, topicResponse));
+            }
+        }, error -> {
+            Log.d("ERROR", "Error downloading institutions");
+        });
+        requestQueue.add(stringRequest);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
