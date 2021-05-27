@@ -1,13 +1,17 @@
 package com.example.stubar;
 
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -58,6 +62,8 @@ public class MainActivity extends BaseActivity {
         fbDoc = findViewById(R.id.fbDocuments);
         fbPro = findViewById(R.id.fbPromotions);
         fbDel = findViewById(R.id.fbClose);
+
+        isStoragePermissionGranted();
 
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (googleSignInAccount != null) getGoogleCredentials(googleSignInAccount);
@@ -161,5 +167,21 @@ public class MainActivity extends BaseActivity {
         Uri photo = googleSignInAccount.getPhotoUrl();
         String id = googleSignInAccount.getId();
         Log.d("onCreate: ", name + " " + email + " " + person_id + " " + photo + " " + id);
+    }
+
+    private boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            return true;
+        }
     }
 }

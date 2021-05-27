@@ -217,31 +217,7 @@ public class UploadDocument extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 // Get the Uri of the selected file
                 Uri uri = data.getData();
-<<<<<<< Updated upstream
                 base64File = uri.getPath();
-                File file = new File(uri.getPath());
-
-                String[] projection = { MediaStore.Images.Media.DATA };
-                Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                cursor.moveToFirst();
-                String s = cursor.getString(column_index);
-                cursor.close();
-                Log.d("COSAS", "onActivityResult: " + s);
-
-
-//                byte[] fileContent = new byte[0];
-//                try {
-//                    fileContent = Files.readAllBytes(Paths.get(myFile.getAbsolutePath()));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                base64File = Base64.getEncoder().encodeToString(fileContent);
-=======
-                String uriString = uri.getPath();
-                File myFile = new File(uri.toString());
-                String path = myFile.getAbsolutePath();
-
 
                 StringBuilder stringBuilder = new StringBuilder();
                 try (InputStream inputStream =
@@ -259,7 +235,6 @@ public class UploadDocument extends BaseActivity {
                 }
                 base64File = Base64.getEncoder().encodeToString(stringBuilder.toString().getBytes());
                 Log.d("Base64", "onActivityResult: " + base64File);
->>>>>>> Stashed changes
 
             } else {
                 Snackbar snackbar = Snackbar.make(rootView, "Error selecting documents", Snackbar.LENGTH_LONG);
