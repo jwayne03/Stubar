@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.FileUtils;
+import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
@@ -218,6 +219,28 @@ public class UploadDocument extends BaseActivity {
                 // Get the Uri of the selected file
                 Uri uri = data.getData();
                 base64File = uri.getPath();
+                File file = new File(uri.getPath());
+
+                String[] projection = { MediaStore.Images.Media.DATA };
+                Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                cursor.moveToFirst();
+                String s = cursor.getString(column_index);
+                cursor.close();
+                Log.d("COSAS", "onActivityResult: " + s);
+
+
+//                byte[] fileContent = new byte[0];
+//                try {
+//                    fileContent = Files.readAllBytes(Paths.get(myFile.getAbsolutePath()));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                base64File = Base64.getEncoder().encodeToString(fileContent);
+                String uriString = uri.getPath();
+                File myFile = new File(uri.toString());
+                String path = myFile.getAbsolutePath();
+
 
                 StringBuilder stringBuilder = new StringBuilder();
                 try (InputStream inputStream =

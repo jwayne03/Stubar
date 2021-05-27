@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -146,11 +147,18 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
             downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             btnDownloadDoc.setOnClickListener(v -> {
                 Uri uri = Uri.parse(Constants.DOCUMENTS_DOWNLOAD_URL + document.getDocPath());
-
-                DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setDestinationUri(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/Download", document.getName() + ".pdf")));
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                downloadManager.enqueue(request);
+                try {
+                    DownloadManager.Request request = new DownloadManager.Request(uri);
+                    request.setTitle(document.getName());
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    request.allowScanningByMediaScanner();
+                    request.setMimeType("application/pdf");
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, document.getName() + ".pdf");
+                    downloadManager.enqueue(request);
+                    Toast.makeText(context, "Download completed", Toast.LENGTH_LONG).show();
+                } catch(Exception e) {
+                    Toast.makeText(context, "Unable to download", Toast.LENGTH_LONG).show();
+                }
             });
         }
     }
