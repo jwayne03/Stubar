@@ -184,12 +184,12 @@ public class UploadDocument extends BaseActivity {
 
                 File file = new File(uri.getPath());
 
-                    String[] projection = { MediaStore.Images.Media.DATA };
-                    Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images`.Media.DATA);
-                    cursor.moveToFirst();
-                    String s = cursor.getString(column_index);
-                    cursor.close();
+                String[] projection = { MediaStore.Images.Media.DATA };
+                Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images`.Media.DATA);
+                cursor.moveToFirst();
+                String s = cursor.getString(column_index);
+                cursor.close();
                 Log.d("COSAS", "onActivityResult: " + s);
 
 
