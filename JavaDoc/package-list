@@ -1,0 +1,12 @@
+com.example.stubar
+com.example.stubar.model.document
+com.example.stubar.model.institution
+com.example.stubar.model.local
+com.example.stubar.model.offer
+com.example.stubar.model.topic
+com.example.stubar.model.user
+com.example.stubar.utils.api
+com.example.stubar.utils.constants
+com.example.stubar.utils.decode
+com.example.stubar.utils.deserializer
+com.example.stubar.utils.serializer
