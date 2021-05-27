@@ -63,6 +63,9 @@ public class UploadDocument extends BaseActivity {
 
     private final String[] grades = {"1", "2", "3", "4", "5", "6", "7", "8"};
 
+    /**
+     * Method when the user clicks back in the navigation drawer takes it back.
+     */
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(UploadDocument.this, MainActivity.class);
@@ -70,6 +73,11 @@ public class UploadDocument extends BaseActivity {
         finish();
     }
 
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,6 +198,14 @@ public class UploadDocument extends BaseActivity {
         return document;
     }
 
+
+    /**
+     * Method to upload a document
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

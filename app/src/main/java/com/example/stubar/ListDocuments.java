@@ -24,6 +24,11 @@ public class ListDocuments extends BaseActivity {
     private RecyclerView recyclerView;
     private TextView tbTitle;
 
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +54,24 @@ public class ListDocuments extends BaseActivity {
             }
         }
 
+        /**
+         * Method after the text has changed
+         * @param editable Editable
+         */
         @Override
-        public void afterTextChanged(Editable editable) {}
+        public void afterTextChanged(Editable editable) {
+        }
+
+        /**
+         * Method before the text has changed
+         * @param s CharSequence
+         * @param start int
+         * @param count int
+         * @param after int
+         */
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
     };
 
 

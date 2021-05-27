@@ -35,6 +35,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawer;
 
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,12 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     "/profilePhoto").into(ivProfileImage);
     }
 
+    /**
+     * Method that show the BottomNavigationBar where the user controls the main activities of the app
+     *
+     * @param rootView View
+     * @param home     int
+     */
     @SuppressLint("NonConstantResourceId")
     public void initBottomNavigation(View rootView, int home) {
         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.navigation);
@@ -67,11 +78,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     return false;
                 case R.id.book:
                     startActivity(new Intent(getApplicationContext(), ListDocuments.class));
-                    finish();
-                    overridePendingTransition(0, 0);
-                    return false;
-                case R.id.maps:
-                    startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                     finish();
                     overridePendingTransition(0, 0);
                     return false;
@@ -131,6 +137,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    /**
+     * Method when the user clicks back in the navigation drawer takes it back.
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -154,8 +163,13 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         builder.show();
     }
 
+    /**
+     * Method that is encharged to the flow of the applicacion in the Navigation Drawer
+     *
+     * @param item MenuItem
+     * @return boolean
+     */
     @SuppressLint({"ResourceType", "QueryPermissionsNeeded"})
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

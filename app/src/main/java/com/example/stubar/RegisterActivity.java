@@ -43,6 +43,11 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnSignUp, btnLoginHere, btnConditions;
     private Spinner spInstitution;
 
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {

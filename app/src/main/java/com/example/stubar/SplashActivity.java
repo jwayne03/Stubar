@@ -13,17 +13,23 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
     private int stepCounter;
     private TextView tvCurrentStep;
 
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        // Program and fire the handler immediately
         handler = new Handler();
         stepCounter = 0;
         handler.postDelayed(this, 0);
     }
 
+    /**
+     * Method that delays the UI to load all the data
+     */
     @Override
     public void run() {
         tvCurrentStep = findViewById(R.id.tvStep);

@@ -54,6 +54,11 @@ public class LoginActivity extends AppCompatActivity implements Runnable {
     private Handler handler;
     private int stepCounter;
 
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,18 +85,30 @@ public class LoginActivity extends AppCompatActivity implements Runnable {
         handler.postDelayed(this, 0);
 
         edUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            /**
+             * Method onFocusChange
+             * @param v View
+             * @param hasFocus boolean
+             */
+            @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (!hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
         });
 
         edPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            /**
+             * Method onFocusChange
+             * @param v View
+             * @param hasFocus boolean
+             */
+            @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (!hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
@@ -128,6 +145,14 @@ public class LoginActivity extends AppCompatActivity implements Runnable {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    /**
+     * Method to check if the user of Google has a google account and if the user exists
+     * he can sign in
+     *
+     * @param requestCode int
+     * @param resultCode  int
+     * @param data        Intent
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -172,12 +197,12 @@ public class LoginActivity extends AppCompatActivity implements Runnable {
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, Constants.AUTHENTICATION_USER_URL, jsonObject,
                 response -> {
                     if (response.has("response")) {
-                            try {
-                                requests.getUserApi(response, LoginActivity.this);
-                                loadDashboard();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                        try {
+                            requests.getUserApi(response, LoginActivity.this);
+                            loadDashboard();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         try {
                             String errorMessage = response.getString("error");
@@ -194,7 +219,9 @@ public class LoginActivity extends AppCompatActivity implements Runnable {
         queue.add(postRequest);
     }
 
-
+    /**
+     * Method to delays the UI to have time to load all the data
+     */
     @Override
     public void run() {
         if (stepCounter == 1) {

@@ -59,6 +59,9 @@ public class UploadOffer extends BaseActivity {
             MediaStore.Images.ImageColumns.DISPLAY_NAME,
     };
 
+    /**
+     * Method to go back
+     */
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(UploadOffer.this, MainActivity.class);
@@ -66,6 +69,11 @@ public class UploadOffer extends BaseActivity {
         finish();
     }
 
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +155,13 @@ public class UploadOffer extends BaseActivity {
         startActivityForResult(intent, 2);
     }
 
+    /**
+     * Method to upload an offer
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

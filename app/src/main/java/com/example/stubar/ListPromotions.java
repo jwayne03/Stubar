@@ -24,6 +24,11 @@ public class ListPromotions extends BaseActivity {
     private RecyclerView recyclerView;
     private TextView tbTitle;
 
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

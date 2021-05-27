@@ -30,7 +30,6 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ListDocuments" />
         <activity android:name=".ListPromotions" />
-        <activity android:name=".SettingsActivity" />
         <activity android:name=".LoginActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -44,9 +43,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SplashActivity">

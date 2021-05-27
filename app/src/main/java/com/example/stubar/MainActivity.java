@@ -34,6 +34,11 @@ public class MainActivity extends BaseActivity {
     private TextView tbTitle, tvEmptyOffer, tvEmptyDocument;
     private FloatingActionButton fbAdd, fbDoc, fbPro, fbDel;
 
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

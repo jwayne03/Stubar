@@ -31,6 +31,7 @@ import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -43,6 +44,10 @@ public class ProfileActivity extends BaseActivity {
     private ImageView ivProfile;
     private View rootView;
 
+
+    /**
+     * Method when the user clicks back in the navigation drawer takes it back.
+     */
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
@@ -50,7 +55,11 @@ public class ProfileActivity extends BaseActivity {
         finish();
     }
 
-
+    /**
+     * Method that invokes the UI of the activity
+     *
+     * @param savedInstanceState Bundle
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +86,13 @@ public class ProfileActivity extends BaseActivity {
         startActivityForResult(intent, 2);
     }
 
+    /**
+     * Method to load the image of the user
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -128,8 +144,8 @@ public class ProfileActivity extends BaseActivity {
 
         builder.setTitle("IMPORTANT!");
         builder.setMessage("By clicking 'YES' you will accept all the changes. Are you sure?");
-        builder.setPositiveButton("YES", (dialogInterface, i) ->  {
-            if(image64 != null && edConfirmPass.getText().toString().isEmpty() && edPass.getText().toString().isEmpty()) {
+        builder.setPositiveButton("YES", (dialogInterface, i) -> {
+            if (image64 != null && edConfirmPass.getText().toString().isEmpty() && edPass.getText().toString().isEmpty()) {
                 Constants.USER_LOGGED.setProfilePhoto(image64);
                 updateUser();
                 finish();
@@ -139,8 +155,8 @@ public class ProfileActivity extends BaseActivity {
                 snackbar.show();
             }
 
-            if(!edPass.getText().toString().isEmpty() && !edConfirmPass.getText().toString().isEmpty()) {
-                if(edPass.getText().toString().trim().equals(edConfirmPass.getText().toString().trim())) {
+            if (!edPass.getText().toString().isEmpty() && !edConfirmPass.getText().toString().isEmpty()) {
+                if (edPass.getText().toString().trim().equals(edConfirmPass.getText().toString().trim())) {
                     Constants.USER_LOGGED.setPassword(edPass.getText().toString());
                     updateUser();
                     finish();
@@ -151,7 +167,8 @@ public class ProfileActivity extends BaseActivity {
                 }
             }
         });
-        builder.setNegativeButton("NO", (dialogInterface, i) -> {});
+        builder.setNegativeButton("NO", (dialogInterface, i) -> {
+        });
         builder.show();
     }
 }
