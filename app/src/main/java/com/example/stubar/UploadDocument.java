@@ -25,6 +25,7 @@ import com.example.stubar.model.topic.TopicAdapterSpinner;
 import com.example.stubar.model.topic.TopicResponse;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.decode.Decode;
+import com.example.stubar.utils.deserializer.UUIDDeserializer;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,13 +34,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class UploadDocument extends BaseActivity {
 
     private ImageView ivStubar;
     private Spinner spinnerGrade;
     private Spinner spinnerStudy;
-    private EditText edNameOfTheDocument, edNameOfTheGrade;
+    private EditText edNameOfTheDocument;
     private TextView tbTitle;
     private Button btnInsertDocument;
     private final String[] grades = {"1", "2", "3", "4", "5", "6", "7", "8"};
@@ -64,7 +66,6 @@ public class UploadDocument extends BaseActivity {
         this.spinnerGrade = findViewById(R.id.spGrade);
         this.spinnerStudy = findViewById(R.id.spStudy);
         this.edNameOfTheDocument = findViewById(R.id.edNameDocument);
-        this.edNameOfTheGrade = findViewById(R.id.edNameGrade);
         this.btnInsertDocument = findViewById(R.id.btnInsertDocument);
         this.inflateSpinner();
         this.setTopicSpinner();
@@ -88,10 +89,14 @@ public class UploadDocument extends BaseActivity {
     private void setTopicSpinner() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = Constants.GET_ALL_TOPICS;
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
+
             Gson gson = new Gson();
             TopicResponse topicResponse = gson
                     .fromJson((Decode.decodeUTF8(response)), TopicResponse.class);
+
+
             if (topicResponse.size() == 0) {
                 this.spinnerStudy.setVisibility(View.GONE);
             } else {
@@ -131,11 +136,14 @@ public class UploadDocument extends BaseActivity {
         document.setName(edNameOfTheDocument.getText().toString().trim());
         document.setGrade(Integer.parseInt(spinnerGrade.getSelectedItem().toString().trim()));
         document.setDocPath("dfeb1757-a128-11eb-9ac4-06a55b230c35");
-        document.setTopicID("effffc25-8434-11eb-9ac4-06a55b230c35");
-        document.setTopicName(null);
+
+        TopicAdapterSpinner adapter = (TopicAdapterSpinner) this.spinnerStudy.getAdapter();
+        document.setTopicID(adapter.getItemName(this.spinnerStudy.getSelectedItemPosition()));
+
         document.setUsername(Constants.USER_LOGGED.getUsername().trim());
         document.setUserID(Constants.USER_LOGGED.getIdUser().toString().trim());
         document.setDate(LocalDate.now());
+
         return document;
     }
 }

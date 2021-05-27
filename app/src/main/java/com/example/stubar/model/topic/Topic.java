@@ -1,25 +1,28 @@
 package com.example.stubar.model.topic;
 
-public class Topic {
 
-    private String uuid;
+
+import java.util.UUID;
+
+public class Topic {
+    private UUID idTopic;
     private String description;
 
     public Topic() {
         this.description = "Enter your field study";
     }
 
-    public Topic(String uuid, String description) {
-        this.uuid = uuid;
+    public Topic(String idTopic, String description) {
+        this.idTopic = UUID.fromString(idTopic);
         this.description = description;
     }
 
-    public String getUuid() {
-        return uuid;
+    public UUID getIdTopic() {
+        return idTopic;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setIdTopic(String idTopic) {
+        this.idTopic = UUID.fromString(idTopic);
     }
 
     public String getDescription() {

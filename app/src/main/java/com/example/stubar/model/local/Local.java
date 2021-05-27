@@ -7,7 +7,6 @@ import java.util.UUID;
 
 
 public class Local {
-    @JsonDeserialize(as = UUIDDeserializer.class)
     private UUID idLocal;
     private String name;
     private int postcode;
@@ -65,16 +64,5 @@ public class Local {
 
     public void setGeolong(float geolong) {
         this.geolong = geolong;
-    }
-
-    @Override
-    public String toString() {
-        return "Local{" +
-                "idLocal=" + idLocal +
-                ", name='" + name + '\'' +
-                ", postcode=" + postcode +
-                ", geolat=" + geolat +
-                ", geolong=" + geolong +
-                '}';
     }
 }

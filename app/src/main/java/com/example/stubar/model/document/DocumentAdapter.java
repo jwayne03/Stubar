@@ -5,9 +5,11 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,7 +51,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
-        ConstraintLayout cnstLayFront, cnstLayBack;
+        ConstraintLayout cnstLayFront, cnstLayBack, itemDoc;
         TextView tvLocalName, tvGrade, tvAuthorDoc, tvTopic, tvBackName;
         ImageButton btnDownloadDoc;
         ImageView ivBackground;
@@ -60,6 +62,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemDoc = itemView.findViewById(R.id.itemDoc);
             cnstLayFront = itemView.findViewById(R.id.cnstLayFront);
             cnstLayBack = itemView.findViewById(R.id.cnstLayBack);
             tvLocalName = itemView.findViewById(R.id.tvLocalName);
@@ -88,6 +91,13 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
         @SuppressLint("SetJavaScriptEnabled")
         private void setDocument(Document document) {
             this.document = document;
+
+            WindowManager wm = (WindowManager)    context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+
+            itemDoc.setMaxWidth(display.getWidth() / 2);
+            itemDoc.setMaxHeight(display.getWidth() / 2);
+
             tvLocalName.setText(Decode.decodeUTF8(document.getName()));
             tvBackName.setText(Decode.decodeUTF8(document.getName()));
             tvGrade.setText(String.valueOf(document.getGrade()));

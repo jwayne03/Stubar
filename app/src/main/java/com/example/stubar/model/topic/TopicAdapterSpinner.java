@@ -2,6 +2,7 @@ package com.example.stubar.model.topic;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,8 @@ public class TopicAdapterSpinner extends BaseAdapter {
     }
 
     public String getItemName(int i) {
-        return this.topicResponse.get(i).getDescription();
+        Log.d("TAG", "getItemName: "+ topicResponse);
+        return this.topicResponse.get(i).getIdTopic().toString();
     }
 
     @Override

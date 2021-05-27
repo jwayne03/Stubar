@@ -40,22 +40,6 @@
                 android:textColorHighlight="@color/white"
                 android:textColorHint="#FFFFFF" />
 
-            <EditText
-                android:id="@+id/edNameGrade"
-                android:layout_width="288dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/edittext_custom"
-                android:ems="10"
-                android:hint="@string/edNameDegree"
-                android:inputType="textEmailAddress"
-                android:outlineAmbientShadowColor="@color/white"
-                android:outlineSpotShadowColor="@color/white"
-                android:shadowColor="@color/white"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="#FFFFFF" />
-
             <Spinner
                 android:id="@+id/spGrade"
                 android:layout_width="239dp"

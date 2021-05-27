@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.stubar.model.institution.InstitutionAdapter;
 import com.example.stubar.model.local.Local;
-import com.example.stubar.model.local.LocalAdapter;
 import com.example.stubar.model.local.LocalAdapterSpinner;
 import com.example.stubar.model.local.LocalResponseArray;
 import com.example.stubar.model.offer.Offer;
@@ -41,7 +38,6 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -85,7 +81,7 @@ public class UploadOffer extends BaseActivity {
         nameOfLocalSpinner = findViewById(R.id.spOffer);
         ivOffer = findViewById(R.id.ivOffer);
 
-        this.setOfferSpinner();
+        this.setLocalSpinner();
 
         btnInsertOffer.setOnClickListener(view -> {
             if (edOfferPrice.getText() == null || edOfferPrice.getText().toString().trim().isEmpty()) {
@@ -173,19 +169,23 @@ public class UploadOffer extends BaseActivity {
         }
     }
 
-    private void setOfferSpinner() {
+    private void setLocalSpinner() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = Constants.LOCAL_URL;
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
             Gson gson = new Gson();
             LocalResponseArray localResponseArray = gson
                     .fromJson((Decode.decodeUTF8(response)), LocalResponseArray.class);
+
             if (localResponseArray.size() == 0) {
                 nameOfLocalSpinner.setVisibility(View.GONE);
+
             } else {
                 localResponseArray.add(0, new Local());
                 nameOfLocalSpinner.setAdapter(new LocalAdapterSpinner(this, localResponseArray));
             }
+
         }, error -> {
             Log.d("ERROR", "Error downloading institutions");
         });
