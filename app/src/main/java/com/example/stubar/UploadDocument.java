@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.FileUtils;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
@@ -44,10 +43,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Objects;
 
 public class UploadDocument extends BaseActivity {
 
@@ -186,6 +189,7 @@ public class UploadDocument extends BaseActivity {
         Document document = new Document();
         document.setName(edNameOfTheDocument.getText().toString().trim());
         document.setGrade(Integer.parseInt(spinnerGrade.getSelectedItem().toString().trim()));
+
         document.setDocPath(this.base64File);
 
         TopicAdapterSpinner adapter = (TopicAdapterSpinner) this.spinnerStudy.getAdapter();
@@ -213,6 +217,7 @@ public class UploadDocument extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 // Get the Uri of the selected file
                 Uri uri = data.getData();
+<<<<<<< Updated upstream
                 base64File = uri.getPath();
                 File file = new File(uri.getPath());
 
@@ -232,6 +237,29 @@ public class UploadDocument extends BaseActivity {
 //                    e.printStackTrace();
 //                }
 //                base64File = Base64.getEncoder().encodeToString(fileContent);
+=======
+                String uriString = uri.getPath();
+                File myFile = new File(uri.toString());
+                String path = myFile.getAbsolutePath();
+
+
+                StringBuilder stringBuilder = new StringBuilder();
+                try (InputStream inputStream =
+                             getContentResolver().openInputStream(uri);
+                     BufferedReader reader = new BufferedReader(
+                             new InputStreamReader(Objects.requireNonNull(inputStream)))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        stringBuilder.append(line);
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                base64File = Base64.getEncoder().encodeToString(stringBuilder.toString().getBytes());
+                Log.d("Base64", "onActivityResult: " + base64File);
+>>>>>>> Stashed changes
 
             } else {
                 Snackbar snackbar = Snackbar.make(rootView, "Error selecting documents", Snackbar.LENGTH_LONG);
