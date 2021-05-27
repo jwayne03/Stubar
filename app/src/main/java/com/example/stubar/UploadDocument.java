@@ -89,10 +89,28 @@ public class UploadDocument extends BaseActivity {
         this.setTopicSpinner();
 
         btnInsertDocument.setOnClickListener(view -> {
-            insertDocument();
-            Intent intent = new Intent(UploadDocument.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            if (edNameOfTheDocument.getText() == null || edNameOfTheDocument.getText().toString().trim().isEmpty()) {
+                Snackbar snackbar = Snackbar.make(rootView, "Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadDocument.this, R.color.orange));
+                snackbar.show();
+            } else if (spinnerStudy.getSelectedItemPosition() == 0) {
+                Snackbar snackbar = Snackbar.make(rootView, "Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadDocument.this, R.color.orange));
+                snackbar.show();
+            } else if (spinnerGrade.getSelectedItemPosition() == 0) {
+                Snackbar snackbar = Snackbar.make(rootView, "Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadDocument.this, R.color.orange));
+                snackbar.show();
+            } else if (base64File == null) {
+                Snackbar snackbar = Snackbar.make(rootView, "Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadDocument.this, R.color.orange));
+                snackbar.show();
+            } else {
+                insertDocument();
+                Intent intent = new Intent(UploadDocument.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
 
         btnUploadDocument.setOnClickListener(view -> {
@@ -100,8 +118,6 @@ public class UploadDocument extends BaseActivity {
             intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.setType("application/pdf");
             startActivityForResult(intent, PICK_PDF_FILE);
-
-
         });
     }
 
@@ -181,12 +197,12 @@ public class UploadDocument extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 // Get the Uri of the selected file
                 Uri uri = data.getData();
-
+                base64File = uri.getPath();
                 File file = new File(uri.getPath());
 
                 String[] projection = { MediaStore.Images.Media.DATA };
                 Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images`.Media.DATA);
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 cursor.moveToFirst();
                 String s = cursor.getString(column_index);
                 cursor.close();
