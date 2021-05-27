@@ -59,12 +59,21 @@
                 tools:ignore="MissingConstraints" />
 
             <Button
+                android:id="@+id/btnUploadDocument"
+                android:layout_width="203dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/uploadfile"
+                tools:ignore="MissingConstraints" />
+
+            <Button
                 android:id="@+id/btnInsertDocument"
                 android:layout_width="203dp"
                 android:layout_height="56dp"
                 android:layout_marginTop="40dp"
-                android:text="@string/uploadfile"
+                android:text="@string/insertFile"
                 tools:ignore="MissingConstraints" />
+
 
         </LinearLayout>
     </ScrollView>

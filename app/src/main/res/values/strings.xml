@@ -83,6 +83,7 @@
 
     <!--- Upload file text -->
     <string name="uploadfile">Upload a Document</string>
+    <string name="insertFile">Insert a Document</string>
     <string name="edNameDocument">Enter the name of the document</string>
     <string name="edNameDegree">Enter your degree (ex: Computer science…)</string>
 

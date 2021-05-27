@@ -31,7 +31,7 @@ public class ListDocuments extends BaseActivity {
         setTitle("");
         tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText("DOCUMENTS");
-        View rootView = getLayoutInflater().inflate(R.layout.activity_upload_file, frameLayout);
+        View rootView = getLayoutInflater().inflate(R.layout.activity_list_document, frameLayout);
         initBottomNavigation(rootView, R.id.book);
         recyclerView = findViewById(R.id.rvOffer);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));

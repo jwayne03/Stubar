@@ -1,10 +1,16 @@
 package com.example.stubar;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.FileUtils;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,16 +31,23 @@ import com.example.stubar.model.topic.TopicAdapterSpinner;
 import com.example.stubar.model.topic.TopicResponse;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.decode.Decode;
-import com.example.stubar.utils.deserializer.UUIDDeserializer;
 import com.example.stubar.utils.serializer.LocalDateSerializer;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.UUID;
+import java.util.Base64;
 
 public class UploadDocument extends BaseActivity {
 
@@ -43,7 +56,11 @@ public class UploadDocument extends BaseActivity {
     private Spinner spinnerStudy;
     private EditText edNameOfTheDocument;
     private TextView tbTitle;
-    private Button btnInsertDocument;
+    private Button btnInsertDocument, btnUploadDocument;
+    private static final int PICK_PDF_FILE = 2;
+    private View rootView;
+    private String base64File;
+
     private final String[] grades = {"1", "2", "3", "4", "5", "6", "7", "8"};
 
     @Override
@@ -57,7 +74,7 @@ public class UploadDocument extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.activity_upload_document, frameLayout);
+        this.rootView = getLayoutInflater().inflate(R.layout.activity_upload_document, frameLayout);
         tbSearch.setVisibility(View.GONE);
         tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText(R.string.documents_upper);
@@ -67,6 +84,7 @@ public class UploadDocument extends BaseActivity {
         this.spinnerStudy = findViewById(R.id.spStudy);
         this.edNameOfTheDocument = findViewById(R.id.edNameDocument);
         this.btnInsertDocument = findViewById(R.id.btnInsertDocument);
+        this.btnUploadDocument = findViewById(R.id.btnUploadDocument);
         this.inflateSpinner();
         this.setTopicSpinner();
 
@@ -75,6 +93,15 @@ public class UploadDocument extends BaseActivity {
             Intent intent = new Intent(UploadDocument.this, MainActivity.class);
             startActivity(intent);
             finish();
+        });
+
+        btnUploadDocument.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            intent.setType("application/pdf");
+            startActivityForResult(intent, PICK_PDF_FILE);
+
+
         });
     }
 
@@ -135,7 +162,7 @@ public class UploadDocument extends BaseActivity {
         Document document = new Document();
         document.setName(edNameOfTheDocument.getText().toString().trim());
         document.setGrade(Integer.parseInt(spinnerGrade.getSelectedItem().toString().trim()));
-        document.setDocPath("dfeb1757-a128-11eb-9ac4-06a55b230c35");
+        document.setDocPath(this.base64File);
 
         TopicAdapterSpinner adapter = (TopicAdapterSpinner) this.spinnerStudy.getAdapter();
         document.setTopicID(adapter.getItemName(this.spinnerStudy.getSelectedItemPosition()));
@@ -145,5 +172,40 @@ public class UploadDocument extends BaseActivity {
         document.setDate(LocalDate.now());
 
         return document;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("func", "onActivityResult: " + resultCode);
+            if (resultCode == RESULT_OK) {
+                // Get the Uri of the selected file
+                Uri uri = data.getData();
+
+                File file = new File(uri.getPath());
+
+                    String[] projection = { MediaStore.Images.Media.DATA };
+                    Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images`.Media.DATA);
+                    cursor.moveToFirst();
+                    String s = cursor.getString(column_index);
+                    cursor.close();
+                Log.d("COSAS", "onActivityResult: " + s);
+
+
+//                byte[] fileContent = new byte[0];
+//                try {
+//                    fileContent = Files.readAllBytes(Paths.get(myFile.getAbsolutePath()));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                base64File = Base64.getEncoder().encodeToString(fileContent);
+
+            } else {
+                Snackbar snackbar = Snackbar.make(rootView, "Error selecting documents", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(UploadDocument.this, R.color.orange));
+                snackbar.show();
+            }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
