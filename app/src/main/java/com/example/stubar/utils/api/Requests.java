@@ -30,39 +30,46 @@ import java.time.LocalDate;
 
 public class Requests {
 
+    /**
+     * Method to call to the API and get all the information of the user
+     *
+     * @param loginResponse JSONObject
+     * @param context       Context
+     * @throws JSONException
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void getUserApi(JSONObject loginResponse, Context context) throws JSONException {
         String uuid = loginResponse.getString("response");
         Constants.USER_LOGGED.setIdUser(uuid);
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                Constants.USER_URL + Constants.USER_LOGGED.getIdUser().toString(),
-                response -> {
-                    Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer()).create();
-
-                    response = "{ \"user\": " + response + "}";
-
-                    User user = gson.fromJson(response, UserApiResponse.class).getUser();
-                    user.setBirthday(null);
-
-                    if (user != null) {
-                        Constants.USER_LOGGED = user;
-                        Constants.USER_LOGGED.setIdUser(uuid);
-                    }
-                },
-                error -> {
-                    String msg = "Network error (timeout or disconnected)";
-                    if (error.networkResponse != null) {
-                        msg = "ERROR: " + error.networkResponse.statusCode;
-                    }
-                    Log.d("flx", msg);
-                });
+        StringRequest request = new StringRequest(Request.Method.GET,
+                Constants.USER_URL + Constants.USER_LOGGED.getIdUser().toString(), response -> {
+            Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer()).create();
+            response = "{ \"user\": " + response + "}";
+            User user = gson.fromJson(response, UserApiResponse.class).getUser();
+            user.setBirthday(null);
+            if (user != null) {
+                Constants.USER_LOGGED = user;
+                Constants.USER_LOGGED.setIdUser(uuid);
+            }
+        }, error -> {
+            String msg = "Network error (timeout or disconnected)";
+            if (error.networkResponse != null) {
+                msg = "ERROR: " + error.networkResponse.statusCode;
+            }
+            Log.d("flx", msg);
+        });
         queue.add(request);
     }
 
 
+    /**
+     * Method to call to the API to get all the Local
+     *
+     * @param localId String
+     * @param context Context
+     */
     public void getLocal(String localId, Context context) {
         RequestQueue queue = Volley.newRequestQueue(context);
 

@@ -15,6 +15,14 @@ import java.time.format.DateTimeFormatter;
 
 public class LocalDateSerializer implements JsonSerializer<LocalDate> {
 
+    /**
+     * Local Date Serializer
+     *
+     * @param src       LocalDate
+     * @param typeOfSrc Type
+     * @param context   JsonDeserializationContext
+     * @return JsonPrimitive
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {

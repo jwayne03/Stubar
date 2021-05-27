@@ -27,11 +27,24 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
     private Context context;
     private OfferApiResponse offer;
 
+    /**
+     * Constructor of the OfferAdapter
+     *
+     * @param context Context
+     * @param offer   OfferApiResponse
+     */
     public OfferAdapter(Context context, OfferApiResponse offer) {
         this.context = context;
         this.offer = offer;
     }
 
+    /**
+     * Method inherited from RecyclerView
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public OfferAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,16 +52,31 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
         return new ViewHolder(view);
     }
 
+    /**
+     * Method inherited from RecyclerView
+     *
+     * @param holder   OfferAdapter.ViewHolder
+     * @param position int
+     */
     @Override
     public void onBindViewHolder(@NonNull OfferAdapter.ViewHolder holder, int position) {
         holder.setOffer(offer.getOffers().get(position));
     }
 
+    /**
+     * Method inherited from RecyclerView
+     *
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return offer.getOffers().size();
     }
 
+    /**
+     * Protected class that extends to RecyclerView.ViewHolder to show all the data has been requested
+     * to the API and show the data to the layout
+     */
     protected class ViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout cnstLayFront, cnstLayBack, itemPromo;
         TextView tvLocalName, tvComment, tvGoTo, tvOfferPrice;
@@ -58,6 +86,11 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
 
         boolean clicked;
 
+        /**
+         * Constructor ViewHolder
+         *
+         * @param itemView @NonNull View
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemPromo = itemView.findViewById(R.id.itemPromo);
@@ -85,11 +118,16 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
             });
         }
 
+        /**
+         * Method to set an offer
+         *
+         * @param offer
+         */
         @SuppressLint("SetTextI18n")
         public void setOffer(Offer offer) {
             Requests requests = new Requests();
 
-            WindowManager wm = (WindowManager)    context.getSystemService(Context.WINDOW_SERVICE);
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             Display display = wm.getDefaultDisplay();
 
             itemPromo.setMaxWidth(display.getWidth() / 2);
@@ -102,9 +140,9 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
             tvGoTo.setText("Go to " + Decode.decodeUTF8(offer.getLocalName()));
 
 
-            if(!offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
-                  Picasso.with(context).load(Constants.ALL_OFFERS_URL + "/" + offer.getIdOffer() +
-                  "/offerImage").into(ivBackground);
+            if (!offer.getImageOffer().equals("00000000-0000-0000-0000-000000000000"))
+                Picasso.with(context).load(Constants.ALL_OFFERS_URL + "/" + offer.getIdOffer() +
+                        "/offerImage").into(ivBackground);
 
             btnDownloadOffer.setOnClickListener(view -> {
                 requests.getLocal(offer.getLocalID().toString(), context);

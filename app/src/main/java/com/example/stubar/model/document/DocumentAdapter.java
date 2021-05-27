@@ -28,11 +28,26 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
     private Context context;
     private DocumentApiResponse documentApiResponse;
 
+    /**
+     * Constructor of the Document Adapter, Adapter is a tool to inflate or fill the information
+     * that provides the server and the only thing that needs to do is the structure of the
+     * layout.
+     *
+     * @param context             Context
+     * @param documentApiResponse DocumentApiResponse
+     */
     public DocumentAdapter(Context context, DocumentApiResponse documentApiResponse) {
         this.context = context;
         this.documentApiResponse = documentApiResponse;
     }
 
+    /**
+     * Method DocumentAdapter.ViewHolder where create the view of the Adapter and inflates the Layout
+     *
+     * @param parent   @NonNull ViewGroup
+     * @param viewType int
+     * @return new DocumentAdapter.ViewHolder(view)
+     */
     @NonNull
     @Override
     public DocumentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,16 +55,31 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
         return new DocumentAdapter.ViewHolder(view);
     }
 
+    /**
+     * Method of the RecyclerView to find Documents by position that the adapter has given.
+     *
+     * @param holder   DocmumentAdapter.ViewHolder
+     * @param position int
+     */
     @Override
     public void onBindViewHolder(@NonNull DocumentAdapter.ViewHolder holder, int position) {
         holder.setDocument(documentApiResponse.getDocuments().get(position));
     }
 
+    /**
+     * Method of the RecyclerView to count all the items that the adapter has receive
+     *
+     * @return DocumentApiResponse
+     */
     @Override
     public int getItemCount() {
         return documentApiResponse.getDocuments().size();
     }
 
+    /**
+     * Protected class called ViewHolder and extends of ReciclerView.ViewHolder and this class is
+     * incharged to manage the data has need to be viewed in the layout
+     */
     protected class ViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout cnstLayFront, cnstLayBack, itemDoc;
         TextView tvLocalName, tvGrade, tvAuthorDoc, tvTopic, tvBackName;
@@ -60,6 +90,11 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
         DownloadManager downloadManager;
         boolean clicked;
 
+        /**
+         * Constructor to find view by id with every element of the layout that is ubicated in the XML
+         *
+         * @param itemView @NonNull View
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemDoc = itemView.findViewById(R.id.itemDoc);

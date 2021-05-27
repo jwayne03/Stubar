@@ -9,6 +9,15 @@ import java.lang.reflect.Type;
 import java.util.UUID;
 
 public class UUIDDeserializer implements JsonDeserializer<UUID> {
+    /**
+     * Method to deserialize de UUIC
+     *
+     * @param json    JsonElement
+     * @param typeOfT Type
+     * @param context JsonDeserializationContext
+     * @return UUID
+     * @throws JsonParseException
+     */
     @Override
     public UUID deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         return UUID.fromString(json.getAsJsonPrimitive().getAsString());

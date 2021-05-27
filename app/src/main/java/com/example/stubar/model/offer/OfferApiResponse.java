@@ -6,11 +6,19 @@ import java.util.List;
 
 public class OfferApiResponse {
     @SerializedName("offers")
-    List<Offer> offers;
+    private List<Offer> offers;
 
+    /**
+     * Default constructor
+     */
     public OfferApiResponse() {
     }
 
+    /**
+     * Get all the offers
+     *
+     * @return List<Offer>
+     */
     public List<Offer> getOffers() {
         return offers;
     }
