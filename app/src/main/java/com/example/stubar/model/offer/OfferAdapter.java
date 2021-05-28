@@ -136,7 +136,7 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
             this.offers = offer;
             tvLocalName.setText(Decode.decodeUTF8(offer.getLocalName()));
             tvComment.setText(offer.getComment());
-            tvOfferPrice.setText(String.valueOf(offer.getPrice()));
+            tvOfferPrice.setText(String.valueOf(offer.getPrice() + " €"));
             tvGoTo.setText("Go to " + Decode.decodeUTF8(offer.getLocalName()));
 
 

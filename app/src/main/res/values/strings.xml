@@ -28,6 +28,9 @@
 
     <string name="tvDarkMode">Dark mode</string>
     <string name="tvOffSound">Turn off the sound</string>
+    <string name="labelAuthor">Author:</string>
+    <string name="labelGrade">Grade:</string>
+    <string name="labelTopic">Topic:</string>
 
     <!--- Bottom Navigation Bar -->
     <string name="tvPromotions">Promotions</string>
