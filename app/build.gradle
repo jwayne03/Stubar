@@ -10,7 +10,7 @@ task prepareKotlinBuildScriptModel {
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion '29.0.2'
 
     defaultConfig {
@@ -68,4 +68,6 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'}
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'in.gauriinfotech:commons:1.0.8'
+    implementation 'commons-io:commons-io:2.9.0'}

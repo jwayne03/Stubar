@@ -29,6 +29,8 @@ import com.example.stubar.utils.decode.Decode;
 
 import java.io.File;
 
+import static android.content.Context.DOWNLOAD_SERVICE;
+
 public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
     private Context context;
     private DocumentApiResponse documentApiResponse;
@@ -144,9 +146,10 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
             tvAuthorDoc.setText(R.string.author);
             tvTopic.setText(Decode.decodeUTF8(document.getTopicName()));
 
-            downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+            downloadManager = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
             btnDownloadDoc.setOnClickListener(v -> {
-                Uri uri = Uri.parse(Constants.DOCUMENTS_DOWNLOAD_URL + document.getDocPath());
+                Uri uri = Uri.parse(Constants.DOCUMENTS_DOWNLOAD_URL + document.getIdDocument());
+                Log.d("TAG", "setDocument: " + uri.toString());
                 try {
                     DownloadManager.Request request = new DownloadManager.Request(uri);
                     request.setTitle(document.getName());

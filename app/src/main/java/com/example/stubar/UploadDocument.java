@@ -8,9 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,10 +34,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -50,8 +50,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Base64;
+import android.util.Base64;
 import java.util.Objects;
+
+import in.gauriinfotech.commons.Commons;
 
 public class UploadDocument extends BaseActivity {
 
@@ -127,7 +129,7 @@ public class UploadDocument extends BaseActivity {
 
         btnUploadDocument.setOnClickListener(view -> {
             Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_GET_CONTENT);
+            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
             intent.setType("application/pdf");
             startActivityForResult(intent, PICK_PDF_FILE);
         });
@@ -218,46 +220,29 @@ public class UploadDocument extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 // Get the Uri of the selected file
                 Uri uri = data.getData();
-                base64File = uri.getPath();
-                File file = new File(uri.getPath());
+                StringBuilder documentBase64 = new StringBuilder();
 
-                String[] projection = { MediaStore.Images.Media.DATA };
-                Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                cursor.moveToFirst();
-                String s = cursor.getString(column_index);
-                cursor.close();
-                Log.d("COSAS", "onActivityResult: " + s);
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(uri);
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
+                    int read;
+                    byte[] byteArray = new byte[16384];
 
-//                byte[] fileContent = new byte[0];
-//                try {
-//                    fileContent = Files.readAllBytes(Paths.get(myFile.getAbsolutePath()));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                base64File = Base64.getEncoder().encodeToString(fileContent);
-                String uriString = uri.getPath();
-                File myFile = new File(uri.toString());
-                String path = myFile.getAbsolutePath();
-
-
-                StringBuilder stringBuilder = new StringBuilder();
-                try (InputStream inputStream =
-                             getContentResolver().openInputStream(uri);
-                     BufferedReader reader = new BufferedReader(
-                             new InputStreamReader(Objects.requireNonNull(inputStream)))) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        stringBuilder.append(line);
+                    while ((read = inputStream.read(byteArray, 0, byteArray.length)) != -1) {
+                        buffer.write(byteArray, 0, read);
                     }
+
+                    base64File = Base64.encodeToString(buffer.toByteArray(), Base64.DEFAULT);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                base64File = Base64.getEncoder().encodeToString(stringBuilder.toString().getBytes());
-                Log.d("Base64", "onActivityResult: " + base64File);
+
+
+
+//                Log.d("Base64", "onActivityResult: " + base64File);
 
             } else {
                 Snackbar snackbar = Snackbar.make(rootView, "Error selecting documents", Snackbar.LENGTH_LONG);
