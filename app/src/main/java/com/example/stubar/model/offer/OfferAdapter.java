@@ -2,8 +2,6 @@ package com.example.stubar.model.offer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +22,8 @@ import com.example.stubar.utils.decode.Decode;
 import com.squareup.picasso.Picasso;
 
 public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.offer.OfferAdapter.ViewHolder> {
-    private Context context;
-    private OfferApiResponse offer;
+    private final Context context;
+    private final OfferApiResponse offer;
 
     /**
      * Constructor of the OfferAdapter
@@ -136,7 +134,7 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
             this.offers = offer;
             tvLocalName.setText(Decode.decodeUTF8(offer.getLocalName()));
             tvComment.setText(offer.getComment());
-            tvOfferPrice.setText(String.valueOf(offer.getPrice() + " €"));
+            tvOfferPrice.setText(offer.getPrice() + " €");
             tvGoTo.setText("Go to " + Decode.decodeUTF8(offer.getLocalName()));
 
 
@@ -144,9 +142,7 @@ public class OfferAdapter extends RecyclerView.Adapter<com.example.stubar.model.
                 Picasso.with(context).load(Constants.ALL_OFFERS_URL + "/" + offer.getIdOffer() +
                         "/offerImage").into(ivBackground);
 
-            btnDownloadOffer.setOnClickListener(view -> {
-                requests.getLocal(offer.getLocalID().toString(), context);
-            });
+            btnDownloadOffer.setOnClickListener(view -> requests.getLocal(offer.getLocalID().toString(), context));
         }
     }
 }

@@ -1,15 +1,8 @@
 package com.example.stubar.model.user;
 
 import android.os.Build;
-import android.util.Log;
-
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -182,5 +175,20 @@ public class User {
      */
     public void setInstitution(String institution) {
         this.institution = institution;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "idUser=" + idUser +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", surname='" + surname + '\'' +
+                ", profilePhoto='" + profilePhoto + '\'' +
+                ", birthday=" + birthday +
+                ", institution='" + institution + '\'' +
+                '}';
     }
 }

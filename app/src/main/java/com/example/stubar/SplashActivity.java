@@ -11,7 +11,6 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
 
     private Handler handler;
     private int stepCounter;
-    private TextView tvCurrentStep;
 
     /**
      * Method that invokes the UI of the activity
@@ -32,7 +31,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
      */
     @Override
     public void run() {
-        tvCurrentStep = findViewById(R.id.tvStep);
+        TextView tvCurrentStep = findViewById(R.id.tvStep);
 
         if (stepCounter == 0) {
             // First step

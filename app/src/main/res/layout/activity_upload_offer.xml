@@ -97,7 +97,7 @@
                 android:layout_marginTop="56dp"
                 android:layout_marginBottom="86dp"
                 android:background="@color/purple_200"
-                android:text="INSERT OFFER" />
+                android:text="@string/insert_offer" />
 
         </LinearLayout>
     </ScrollView>

@@ -60,7 +60,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +69,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="TextView"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="@+id/tvComment"
             app:layout_constraintStart_toStartOf="@+id/tvComment"
@@ -92,8 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:maxWidth="50dp"
-                android:text="TextViewTextViewTextViewTextView" />
+                android:maxWidth="50dp" />
 
             <ImageButton
                 android:id="@+id/btnDownloadOffer"
@@ -102,7 +99,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="0"
                 android:background="@drawable/border_custom"
-                android:contentDescription="Button for download document"
                 app:srcCompat="@drawable/ic_maps"
                 tools:ignore="VectorDrawableCompat" />
         </LinearLayout>

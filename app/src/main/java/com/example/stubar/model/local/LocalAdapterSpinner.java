@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class LocalAdapterSpinner extends BaseAdapter {
-    private Context context;
-    private LocalResponseArray localResponseArray;
+    private final Context context;
+    private final LocalResponseArray localResponseArray;
 
     /**
      * Constructor to create the adapter for the specific Spinner of Local
@@ -110,4 +110,3 @@ public class LocalAdapterSpinner extends BaseAdapter {
         return view;
     }
 }
-

@@ -1,7 +1,6 @@
 package com.example.stubar;
 
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +12,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -35,7 +32,8 @@ import com.google.gson.Gson;
 
 public class MainActivity extends BaseActivity {
     private RecyclerView rvOffer, rvDocument;
-    private TextView tbTitle, tvEmptyOffer, tvEmptyDocument;
+    private TextView tvEmptyOffer;
+    private TextView tvEmptyDocument;
     private FloatingActionButton fbAdd, fbDoc, fbPro, fbDel;
 
     /**
@@ -48,7 +46,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("");
-        tbTitle = findViewById(R.id.tbTitle);
+        TextView tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText("MY CREATIONS");
         View rootView = getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
         initBottomNavigation(rootView, R.id.home);
@@ -169,19 +167,12 @@ public class MainActivity extends BaseActivity {
         Log.d("onCreate: ", name + " " + email + " " + person_id + " " + photo + " " + id);
     }
 
-    private boolean isStoragePermissionGranted() {
+    private void isStoragePermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                return true;
-            } else {
-
+                    != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return false;
             }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            return true;
         }
     }
 }

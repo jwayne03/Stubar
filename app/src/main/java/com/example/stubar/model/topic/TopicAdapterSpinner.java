@@ -10,8 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class TopicAdapterSpinner extends BaseAdapter {
-    private Context context;
-    private TopicResponse topicResponse;
+    private final Context context;
+    private final TopicResponse topicResponse;
 
     /**
      * Constructor to inflate the layout with an adapter to show all the topics in the spinner of the UI
@@ -111,5 +111,3 @@ public class TopicAdapterSpinner extends BaseAdapter {
         return view;
     }
 }
-
-

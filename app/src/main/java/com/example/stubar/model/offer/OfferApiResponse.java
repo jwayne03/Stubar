@@ -6,12 +6,14 @@ import java.util.List;
 
 public class OfferApiResponse {
     @SerializedName("offers")
-    private List<Offer> offers;
+    private final List<Offer> offers;
 
     /**
      * Default constructor
+     * @param offers
      */
-    public OfferApiResponse() {
+    public OfferApiResponse(List<Offer> offers) {
+        this.offers = offers;
     }
 
     /**

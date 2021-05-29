@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 
 public class ListPromotions extends BaseActivity {
     private RecyclerView recyclerView;
-    private TextView tbTitle;
 
     /**
      * Method that invokes the UI of the activity
@@ -34,7 +33,7 @@ public class ListPromotions extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("");
-        tbTitle = findViewById(R.id.tbTitle);
+        TextView tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText("PROMOTIONS");
         View rootView = getLayoutInflater().inflate(R.layout.activity_promotions, frameLayout);
         initBottomNavigation(rootView, R.id.promotions);

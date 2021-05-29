@@ -1,10 +1,8 @@
 package com.example.stubar.model.document;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -20,20 +18,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stubar.R;
 import com.example.stubar.utils.constants.Constants;
 import com.example.stubar.utils.decode.Decode;
 
-import java.io.File;
-
 import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
-    private Context context;
-    private DocumentApiResponse documentApiResponse;
+    private final Context context;
+    private final DocumentApiResponse documentApiResponse;
 
     /**
      * Constructor of the Document Adapter, Adapter is a tool to inflate or fill the information

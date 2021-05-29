@@ -98,4 +98,13 @@
     <string name="documents_upper">DOCUMENTS</string>
     <string name="author">Anonymous</string>
     <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="my_profile">MY PROFILE</string>
+    <string name="promotions">PROMOTIONS</string>
+    <string name="empty_offer">You haven\'t created an offer yet? Try it out now :)</string>
+    <string name="empty_document">You haven\'t upload a document yet? Try it out now :)</string>
+    <string name="confirm_new_password">Confirm the password</string>
+    <string name="save_changes">SAVE CHANGES</string>
+    <string name="enter_new_password">Enter a password</string>
+    <string name="login_here">Login here</string>
+    <string name="insert_offer">INSERT OFFER</string>
 </resources>

@@ -43,21 +43,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class UploadOffer extends BaseActivity {
-    private Button btnImage, btnInsertOffer;
     private EditText edOfferComment, edOfferPrice;
-    private TextView tbTitle;
     private Spinner nameOfLocalSpinner;
     private String image64;
     private View rootView;
     private ImageView ivOffer;
-    private final String[] projection = new String[]{
-            MediaStore.Images.ImageColumns._ID,
-            MediaStore.Images.ImageColumns.DATA,
-            MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME,
-            MediaStore.Images.ImageColumns.DATE_TAKEN,
-            MediaStore.Images.ImageColumns.MIME_TYPE,
-            MediaStore.Images.ImageColumns.DISPLAY_NAME,
-    };
 
     /**
      * Method to go back
@@ -80,12 +70,12 @@ public class UploadOffer extends BaseActivity {
         super.onCreate(savedInstanceState);
         rootView = getLayoutInflater().inflate(R.layout.activity_upload_offer, frameLayout);
         tbSearch.setVisibility(View.GONE);
-        tbTitle = findViewById(R.id.tbTitle);
+        TextView tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText(R.string.offers);
-        btnImage = findViewById(R.id.btnUploadImage);
+        Button btnImage = findViewById(R.id.btnUploadImage);
         edOfferComment = findViewById(R.id.edOfferComment);
         edOfferPrice = findViewById(R.id.edOfferPrice);
-        btnInsertOffer = findViewById(R.id.btnInsertOffer);
+        Button btnInsertOffer = findViewById(R.id.btnInsertOffer);
         nameOfLocalSpinner = findViewById(R.id.spOffer);
         ivOffer = findViewById(R.id.ivOffer);
 
@@ -201,9 +191,7 @@ public class UploadOffer extends BaseActivity {
                 nameOfLocalSpinner.setAdapter(new LocalAdapterSpinner(this, localResponseArray));
             }
 
-        }, error -> {
-            Log.d("ERROR", "Error downloading institutions");
-        });
+        }, error -> Log.d("ERROR", "Error downloading institutions"));
         requestQueue.add(stringRequest);
     }
 }

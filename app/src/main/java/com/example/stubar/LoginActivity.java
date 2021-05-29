@@ -44,12 +44,9 @@ public class LoginActivity extends AppCompatActivity implements Runnable {
 
     private final int RC_SIGN_IN = 0;
     private EditText edUsername, edPassword;
-    private User newUser;
     private Button btnLogin;
-    private TextView tvBtnRegister;
     private SignInButton signInWithGoogle;
     private GoogleSignInClient googleSignInClient;
-    private String uuid;
     private ProgressBar pbLogin;
     private Handler handler;
     private int stepCounter;
@@ -73,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements Runnable {
         signInWithGoogle = findViewById(R.id.sign_in_button);
         signInWithGoogle.setSize(SignInButton.SIZE_STANDARD);
 
-        tvBtnRegister = findViewById(R.id.btnRegister);
+        TextView tvBtnRegister = findViewById(R.id.btnRegister);
 
         tvBtnRegister.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
@@ -181,7 +178,7 @@ public class LoginActivity extends AppCompatActivity implements Runnable {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkAuthentication(View view) {
         Requests requests = new Requests();
-        newUser = new User();
+        User newUser = new User();
         RequestQueue queue = Volley.newRequestQueue(this);
         newUser.setUsername(edUsername.getText().toString().trim());
         newUser.setPassword(edPassword.getText().toString().trim());

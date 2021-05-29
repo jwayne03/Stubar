@@ -48,8 +48,6 @@ public class UploadDocument extends BaseActivity {
     private Spinner spinnerGrade;
     private Spinner spinnerStudy;
     private EditText edNameOfTheDocument;
-    private TextView tbTitle;
-    private Button btnInsertDocument, btnUploadDocument;
     private static final int PICK_PDF_FILE = 2;
     private View rootView;
     private String base64File;
@@ -77,15 +75,15 @@ public class UploadDocument extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.rootView = getLayoutInflater().inflate(R.layout.activity_upload_document, frameLayout);
         tbSearch.setVisibility(View.GONE);
-        tbTitle = findViewById(R.id.tbTitle);
+        TextView tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText(R.string.documents_upper);
 
         this.ivStubar = findViewById(R.id.ivDocument);
         this.spinnerGrade = findViewById(R.id.spGrade);
         this.spinnerStudy = findViewById(R.id.spStudy);
         this.edNameOfTheDocument = findViewById(R.id.edNameDocument);
-        this.btnInsertDocument = findViewById(R.id.btnInsertDocument);
-        this.btnUploadDocument = findViewById(R.id.btnUploadDocument);
+        Button btnInsertDocument = findViewById(R.id.btnInsertDocument);
+        Button btnUploadDocument = findViewById(R.id.btnUploadDocument);
         this.inflateSpinner();
         this.setTopicSpinner();
 
@@ -123,7 +121,7 @@ public class UploadDocument extends BaseActivity {
     }
 
     private void inflateSpinner() {
-        Spinner spinner = (Spinner) findViewById(R.id.spGrade);
+        Spinner spinner = findViewById(R.id.spGrade);
         ArrayAdapter<String> spinnerTopicAdapter;
         spinnerTopicAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, grades);
         spinnerTopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -147,9 +145,7 @@ public class UploadDocument extends BaseActivity {
                 topicResponse.add(0, new Topic());
                 this.spinnerStudy.setAdapter(new TopicAdapterSpinner(this, topicResponse));
             }
-        }, error -> {
-            Log.d("ERROR", "Error downloading institutions");
-        });
+        }, error -> Log.d("ERROR", "Error downloading institutions"));
         requestQueue.add(stringRequest);
     }
 
@@ -226,10 +222,6 @@ public class UploadDocument extends BaseActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
-
-//                Log.d("Base64", "onActivityResult: " + base64File);
 
             } else {
                 Snackbar snackbar = Snackbar.make(rootView, "Error selecting documents", Snackbar.LENGTH_LONG);

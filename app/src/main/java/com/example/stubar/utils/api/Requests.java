@@ -22,7 +22,6 @@ import com.example.stubar.utils.serializer.LocalDateSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

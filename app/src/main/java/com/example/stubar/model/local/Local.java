@@ -2,14 +2,12 @@ package com.example.stubar.model.local;
 
 import java.util.UUID;
 
-
 public class Local {
     private UUID idLocal;
     private String name;
     private int postcode;
     private float geolat;
     private float geolong;
-
 
     /**
      * Constructor of Local

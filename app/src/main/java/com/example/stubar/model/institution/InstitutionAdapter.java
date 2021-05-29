@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class InstitutionAdapter extends BaseAdapter {
-    private Context context;
-    private InstitutionApiResponse listOfInstitutions;
+    private final Context context;
+    private final InstitutionApiResponse listOfInstitutions;
 
     /**
      * Constructor of the adapter of institution

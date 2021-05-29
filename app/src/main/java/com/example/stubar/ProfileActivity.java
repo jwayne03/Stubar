@@ -37,10 +37,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class ProfileActivity extends BaseActivity {
-    private Button btnImage, btnSaveChanges;
     private EditText edPass, edConfirmPass;
     private String image64;
-    private TextView tbTitle;
     private ImageView ivProfile;
     private View rootView;
 
@@ -65,20 +63,18 @@ public class ProfileActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rootView = getLayoutInflater().inflate(R.layout.activity_profile, frameLayout);
-        tbTitle = findViewById(R.id.tbTitle);
-        tbTitle.setText("MY PROFILE");
+        TextView tbTitle = findViewById(R.id.tbTitle);
+        tbTitle.setText(R.string.my_profile);
         tbSearch.setVisibility(View.GONE);
-        btnImage = findViewById(R.id.btnProfileImage);
-        btnSaveChanges = findViewById(R.id.btnSaveChanges);
+        Button btnImage = findViewById(R.id.btnProfileImage);
+        Button btnSaveChanges = findViewById(R.id.btnSaveChanges);
         edPass = findViewById(R.id.edPorfilePass);
         edConfirmPass = findViewById(R.id.edProfileConfirmPass);
         ivProfile = findViewById(R.id.ivPorfileImage);
 
         btnImage.setOnClickListener(view -> selectImage());
 
-        btnSaveChanges.setOnClickListener(view -> {
-            saveChangesAlert();
-        });
+        btnSaveChanges.setOnClickListener(view -> saveChangesAlert());
     }
 
     private void selectImage() {
@@ -145,19 +141,12 @@ public class ProfileActivity extends BaseActivity {
         builder.setTitle("IMPORTANT!");
         builder.setMessage("By clicking 'YES' you will accept all the changes. Are you sure?");
         builder.setPositiveButton("YES", (dialogInterface, i) -> {
-            if (image64 != null && edConfirmPass.getText().toString().isEmpty() && edPass.getText().toString().isEmpty()) {
-                Constants.USER_LOGGED.setProfilePhoto(image64);
-                updateUser();
-                finish();
-            } else {
-                Snackbar snackbar = Snackbar.make(rootView, "ERROR! Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
-                snackbar.getView().setBackgroundColor(ContextCompat.getColor(ProfileActivity.this, R.color.orange));
-                snackbar.show();
-            }
 
             if (!edPass.getText().toString().isEmpty() && !edConfirmPass.getText().toString().isEmpty()) {
                 if (edPass.getText().toString().trim().equals(edConfirmPass.getText().toString().trim())) {
                     Constants.USER_LOGGED.setPassword(edPass.getText().toString());
+                    if (image64 != null)
+                        Constants.USER_LOGGED.setProfilePhoto(image64);
                     updateUser();
                     finish();
                 } else {
@@ -165,6 +154,10 @@ public class ProfileActivity extends BaseActivity {
                     snackbar.getView().setBackgroundColor(ContextCompat.getColor(ProfileActivity.this, R.color.orange));
                     snackbar.show();
                 }
+            } else {
+                Snackbar snackbar = Snackbar.make(rootView, "ERROR! Some fields are empty. Fill them and try it again.", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(ProfileActivity.this, R.color.orange));
+                snackbar.show();
             }
         });
         builder.setNegativeButton("NO", (dialogInterface, i) -> {

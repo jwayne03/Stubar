@@ -268,7 +268,7 @@
                     android:minHeight="5dp"
                     android:paddingLeft="4dp"
                     android:paddingTop="10dp"
-                    android:text="Login here"
+                    android:text="@string/login_here"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@android:color/holo_blue_light"
                     android:textSize="15sp"

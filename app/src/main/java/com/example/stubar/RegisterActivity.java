@@ -36,11 +36,15 @@ import org.json.JSONObject;
 import java.time.LocalDate;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText edName, edSurname, edUsername, edEmail, edLocation, edBirthday,
-            edPassword, edConfirmPassword;
+    private EditText edName;
+    private EditText edSurname;
+    private EditText edUsername;
+    private EditText edEmail;
+    private EditText edBirthday;
+    private EditText edPassword;
+    private EditText edConfirmPassword;
 
     private CheckBox cbTermsConditions;
-    private Button btnSignUp, btnLoginHere, btnConditions;
     private Spinner spInstitution;
 
     /**
@@ -62,18 +66,16 @@ public class RegisterActivity extends AppCompatActivity {
         edPassword = findViewById(R.id.edPassword);
         edConfirmPassword = findViewById(R.id.edConfirmPassword);
         spInstitution = findViewById(R.id.spInstitution);
-        btnConditions = findViewById(R.id.btnConditions);
+        Button btnConditions = findViewById(R.id.btnConditions);
 
         cbTermsConditions = findViewById(R.id.cbTermsConditions);
 
-        btnSignUp = findViewById(R.id.btnSignUp);
-        btnLoginHere = findViewById(R.id.btnLoginHere);
+        Button btnSignUp = findViewById(R.id.btnSignUp);
+        Button btnLoginHere = findViewById(R.id.btnLoginHere);
 
         setSpInstitution();
 
-        btnConditions.setOnClickListener(view -> {
-            showConditionsAlert();
-        });
+        btnConditions.setOnClickListener(view -> showConditionsAlert());
 
         btnLoginHere.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));

@@ -2,15 +2,16 @@ package com.example.stubar.model.user;
 
 import com.google.gson.annotations.SerializedName;
 
-
 public class UserApiResponse {
     @SerializedName("user")
-    private User user;
+    private final User user;
 
     /**
      * Default constructor of UserApiResponse
+     * @param user
      */
-    public UserApiResponse() {
+    public UserApiResponse(User user) {
+        this.user = user;
     }
 
     /**
