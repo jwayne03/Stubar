@@ -179,7 +179,7 @@ public class UploadDocument extends BaseActivity {
         Document document = new Document();
         document.setName(edNameOfTheDocument.getText().toString().trim());
         document.setGrade(Integer.parseInt(spinnerGrade.getSelectedItem().toString().trim()));
-
+        document.setUsername(Constants.USER_LOGGED.getUsername());
         document.setDocPath(this.base64File);
 
         TopicAdapterSpinner adapter = (TopicAdapterSpinner) this.spinnerStudy.getAdapter();

@@ -143,7 +143,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
             tvLocalName.setText(Decode.decodeUTF8(document.getName()));
             tvBackName.setText(Decode.decodeUTF8(document.getName()));
             tvGrade.setText(String.valueOf(document.getGrade()));
-            tvAuthorDoc.setText(R.string.author);
+            tvAuthorDoc.setText(document.getUsername());
             tvTopic.setText(Decode.decodeUTF8(document.getTopicName()));
 
             downloadManager = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
