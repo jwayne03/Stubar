@@ -52,7 +52,7 @@ public class UploadDocument extends BaseActivity {
     private View rootView;
     private String base64File;
 
-    private final String[] grades = {"1", "2", "3", "4", "5", "6", "7", "8"};
+    private final String[] grades = {"Select Grade","1", "2", "3", "4", "5", "6", "7", "8"};
 
     /**
      * Method when the user clicks back in the navigation drawer takes it back.
