@@ -1,5 +1,6 @@
 package com.example.stubar;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -91,7 +92,6 @@ public class MainActivity extends BaseActivity {
             fbAdd.setVisibility(View.VISIBLE);
             fbDoc.setVisibility(View.INVISIBLE);
             fbPro.setVisibility(View.INVISIBLE);
-
         });
 
         edSearch.setVisibility(View.GONE);

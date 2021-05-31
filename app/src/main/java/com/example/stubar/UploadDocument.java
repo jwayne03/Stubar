@@ -59,7 +59,7 @@ public class UploadDocument extends BaseActivity {
      */
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(UploadDocument.this, MainActivity.class);
+        Intent intent = new Intent(UploadDocument.this, ListDocuments.class);
         startActivity(intent);
         finish();
     }
@@ -106,7 +106,7 @@ public class UploadDocument extends BaseActivity {
                 snackbar.show();
             } else {
                 insertDocument();
-                Intent intent = new Intent(UploadDocument.this, MainActivity.class);
+                Intent intent = new Intent(UploadDocument.this, ListDocuments.class);
                 startActivity(intent);
                 finish();
             }

@@ -54,7 +54,7 @@ public class UploadOffer extends BaseActivity {
      */
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(UploadOffer.this, MainActivity.class);
+        Intent intent = new Intent(UploadOffer.this, ListPromotions.class);
         startActivity(intent);
         finish();
     }
@@ -96,7 +96,7 @@ public class UploadOffer extends BaseActivity {
                 snackbar.show();
             } else {
                 insertOffer();
-                Intent intent = new Intent(UploadOffer.this, MainActivity.class);
+                Intent intent = new Intent(UploadOffer.this, ListPromotions.class);
                 startActivity(intent);
                 finish();
             }
