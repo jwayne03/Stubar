@@ -4,15 +4,19 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -42,7 +46,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import android.util.Base64;
 
-public class UploadDocument extends BaseActivity {
+public class UploadDocument extends BaseActivity implements Runnable {
 
     private ImageView ivStubar;
     private Spinner spinnerGrade;
@@ -51,6 +55,10 @@ public class UploadDocument extends BaseActivity {
     private static final int PICK_PDF_FILE = 2;
     private View rootView;
     private String base64File;
+    private Button btnUploadDocument, btnInsertDocument;
+    private ProgressBar pbDocument;
+    private int stepCounter;
+    private Handler handler;
 
     private final String[] grades = {"Select Grade","1", "2", "3", "4", "5", "6", "7", "8"};
 
@@ -82,8 +90,10 @@ public class UploadDocument extends BaseActivity {
         this.spinnerGrade = findViewById(R.id.spGrade);
         this.spinnerStudy = findViewById(R.id.spStudy);
         this.edNameOfTheDocument = findViewById(R.id.edNameDocument);
-        Button btnInsertDocument = findViewById(R.id.btnInsertDocument);
-        Button btnUploadDocument = findViewById(R.id.btnUploadDocument);
+        this.btnInsertDocument = findViewById(R.id.btnInsertDocument);
+        this.btnUploadDocument = findViewById(R.id.btnUploadDocument);
+        this.pbDocument = findViewById(R.id.pbDocument);
+        this.handler = new Handler();
         this.inflateSpinner();
         this.setTopicSpinner();
 
@@ -106,9 +116,7 @@ public class UploadDocument extends BaseActivity {
                 snackbar.show();
             } else {
                 insertDocument();
-                Intent intent = new Intent(UploadDocument.this, ListDocuments.class);
-                startActivity(intent);
-                finish();
+                loadDashboard();
             }
         });
 
@@ -203,7 +211,8 @@ public class UploadDocument extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 // Get the Uri of the selected file
                 Uri uri = data.getData();
-                StringBuilder documentBase64 = new StringBuilder();
+
+                this.btnUploadDocument.setText("File selected");
 
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(uri);
@@ -229,5 +238,22 @@ public class UploadDocument extends BaseActivity {
                 snackbar.show();
             }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void loadDashboard() {
+        if (stepCounter == 0) {
+            // First step
+            pbDocument.setVisibility(View.VISIBLE);
+            stepCounter++;
+            handler.postDelayed( this, 2000);
+        }
+    }
+
+    public void run() {
+        if (stepCounter == 1) {
+            Intent intent = new Intent(UploadDocument.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -42,19 +44,24 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class UploadOffer extends BaseActivity {
+public class UploadOffer extends BaseActivity implements Runnable {
+    private TextView tbTitle;
     private EditText edOfferComment, edOfferPrice;
     private Spinner nameOfLocalSpinner;
     private String image64;
     private View rootView;
     private ImageView ivOffer;
+    private Button btnImage, btnInsertOffer;
+    private ProgressBar pbDocument;
+    private int stepCounter;
+    private Handler handler;
 
     /**
      * Method to go back
      */
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(UploadOffer.this, ListPromotions.class);
+        Intent intent = new Intent(UploadOffer.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -70,14 +77,16 @@ public class UploadOffer extends BaseActivity {
         super.onCreate(savedInstanceState);
         rootView = getLayoutInflater().inflate(R.layout.activity_upload_offer, frameLayout);
         tbSearch.setVisibility(View.GONE);
-        TextView tbTitle = findViewById(R.id.tbTitle);
+        tbTitle = findViewById(R.id.tbTitle);
         tbTitle.setText(R.string.offers);
-        Button btnImage = findViewById(R.id.btnUploadImage);
+        btnImage = findViewById(R.id.btnUploadImage);
         edOfferComment = findViewById(R.id.edOfferComment);
         edOfferPrice = findViewById(R.id.edOfferPrice);
-        Button btnInsertOffer = findViewById(R.id.btnInsertOffer);
+        btnInsertOffer = findViewById(R.id.btnInsertOffer);
         nameOfLocalSpinner = findViewById(R.id.spOffer);
         ivOffer = findViewById(R.id.ivOffer);
+        pbDocument = findViewById(R.id.pbDocument);
+        handler = new Handler();
 
         this.setLocalSpinner();
 
@@ -96,7 +105,7 @@ public class UploadOffer extends BaseActivity {
                 snackbar.show();
             } else {
                 insertOffer();
-                Intent intent = new Intent(UploadOffer.this, ListPromotions.class);
+                Intent intent = new Intent(UploadOffer.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -171,6 +180,7 @@ public class UploadOffer extends BaseActivity {
                 }
             }
             if (thumbnail != null) image64 = Decode.bitMapToString(thumbnail);
+            this.btnImage.setText("File selected");
         }
     }
 
@@ -193,5 +203,22 @@ public class UploadOffer extends BaseActivity {
 
         }, error -> Log.d("ERROR", "Error downloading institutions"));
         requestQueue.add(stringRequest);
+    }
+
+    private void loadDashboard() {
+        if (stepCounter == 0) {
+            // First step
+            pbDocument.setVisibility(View.VISIBLE);
+            stepCounter++;
+            handler.postDelayed( this, 2000);
+        }
+    }
+
+    public void run() {
+        if (stepCounter == 1) {
+            Intent intent = new Intent(UploadOffer.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
